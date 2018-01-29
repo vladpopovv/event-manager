@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Field, reduxForm } from 'redux-form';
-// reduxForm
+import { Link } from 'react-router-dom';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -11,25 +12,43 @@ class LoginForm extends React.Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div>
+      <div className={classNames('jumbotron', 'col-8')}>
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="loginEmail">
+          <div className={classNames('form-group')}>
+            <label htmlFor="loginEmail" className={classNames('col-12 p-0')}>
               Email
-              <Field id="loginEmail" name="email" component="input" type="email" />
+              <Field
+                className={classNames('form-control')}
+                id="loginEmail"
+                name="email"
+                component="input"
+                type="email"
+              />
             </label>
           </div>
-          <div>
-            <label htmlFor="loginPassword">
+          <div className={classNames('form-group')}>
+            <label htmlFor="loginPassword" className={classNames('col-12 p-0')}>
               Password
-              <Field id="loginPassword" name="password" component="input" type="password" />
+              <Field
+                className={classNames('form-control')}
+                id="loginPassword"
+                name="password"
+                component="input"
+                type="password"
+              />
             </label>
           </div>
-          <div>
-            <button type="submit">Login</button>
+          <div className="mb-3 clearfix">
+            <button type="submit" className={classNames('float-right', 'btn', 'btn-primary')}>
+              Login
+            </button>
           </div>
         </form>
+        <div>
+          <h5>Don`t you have account yet?</h5>
+          <Link href="/singup" to="/singup">Sing up</Link>
+        </div>
       </div>
     );
   }
@@ -42,5 +61,3 @@ LoginForm.propTypes = {
 export default reduxForm({
   form: 'login',
 })(LoginForm);
-
-// export default LoginForm;

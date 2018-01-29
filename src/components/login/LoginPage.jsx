@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import LoginForm from './LoginForm';
 
 export default class LoginPage extends React.Component {
@@ -9,7 +10,11 @@ export default class LoginPage extends React.Component {
   }
   render() {
     return (
-      <LoginForm />
+      <div className={classNames('container')}>
+        <div className={classNames('row', 'justify-content-md-center', 'pt-5')}>
+          <LoginForm />
+        </div>
+      </div>
     );
   }
 }
