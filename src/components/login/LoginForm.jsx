@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import InputField from './../shared/InputField';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -10,35 +11,24 @@ class LoginForm extends React.Component {
     this.state = {};
   }
   render() {
+    const formName = 'login';
     const { handleSubmit } = this.props;
     return (
       <div className={classNames('jumbotron', 'col-8')}>
         <h1>Login</h1>
         <form className="border-bottom mb-3" onSubmit={handleSubmit}>
-          <div className={classNames('form-group')}>
-            <label htmlFor="loginEmail" className={classNames('col-12 p-0')}>
-              Email
-              <Field
-                className={classNames('form-control')}
-                id="loginEmail"
-                name="email"
-                component="input"
-                type="email"
-              />
-            </label>
-          </div>
-          <div className={classNames('form-group')}>
-            <label htmlFor="loginPassword" className={classNames('col-12 p-0')}>
-              Password
-              <Field
-                className={classNames('form-control')}
-                id="loginPassword"
-                name="password"
-                component="input"
-                type="password"
-              />
-            </label>
-          </div>
+          <InputField
+            type="email"
+            name="email"
+            form={formName}
+            label="Email"
+          />
+          <InputField
+            type="password"
+            name="password"
+            form={formName}
+            label="Password"
+          />
           <div className="mb-3 clearfix">
             <button type="submit" className={classNames('float-right', 'btn', 'btn-primary')}>
               Login
