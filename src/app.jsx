@@ -1,9 +1,18 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import MainPage from './containers/MainPage';
+import LoginPage from './containers/LoginPage';
+import SingUpPage from './containers/SingUpPage';
 import './style/main.less';
 
 ReactDOM.render(
-  <h1>Event manager</h1>,
-  document.getElementById('root'),
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={MainPage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/singup" component={SingUpPage} />
+    </Switch>
+  </BrowserRouter>,
+  document.getElementById('app'),
 );
