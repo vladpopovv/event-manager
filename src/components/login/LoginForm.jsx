@@ -14,7 +14,7 @@ class LoginForm extends React.Component {
     return (
       <div className={classNames('jumbotron', 'col-8')}>
         <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
+        <form className="border-bottom mb-3" onSubmit={handleSubmit}>
           <div className={classNames('form-group')}>
             <label htmlFor="loginEmail" className={classNames('col-12 p-0')}>
               Email
@@ -45,7 +45,7 @@ class LoginForm extends React.Component {
             </button>
           </div>
         </form>
-        <div>
+        <div className="">
           <h5>Don`t you have account yet?</h5>
           <Link href="/singup" to="/singup">Sing up</Link>
         </div>

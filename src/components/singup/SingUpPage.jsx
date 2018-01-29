@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import SingUpForm from './SingUpForm';
 
 export default class SingUpPage extends React.Component {
   constructor(props) {
@@ -6,10 +8,13 @@ export default class SingUpPage extends React.Component {
 
     this.state = {};
   }
-
   render() {
     return (
-      <h1>Sing up page</h1>
+      <div className={classNames('container')}>
+        <div className={classNames('row', 'justify-content-md-center', 'pt-5')}>
+          <SingUpForm />
+        </div>
+      </div>
     );
   }
 }
