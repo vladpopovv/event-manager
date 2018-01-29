@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import createStore from './store/createStore';
-import MainPage from './containers/MainPage';
-import LoginPage from './containers/LoginPage';
-import SingUpPage from './containers/SingUpPage';
+import MainPage from './components/main/MainPage';
+import LoginPage from './components/login/LoginPage';
+import SingUpPage from './components/singup/SingUpPage';
 import './style/main.less';
 
 const store = createStore();
