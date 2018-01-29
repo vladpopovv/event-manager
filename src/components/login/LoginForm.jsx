@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import InputField from './../shared/InputField';
+import FormButton from './../shared/FormButton';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -12,9 +13,10 @@ class LoginForm extends React.Component {
   }
   render() {
     const formName = 'login';
+    const wrapperClasses = classNames('jumbotron', 'col-8');
     const { handleSubmit } = this.props;
     return (
-      <div className={classNames('jumbotron', 'col-8')}>
+      <div className={wrapperClasses}>
         <h1>Login</h1>
         <form className="border-bottom mb-3" onSubmit={handleSubmit}>
           <InputField
@@ -29,11 +31,12 @@ class LoginForm extends React.Component {
             form={formName}
             label="Password"
           />
-          <div className="mb-3 clearfix">
-            <button type="submit" className={classNames('float-right', 'btn', 'btn-primary')}>
-              Login
-            </button>
-          </div>
+          <FormButton
+            type="submit"
+            text="Login"
+            buttonType="primary"
+            buttonFloat="right"
+          />
         </form>
         <div className="">
           <h5>Don`t you have account yet?</h5>

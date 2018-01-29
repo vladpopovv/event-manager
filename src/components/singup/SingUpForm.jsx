@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import InputField from './../shared/InputField';
+import FormButton from './../shared/FormButton';
 
 class SingUpForm extends React.Component {
   constructor(props) {
@@ -50,11 +51,12 @@ class SingUpForm extends React.Component {
             form={formName}
             label="Repeat password"
           />
-          <div className="mb-3 clearfix">
-            <button type="submit" className={classNames('float-right', 'btn', 'btn-primary')}>
-              Sing up
-            </button>
-          </div>
+          <FormButton
+            type="submit"
+            text="Sing up"
+            buttonType="primary"
+            buttonFloat="right"
+          />
         </form>
         <div className="">
           <h5>Have an account?</h5>
