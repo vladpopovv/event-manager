@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
+import AuthContainer from './../../containers/AuthContainer';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -13,12 +13,10 @@ class LoginForm extends React.Component {
   }
   render() {
     const formName = 'login';
-    const wrapperClasses = classNames('jumbotron', 'col-md-6', 'col-sm-8', 'col-10');
     const { handleSubmit } = this.props;
     return (
-      <div className={wrapperClasses}>
-        <h1>Login</h1>
-        <form className="border-bottom mb-3" onSubmit={handleSubmit} noValidate>
+      <AuthContainer>
+        <form className="card-body" onSubmit={handleSubmit} noValidate>
           <InputField
             type="email"
             name="email"
@@ -38,11 +36,11 @@ class LoginForm extends React.Component {
             buttonFloat="right"
           />
         </form>
-        <div className="">
+        <div className="card-footer">
           <h5>Don`t you have account yet?</h5>
           <Link href="/singup" to="/singup">Sing up</Link>
         </div>
-      </div>
+      </AuthContainer>
     );
   }
 }

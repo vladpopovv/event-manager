@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import createStore from './store/createStore';
 import Authorization from './components/authorization/Authorization';
-// import MainPage from './components/main/MainPage';
 import LoginPage from './components/login/LoginPage';
 import SingUpPage from './components/singup/SingUpPage';
 import HomePage from './components/home/HomePage';
