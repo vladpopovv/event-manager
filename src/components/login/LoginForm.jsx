@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
+import validate from './loginFormValidation';
 import AuthContainer from './../../containers/AuthContainer';
 
 class LoginForm extends React.Component {
@@ -11,29 +12,31 @@ class LoginForm extends React.Component {
     super(props);
     this.state = {};
   }
+
   render() {
-    const formName = 'login';
-    const { handleSubmit } = this.props;
+    const { handleSubmit, submitting } = this.props;
     return (
       <AuthContainer title="Login">
         <form className="card-body" onSubmit={handleSubmit} noValidate>
-          <InputField
+          <Field
+            component={InputField}
             type="email"
             name="email"
-            form={formName}
             label="Email"
           />
-          <InputField
+          <Field
+            component={InputField}
             type="password"
             name="password"
-            form={formName}
             label="Password"
           />
+
           <FormButton
             type="submit"
             text="Login"
             buttonType="primary"
             buttonFloat="right"
+            disabled={submitting}
           />
         </form>
         <div className="card-footer">
@@ -47,8 +50,14 @@ class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool,
+};
+
+LoginForm.defaultProps = {
+  submitting: true,
 };
 
 export default reduxForm({
   form: 'login',
+  validate,
 })(LoginForm);

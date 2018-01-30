@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+// import { Field } from 'redux-form';
 import classNames from 'classnames';
 
 export default class InputField extends React.PureComponent {
@@ -12,25 +12,29 @@ export default class InputField extends React.PureComponent {
 
   render() {
     const {
+      input,
       label,
-      name,
       type,
-      form,
+      meta: { touched, error, form },
     } = this.props;
     const wrapperClasses = classNames('form-group');
     const labelClasses = classNames('col-12 p-0');
-    const fieldClasses = classNames('form-control');
+    const fieldClasses = classNames('form-control', {
+      'is-invalid': touched && error,
+    });
     return (
       <div className={wrapperClasses}>
-        <label htmlFor={`${form}-${name}`} className={labelClasses}>
+        <label htmlFor={`${form}-${input.name}`} className={labelClasses}>
           {label}
-          <Field
-            className={fieldClasses}
-            id={`${form}-${name}`}
-            name={name}
-            component="input"
+          <input
+            {...input}
+            id={`${form}-${input.name}`}
+            placeholder={label}
             type={type}
+            className={fieldClasses}
           />
+          {touched &&
+          ((error && <span>{error}</span>))}
         </label>
       </div>
     );
@@ -39,11 +43,16 @@ export default class InputField extends React.PureComponent {
 
 InputField.propTypes = {
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   type: PropTypes.string,
-  form: PropTypes.string.isRequired,
+  input: PropTypes.shape({}),
+  meta: PropTypes.shape({
+    erorrs: PropTypes.shape({}),
+    touched: PropTypes.bool,
+  }),
 };
 
 InputField.defaultProps = {
   type: 'text',
+  meta: {},
+  input: {},
 };
