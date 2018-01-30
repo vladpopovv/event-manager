@@ -13,12 +13,12 @@ class LoginForm extends React.Component {
   }
   render() {
     const formName = 'login';
-    const wrapperClasses = classNames('jumbotron', 'col-8');
+    const wrapperClasses = classNames('jumbotron', 'col-5');
     const { handleSubmit } = this.props;
     return (
       <div className={wrapperClasses}>
         <h1>Login</h1>
-        <form className="border-bottom mb-3" onSubmit={handleSubmit}>
+        <form className="border-bottom mb-3" onSubmit={handleSubmit} noValidate>
           <InputField
             type="email"
             name="email"
