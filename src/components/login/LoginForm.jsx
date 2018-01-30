@@ -13,7 +13,7 @@ class LoginForm extends React.Component {
   }
   render() {
     const formName = 'login';
-    const wrapperClasses = classNames('jumbotron', 'col-5');
+    const wrapperClasses = classNames('jumbotron', 'col-md-6', 'col-sm-8', 'col-10');
     const { handleSubmit } = this.props;
     return (
       <div className={wrapperClasses}>

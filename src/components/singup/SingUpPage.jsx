@@ -11,7 +11,7 @@ export default class SingUpPage extends React.Component {
   render() {
     return (
       <div className={classNames('container')}>
-        <div className={classNames('row', 'justify-content-md-center', 'pt-5')}>
+        <div className={classNames('row', 'justify-content-center', 'pt-5')}>
           <SingUpForm />
         </div>
       </div>

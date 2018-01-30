@@ -13,9 +13,10 @@ class SingUpForm extends React.Component {
   }
   render() {
     const { handleSubmit } = this.props;
+    const wrapperClasses = classNames('jumbotron', 'col-md-6', 'col-sm-8', 'col-10');
     const formName = 'singUp';
     return (
-      <div className={classNames('jumbotron', 'col-5')}>
+      <div className={wrapperClasses}>
         <h1>Sing up</h1>
         <form className="border-bottom mb-3" onSubmit={handleSubmit} noValidate>
           <InputField
