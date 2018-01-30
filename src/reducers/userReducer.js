@@ -1,7 +1,7 @@
 import constants from './../constants/constants';
 
 const initialState = {
-  isAuthentificated: true,
+  isAuthentificated: false,
 };
 /* payload */
 export default (state = initialState, { type }) => {

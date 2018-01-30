@@ -18,7 +18,7 @@ const Authorization = (WrappedComponent, needAuth, redirectTo = 'login') => {
       if (isAuthentificated === needAuth) {
         return <WrappedComponent {...this.props} />;
       }
-      return <Redirect to={`/${redirectTo}`} />;
+      return <Redirect to={`${redirectTo}`} />;
     }
   }
 

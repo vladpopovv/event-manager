@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import SingUpForm from './SingUpForm';
-import Authorization from './../authorization/Authorization';
+// import Authorization from './../authorization/Authorization';
 
-class SingUpPage extends React.Component {
+export default class SingUpPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -20,4 +20,4 @@ class SingUpPage extends React.Component {
   }
 }
 
-export default Authorization(SingUpPage, false, 'home');
+// export default Authorization(SingUpPage, false, 'home');

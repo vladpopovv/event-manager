@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import LoginForm from './LoginForm';
-import Authorization from './../authorization/Authorization';
+// import Authorization from './../authorization/Authorization';
 
-class LoginPage extends React.Component {
+export default class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -19,5 +19,3 @@ class LoginPage extends React.Component {
     );
   }
 }
-
-export default Authorization(LoginPage, false, 'home');

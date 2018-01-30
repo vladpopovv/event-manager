@@ -1,7 +1,7 @@
 import React from 'react';
-import Authorization from './../authorization/Authorization';
+// import Authorization from './../authorization/Authorization';
 
-class HomePage extends React.Component {
+export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -17,4 +17,4 @@ class HomePage extends React.Component {
   }
 }
 
-export default Authorization(HomePage, true);
+// Authorization(HomePage, true);
