@@ -15,7 +15,7 @@ class LoginForm extends React.Component {
     const formName = 'login';
     const { handleSubmit } = this.props;
     return (
-      <AuthContainer>
+      <AuthContainer title="Login">
         <form className="card-body" onSubmit={handleSubmit} noValidate>
           <InputField
             type="email"

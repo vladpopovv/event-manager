@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
+import AuthContainer from './../../containers/AuthContainer';
 
 class SingUpForm extends React.Component {
   constructor(props) {
@@ -13,57 +13,57 @@ class SingUpForm extends React.Component {
   }
   render() {
     const { handleSubmit } = this.props;
-    const wrapperClasses = classNames('jumbotron', 'col-md-6', 'col-sm-8', 'col-10');
     const formName = 'singUp';
     return (
-      <div className={wrapperClasses}>
-        <h1>Sing up</h1>
-        <form className="border-bottom mb-3" onSubmit={handleSubmit} noValidate>
-          <InputField
-            type="email"
-            name="email"
-            form={formName}
-            label="Email"
-          />
-          <InputField
-            name="firstName"
-            form={formName}
-            label="First Name"
-          />
-          <InputField
-            name="lastName"
-            form={formName}
-            label="Last Name"
-          />
-          <InputField
-            name="nickName"
-            form={formName}
-            label="Nick Name"
-          />
-          <InputField
-            type="password"
-            name="password"
-            form={formName}
-            label="Password"
-          />
-          <InputField
-            type="password"
-            name="passwordRepeat"
-            form={formName}
-            label="Repeat password"
-          />
-          <FormButton
-            type="submit"
-            text="Sing up"
-            buttonType="primary"
-            buttonFloat="right"
-          />
-        </form>
-        <div className="">
+      <AuthContainer title="Sing up">
+        <div className="card-body">
+          <form onSubmit={handleSubmit} noValidate>
+            <InputField
+              type="email"
+              name="email"
+              form={formName}
+              label="Email"
+            />
+            <InputField
+              name="firstName"
+              form={formName}
+              label="First Name"
+            />
+            <InputField
+              name="lastName"
+              form={formName}
+              label="Last Name"
+            />
+            <InputField
+              name="nickName"
+              form={formName}
+              label="Nick Name"
+            />
+            <InputField
+              type="password"
+              name="password"
+              form={formName}
+              label="Password"
+            />
+            <InputField
+              type="password"
+              name="passwordRepeat"
+              form={formName}
+              label="Repeat password"
+            />
+            <FormButton
+              type="submit"
+              text="Sing up"
+              buttonType="primary"
+              buttonFloat="right"
+            />
+          </form>
+        </div>
+        <div className="card-footer">
           <h5>Have an account?</h5>
           <Link href="/login" to="/login">Sing in</Link>
         </div>
-      </div>
+      </AuthContainer>
     );
   }
 }

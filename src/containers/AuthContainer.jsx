@@ -10,12 +10,12 @@ export default class AuthContainer extends React.Component {
   }
 
   render() {
-    const wrapperClasses = classNames('col-md-6', 'col-sm-8', 'col-10');
+    const wrapperClasses = classNames('col-md-6', 'col-sm-8', 'col-10', 'mb-5');
     return (
       <div className={wrapperClasses}>
         <div className="card">
           <div className="card-header">
-            <h1>Login</h1>
+            <h3>{this.props.title}</h3>
           </div>
           {this.props.children}
         </div>
@@ -26,4 +26,5 @@ export default class AuthContainer extends React.Component {
 
 AuthContainer.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  title: PropTypes.string.isRequired,
 };
