@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
+import validate from './singUpFormValidation';
 import AuthContainer from './../../containers/AuthContainer';
 
 class SingUpForm extends React.Component {
@@ -13,42 +14,41 @@ class SingUpForm extends React.Component {
   }
   render() {
     const { handleSubmit } = this.props;
-    const formName = 'singUp';
     return (
       <AuthContainer title="Sing up">
         <div className="card-body">
           <form onSubmit={handleSubmit} noValidate>
-            <InputField
+            <Field
+              component={InputField}
               type="email"
               name="email"
-              form={formName}
               label="Email"
             />
-            <InputField
+            <Field
+              component={InputField}
               name="firstName"
-              form={formName}
               label="First Name"
             />
-            <InputField
+            <Field
+              component={InputField}
               name="lastName"
-              form={formName}
               label="Last Name"
             />
-            <InputField
+            <Field
+              component={InputField}
               name="nickName"
-              form={formName}
               label="Nick Name"
             />
-            <InputField
+            <Field
               type="password"
+              component={InputField}
               name="password"
-              form={formName}
               label="Password"
             />
-            <InputField
+            <Field
               type="password"
+              component={InputField}
               name="passwordRepeat"
-              form={formName}
               label="Repeat password"
             />
             <FormButton
@@ -74,4 +74,5 @@ SingUpForm.propTypes = {
 
 export default reduxForm({
   form: 'singup',
+  validate,
 })(SingUpForm);

@@ -34,7 +34,7 @@ export default class InputField extends React.PureComponent {
             className={fieldClasses}
           />
           {touched &&
-          ((error && <span>{error}</span>))}
+          ((error && <span className="text-danger">{error}</span>))}
         </label>
       </div>
     );
