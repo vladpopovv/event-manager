@@ -17,4 +17,4 @@ class HomePage extends React.Component {
   }
 }
 
-export default Authorization(HomePage, ['user']);
+export default Authorization(HomePage, true);

@@ -20,4 +20,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default Authorization(LoginPage, ['unLogged'], 'home');
+export default Authorization(LoginPage, false, 'home');

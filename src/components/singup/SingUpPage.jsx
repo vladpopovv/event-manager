@@ -20,4 +20,4 @@ class SingUpPage extends React.Component {
   }
 }
 
-export default Authorization(SingUpPage, ['unLogged'], 'home');
+export default Authorization(SingUpPage, false, 'home');

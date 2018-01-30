@@ -48,7 +48,7 @@ class SingUpForm extends React.Component {
           />
           <InputField
             type="password"
-            name="password"
+            name="passwordRepeat"
             form={formName}
             label="Repeat password"
           />
