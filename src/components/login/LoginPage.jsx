@@ -9,6 +9,7 @@ export default class LoginPage extends React.Component {
 
     this.state = {};
   }
+
   render() {
     return (
       <div className={classNames('container')}>

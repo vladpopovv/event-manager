@@ -16,18 +16,26 @@ class SingUpForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleSubmit(values) {
+    console.log(values, this.state);
+  }
+
   render() {
     const {
       handleSubmit,
       submitting,
       invalid,
+      pristine,
       anyTouched,
     } = this.props;
     return (
       <AuthContainer title="Sing up">
         <div className="card-body">
-          <form onSubmit={handleSubmit} noValidate>
+          <form onSubmit={handleSubmit(this.handleSubmit)} noValidate>
             <Field
               component={InputField}
               type="email"
@@ -72,7 +80,7 @@ class SingUpForm extends React.Component {
               text="Sing up"
               buttonType="primary"
               buttonFloat="right"
-              disabled={anyTouched && (invalid || submitting)}
+              disabled={(anyTouched || !pristine) && (invalid || submitting)}
             />
           </form>
         </div>
@@ -89,13 +97,15 @@ SingUpForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool,
   invalid: PropTypes.bool,
+  pristine: PropTypes.bool,
   anyTouched: PropTypes.bool,
 };
 
 SingUpForm.defaultProps = {
   submitting: true,
   invalid: false,
-  anyTouched: true,
+  pristine: true,
+  anyTouched: false,
 };
 
 export default reduxForm({

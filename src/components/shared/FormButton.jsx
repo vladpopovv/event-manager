@@ -16,7 +16,7 @@ export default class FormButton extends React.PureComponent {
       [`float-${buttonFloat}`]: true,
     });
     return (
-      <div className="mb-3 clearfix">
+      <div className="clearfix">
         <button type={type} className={btnClasses} disabled={disabled}>
           {text}
         </button>

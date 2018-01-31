@@ -20,6 +20,22 @@ export default class InputField extends React.PureComponent {
     });
   }
 
+  renderToggleInputType(toggleClasses) {
+    return (
+      <div className="input-group-prepend">
+        <div
+          className="input-group-text"
+          tabIndex="-1"
+          onClick={this.onToggleTypePassword}
+          onKeyDown={this.onToggleTypePassword}
+          role="button"
+        >
+          <i className={toggleClasses} />
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const {
       input,
@@ -27,31 +43,20 @@ export default class InputField extends React.PureComponent {
       type,
       meta: { touched, error, form },
     } = this.props;
-    const wrapperClasses = classNames('form-group');
-    const labelClasses = classNames('col-12 p-0');
     const fieldClasses = classNames('form-control', {
       'is-invalid': touched && error,
     });
     const { passwordInputType } = this.state;
-    const eyeType = passwordInputType === 'text' ? '' : '-slash';
-    const eyeClass = classNames('fa', `fa-eye${eyeType}`);
+    const toggleType = (passwordInputType === 'text') ? '' : '-slash';
+    const toggleClasses = classNames('fa', `fa-eye${toggleType}`);
+
     return (
-      <div className={wrapperClasses}>
-        <label htmlFor={`${form}-${input.name}`} className={labelClasses}>
+      <div className="form-group">
+        <label htmlFor={`${form}-${input.name}`} className="col-12 p-0">
           {label}
           <div className="input-group">
             {type === 'password' &&
-              <div className="input-group-prepend">
-                <div
-                  className="input-group-text"
-                  tabIndex="0"
-                  onClick={this.onToggleTypePassword}
-                  onKeyDown={this.onToggleTypePassword}
-                  role="button"
-                >
-                  <i className={eyeClass} />
-                </div>
-              </div>}
+              this.renderToggleInputType(toggleClasses)}
             <input
               {...input}
               id={`${form}-${input.name}`}

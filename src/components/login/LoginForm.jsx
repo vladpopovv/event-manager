@@ -15,6 +15,11 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(values) {
+    console.log(values, 'submit', this.state);
   }
 
   render() {
@@ -22,11 +27,13 @@ class LoginForm extends React.Component {
       handleSubmit,
       submitting,
       invalid,
+      pristine,
       anyTouched,
     } = this.props;
+    console.log(this.props);
     return (
       <AuthContainer title="Login">
-        <form className="card-body" onSubmit={handleSubmit} noValidate>
+        <form className="card-body" onSubmit={handleSubmit(this.handleSubmit)} noValidate>
           <Field
             component={InputField}
             type="email"
@@ -34,6 +41,7 @@ class LoginForm extends React.Component {
             label="Email"
             validate={[requiredValidate, emailValidate]}
           />
+
           <Field
             component={InputField}
             type="password"
@@ -47,7 +55,7 @@ class LoginForm extends React.Component {
             text="Login"
             buttonType="primary"
             buttonFloat="right"
-            disabled={anyTouched && (invalid || submitting)}
+            disabled={(anyTouched || !pristine) && (invalid || submitting)}
           />
         </form>
         <div className="card-footer">
@@ -63,13 +71,15 @@ LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool,
   invalid: PropTypes.bool,
+  pristine: PropTypes.bool,
   anyTouched: PropTypes.bool,
 };
 
 LoginForm.defaultProps = {
   submitting: true,
-  anyTouched: false,
+  pristine: false,
   invalid: true,
+  anyTouched: false,
 };
 
 export default reduxForm({
