@@ -13,7 +13,13 @@ class SingUpForm extends React.Component {
     this.state = {};
   }
   render() {
-    const { handleSubmit } = this.props;
+    console.log(this.props);
+    const {
+      handleSubmit,
+      submitting,
+      invalid,
+      anyTouched,
+    } = this.props;
     return (
       <AuthContainer title="Sing up">
         <div className="card-body">
@@ -56,6 +62,7 @@ class SingUpForm extends React.Component {
               text="Sing up"
               buttonType="primary"
               buttonFloat="right"
+              disabled={anyTouched && (invalid || submitting)}
             />
           </form>
         </div>
@@ -70,6 +77,15 @@ class SingUpForm extends React.Component {
 
 SingUpForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool,
+  invalid: PropTypes.bool,
+  anyTouched: PropTypes.bool,
+};
+
+SingUpForm.defaultProps = {
+  submitting: true,
+  invalid: false,
+  anyTouched: true,
 };
 
 export default reduxForm({

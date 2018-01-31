@@ -11,6 +11,7 @@ export default class FormButton extends React.PureComponent {
       buttonFloat,
       disabled,
     } = this.props;
+    console.log(disabled);
     const btnClasses = classNames('btn', {
       [`btn-${buttonType}`]: buttonType,
       [`float-${buttonFloat}`]: true,
