@@ -1,13 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Field } from 'redux-form';
 import classNames from 'classnames';
 
 export default class InputField extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      passwordInputType: this.props.type,
+    };
+
+    this.onToggleTypePassword = this.onToggleTypePassword.bind(this);
+  }
+
+  onToggleTypePassword() {
+    const type = this.state.passwordInputType === 'password' ? 'text' : 'password';
+    this.setState({
+      passwordInputType: type,
+    });
   }
 
   render() {
@@ -22,17 +32,34 @@ export default class InputField extends React.PureComponent {
     const fieldClasses = classNames('form-control', {
       'is-invalid': touched && error,
     });
+    const { passwordInputType } = this.state;
+    const eyeType = passwordInputType === 'text' ? '' : '-slash';
+    const eyeClass = classNames('fa', `fa-eye${eyeType}`);
     return (
       <div className={wrapperClasses}>
         <label htmlFor={`${form}-${input.name}`} className={labelClasses}>
           {label}
-          <input
-            {...input}
-            id={`${form}-${input.name}`}
-            placeholder={label}
-            type={type}
-            className={fieldClasses}
-          />
+          <div className="input-group">
+            {type === 'password' &&
+              <div className="input-group-prepend">
+                <div
+                  className="input-group-text"
+                  tabIndex="0"
+                  onClick={this.onToggleTypePassword}
+                  onKeyDown={this.onToggleTypePassword}
+                  role="button"
+                >
+                  <i className={eyeClass} />
+                </div>
+              </div>}
+            <input
+              {...input}
+              id={`${form}-${input.name}`}
+              placeholder={label}
+              type={this.state.passwordInputType}
+              className={fieldClasses}
+            />
+          </div>
           {touched &&
           ((error && <span className="text-danger">{error}</span>))}
         </label>
