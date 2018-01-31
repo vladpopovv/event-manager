@@ -4,7 +4,11 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
-import validate from './loginFormValidation';
+import {
+  required as requiredValidate,
+  email as emailValidate,
+  minLength5 as minLength5Validate,
+} from './../shared/validationForm';
 import AuthContainer from './../../containers/AuthContainer';
 
 class LoginForm extends React.Component {
@@ -28,12 +32,14 @@ class LoginForm extends React.Component {
             type="email"
             name="email"
             label="Email"
+            validate={[requiredValidate, emailValidate]}
           />
           <Field
             component={InputField}
             type="password"
             name="password"
             label="Password"
+            validate={[requiredValidate, minLength5Validate]}
           />
 
           <FormButton
@@ -68,5 +74,4 @@ LoginForm.defaultProps = {
 
 export default reduxForm({
   form: 'login',
-  validate,
 })(LoginForm);

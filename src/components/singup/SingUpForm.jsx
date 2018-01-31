@@ -4,7 +4,12 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
-import validate from './singUpFormValidation';
+import {
+  required as requiredValidate,
+  email as emailValidate,
+  minLength5 as minLength5Validate,
+  passwordEquality as passwordEqualityValidate,
+} from './../shared/validationForm';
 import AuthContainer from './../../containers/AuthContainer';
 
 class SingUpForm extends React.Component {
@@ -13,7 +18,6 @@ class SingUpForm extends React.Component {
     this.state = {};
   }
   render() {
-    console.log(this.props);
     const {
       handleSubmit,
       submitting,
@@ -29,33 +33,39 @@ class SingUpForm extends React.Component {
               type="email"
               name="email"
               label="Email"
+              validate={[requiredValidate, emailValidate]}
             />
             <Field
               component={InputField}
               name="firstName"
               label="First Name"
+              validate={[requiredValidate]}
             />
             <Field
               component={InputField}
               name="lastName"
               label="Last Name"
+              validate={[requiredValidate]}
             />
             <Field
               component={InputField}
               name="nickName"
               label="Nick Name"
+              validate={[requiredValidate]}
             />
             <Field
               type="password"
               component={InputField}
               name="password"
               label="Password"
+              validate={[requiredValidate, minLength5Validate]}
             />
             <Field
               type="password"
               component={InputField}
               name="passwordRepeat"
               label="Repeat password"
+              validate={[requiredValidate, passwordEqualityValidate]}
             />
             <FormButton
               type="submit"
@@ -90,5 +100,4 @@ SingUpForm.defaultProps = {
 
 export default reduxForm({
   form: 'singup',
-  validate,
 })(SingUpForm);
