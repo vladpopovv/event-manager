@@ -14,7 +14,7 @@ const Authorization = (WrappedComponent, needAuth, redirectTo = 'login') => {
     }
 
     render() {
-      const { isAuthentificated } = this.props.user;
+      const isAuthentificated = !!localStorage.getItem('authorizationToken');
       if (isAuthentificated === needAuth) {
         return <WrappedComponent {...this.props} />;
       }

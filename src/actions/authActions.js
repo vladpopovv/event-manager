@@ -62,10 +62,13 @@ export default {
           }
           return response.json();
         })
-        .then(json => dispatch({
-          type: CONSTANTS.SIGN_IN_SUCCESS,
-          payload: json,
-        }))
+        .then((json) => {
+          localStorage.setItem('authorizationToken', json.data.token);
+          return dispatch({
+            type: CONSTANTS.SIGN_IN_SUCCESS,
+            payload: json,
+          });
+        })
         .catch(error => dispatch({
           type: CONSTANTS.SIGN_IN_ERROR,
           payload: error,
