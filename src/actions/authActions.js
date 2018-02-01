@@ -43,7 +43,37 @@ export default {
           });
         })
         .catch(error => dispatch({
-          type: CONSTANTS.REQUEST_ERROR,
+          type: CONSTANTS.SIGN_UP_REQUEST_ERROR,
+          payload: error,
+        }));
+    };
+  },
+  signInRequest(data) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.SIGN_IN_REQUESTING });
+      return fetchRequest(data, 'signin')
+        .then((response) => {
+          if (response.status > 500) {
+            throw new Error('Server error');
+          }
+          return response.json();
+        })
+        .then((json) => {
+          if (json.error) {
+            console.log('ERROR', json.error);
+            return dispatch({
+              type: CONSTANTS.SIGN_IN_ERROR,
+              payload: json,
+            });
+          }
+          console.log('SUCCESS REQUEST', json);
+          return dispatch({
+            type: CONSTANTS.SIGN_IN_SUCCESS,
+            payload: json,
+          });
+        })
+        .catch(error => dispatch({
+          type: CONSTANTS.SIGN_IN_REQUEST_ERROR,
           payload: error,
         }));
     };

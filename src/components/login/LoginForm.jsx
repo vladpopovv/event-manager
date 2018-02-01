@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
+import authActions from './../../actions/authActions';
 import {
   required as requiredValidate,
   email as emailValidate,
@@ -19,7 +22,7 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit(values) {
-    console.log(values, 'submit', this.state);
+    this.props.signInRequest(values);
   }
 
   render() {
@@ -29,6 +32,7 @@ class LoginForm extends React.Component {
       invalid,
       pristine,
       anyTouched,
+      signInError,
     } = this.props;
     console.log(this.props);
     return (
@@ -37,7 +41,7 @@ class LoginForm extends React.Component {
           <Field
             component={InputField}
             type="email"
-            name="email"
+            name="login"
             label="Email"
             validate={[requiredValidate, emailValidate]}
           />
@@ -58,6 +62,7 @@ class LoginForm extends React.Component {
             disabled={(anyTouched || !pristine) && (invalid || submitting)}
           />
         </form>
+        {signInError && <div className="alert alert-danger" role="alert">{signInError}</div>}
         <div className="card-footer">
           <h5>Don`t you have account yet?</h5>
           <Link href="/singup" to="/singup">Sing up</Link>
@@ -73,6 +78,8 @@ LoginForm.propTypes = {
   invalid: PropTypes.bool,
   pristine: PropTypes.bool,
   anyTouched: PropTypes.bool,
+  signInRequest: PropTypes.func.isRequired,
+  signInError: PropTypes.string,
 };
 
 LoginForm.defaultProps = {
@@ -80,8 +87,21 @@ LoginForm.defaultProps = {
   pristine: false,
   invalid: true,
   anyTouched: false,
+  signInError: '',
 };
+
+const mapStateToProps = state => ({
+  loading: state.user.loading,
+  signInError: state.user.signUpError,
+});
+
+
+const mapDispathcToProps = dispatch => ({
+  signInRequest: bindActionCreators(authActions.signInRequest, dispatch),
+});
+
+const form = connect(mapStateToProps, mapDispathcToProps)(LoginForm);
 
 export default reduxForm({
   form: 'login',
-})(LoginForm);
+})(form);
