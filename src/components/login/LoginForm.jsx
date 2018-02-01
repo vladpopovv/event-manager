@@ -32,7 +32,7 @@ class LoginForm extends React.Component {
       invalid,
       pristine,
       anyTouched,
-      signInError,
+      signIn: { error },
     } = this.props;
     console.log(this.props);
     return (
@@ -61,8 +61,8 @@ class LoginForm extends React.Component {
             buttonFloat="right"
             disabled={(anyTouched || !pristine) && (invalid || submitting)}
           />
+          {error && <div className="alert alert-danger" role="alert">{error}</div>}
         </form>
-        {signInError && <div className="alert alert-danger" role="alert">{signInError}</div>}
         <div className="card-footer">
           <h5>Don`t you have account yet?</h5>
           <Link href="/singup" to="/singup">Sing up</Link>
@@ -79,7 +79,7 @@ LoginForm.propTypes = {
   pristine: PropTypes.bool,
   anyTouched: PropTypes.bool,
   signInRequest: PropTypes.func.isRequired,
-  signInError: PropTypes.string,
+  signIn: PropTypes.shape({}),
 };
 
 LoginForm.defaultProps = {
@@ -87,12 +87,12 @@ LoginForm.defaultProps = {
   pristine: false,
   invalid: true,
   anyTouched: false,
-  signInError: '',
+  signIn: {},
 };
 
 const mapStateToProps = state => ({
   loading: state.user.loading,
-  signInError: state.user.signUpError,
+  signIn: state.user.signIn,
 });
 
 

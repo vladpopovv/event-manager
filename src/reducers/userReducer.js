@@ -3,8 +3,8 @@ import constants from './../constants/constants';
 const initialState = {
   isAuthentificated: false,
   loading: false,
-  signUpError: '',
-  signInError: '',
+  signUp: {},
+  signIn: {},
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -12,7 +12,9 @@ export default (state = initialState, { type, payload }) => {
     case constants.SIGN_UP_REQUESTING:
       return {
         ...state,
-        signUpError: '',
+        signUp: {
+          error: '',
+        },
         loading: true,
       };
     case constants.SIGN_UP_SUCCESS:
@@ -25,12 +27,16 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        signUpError: payload.error,
+        signUp: {
+          error: payload.error,
+        },
       };
     case constants.SIGN_IN_REQUESTING:
       return {
         ...state,
-        signInError: '',
+        signIn: {
+          error: '',
+        },
         loading: true,
       };
     case constants.SIGN_IN_SUCCESS:
@@ -43,7 +49,17 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        signInError: payload.error,
+        signIn: {
+          error: payload.message,
+        },
+      };
+    case constants.SIGN_IN_REQUEST_ERROR:
+      return {
+        ...state,
+        loading: false,
+        signIn: {
+          error: 'Error request',
+        },
       };
     default:
       return state;

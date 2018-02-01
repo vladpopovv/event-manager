@@ -53,27 +53,21 @@ export default {
       dispatch({ type: CONSTANTS.SIGN_IN_REQUESTING });
       return fetchRequest(data, 'signin')
         .then((response) => {
-          if (response.status > 500) {
+          console.log(response);
+          if (response.status >= 500) {
             throw new Error('Server error');
+          }
+          if (!response.ok && response.statusText === 'Unauthorized') {
+            throw new Error('Invalid login or password.');
           }
           return response.json();
         })
-        .then((json) => {
-          if (json.error) {
-            console.log('ERROR', json.error);
-            return dispatch({
-              type: CONSTANTS.SIGN_IN_ERROR,
-              payload: json,
-            });
-          }
-          console.log('SUCCESS REQUEST', json);
-          return dispatch({
-            type: CONSTANTS.SIGN_IN_SUCCESS,
-            payload: json,
-          });
-        })
+        .then(json => dispatch({
+          type: CONSTANTS.SIGN_IN_SUCCESS,
+          payload: json,
+        }))
         .catch(error => dispatch({
-          type: CONSTANTS.SIGN_IN_REQUEST_ERROR,
+          type: CONSTANTS.SIGN_IN_ERROR,
           payload: error,
         }));
     };

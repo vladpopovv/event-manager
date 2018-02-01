@@ -35,7 +35,7 @@ class SingUpForm extends React.Component {
       invalid,
       pristine,
       anyTouched,
-      signUpError,
+      signUp: { error },
     } = this.props;
 
     return (
@@ -93,7 +93,7 @@ class SingUpForm extends React.Component {
               disabled={(anyTouched || !pristine) && (invalid || submitting)}
             />
           </form>
-          {signUpError && <div className="alert alert-danger" role="alert">{signUpError}</div>}
+          {error && <div className="alert alert-danger" role="alert">{error}</div>}
         </div>
         <div className="card-footer">
           <h5>Have an account?</h5>
@@ -111,7 +111,7 @@ SingUpForm.propTypes = {
   pristine: PropTypes.bool,
   anyTouched: PropTypes.bool,
   signUpRequest: PropTypes.func.isRequired,
-  signUpError: PropTypes.string,
+  signUp: PropTypes.shape({}),
 };
 
 SingUpForm.defaultProps = {
@@ -119,12 +119,12 @@ SingUpForm.defaultProps = {
   invalid: false,
   pristine: true,
   anyTouched: false,
-  signUpError: '',
+  signUp: {},
 };
 
 const mapStateToProps = state => ({
   loading: state.user.loading,
-  signUpError: state.user.signUpError,
+  signUp: state.user.signUp,
 });
 
 
