@@ -5,7 +5,10 @@ const initialState = {
   loading: false,
   signUp: {},
   signIn: {},
+  data: JSON.parse(localStorage.getItem('userData')),
 };
+
+console.log('Initital', initialState);
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -13,6 +16,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         signUp: {
+          ...state.singUp,
           error: '',
         },
         loading: true,
@@ -27,6 +31,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         signUp: {
+          ...state.singUp,
           error: payload.error,
         },
       };
@@ -34,6 +39,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         signIn: {
+          ...state.singIn,
           error: '',
         },
         loading: true,
@@ -50,6 +56,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         signIn: {
+          ...state.singIn,
           error: payload.message,
         },
       };
@@ -58,6 +65,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         signIn: {
+          ...state.singIn,
           error: 'Error request',
         },
       };

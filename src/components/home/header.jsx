@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import authActions from './../../actions/authActions';
 
@@ -12,31 +13,45 @@ class Header extends React.Component {
   }
 
   render() {
-    const { firstname, lastname } = this.props.userData;
+    const { userData } = this.props;
     return (
-      <div>
-        <h1>Welcome</h1>
-        <span>{firstname} {lastname}</span>
-        <button onClick={this.props.logOutRequest}>Log out</button>
+      <div
+        className="navbar navbar-expand-md navbar-dark fixed-top bg-dark "
+      >
+        <Link href="/" to="/" className="navbar-brand">Event manager</Link>
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item active">
+            <Link to="/" href="/" className="nav-link">Home</Link>
+          </li>
+          <li className="nav-item active">
+            <Link to="/friends" href="/friends" className="nav-link">Friends</Link>
+          </li>
+        </ul>
+        <div className="">
+          <span className="text-light mr-2">Hello, {userData.firstname} {userData.lastname}</span>
+          <button
+            className="btn btn-sm btn-outline-warning"
+            onClick={this.props.logOutRequest}
+          >
+            Log out
+          </button>
+        </div>
       </div>
     );
   }
 }
 
 Header.propTypes = {
-  userData: PropTypes.shape({
-    firstname: PropTypes.string,
-    lastname: PropTypes.string,
-  }),
+  userData: PropTypes.shape({}).isRequired,
   logOutRequest: PropTypes.func.isRequired,
 };
 
-Header.defaultProps = {
-  userData: {
-    firstname: '',
-    lastname: '',
-  },
-};
+// Header.defaultProps = {
+//   userData: {
+//     firstname: '',
+//     lastname: '',
+//   },
+// };
 
 const mapStateToProps = state => ({
   userData: state.user.data,

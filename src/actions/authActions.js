@@ -65,6 +65,7 @@ export default {
         })
         .then((json) => {
           localStorage.setItem('authorizationToken', json.data.token);
+          localStorage.setItem('userData', JSON.stringify(json.data));
           return dispatch({
             type: CONSTANTS.SIGN_IN_SUCCESS,
             payload: json,
@@ -92,7 +93,6 @@ export default {
       });
       fetch(`${APIURL}logout`, options)
         .then((response) => {
-          console.log(response);
           if (response.status >= 500) {
             throw new Error('Server error');
           }
