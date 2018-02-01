@@ -48,6 +48,7 @@ export default {
         }));
     };
   },
+
   signInRequest(data) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.SIGN_IN_REQUESTING });
@@ -73,6 +74,38 @@ export default {
           type: CONSTANTS.SIGN_IN_ERROR,
           payload: error,
         }));
+    };
+  },
+
+  logOutRequest() {
+    const options = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        authorization: localStorage.getItem('authorizationToken'),
+      },
+    };
+    localStorage.clear();
+    return (dispatch) => {
+      dispatch({
+        type: CONSTANTS.LOG_OUT_SUCCESS,
+      });
+      fetch(`${APIURL}logout`, options)
+        .then((response) => {
+          console.log(response);
+          if (response.status >= 500) {
+            throw new Error('Server error');
+          }
+          return response.json();
+        })
+        .then((json) => {
+          localStorage.clear();
+          return dispatch({
+            type: CONSTANTS.LOG_OUT_SUCCESS,
+            payload: json,
+          });
+        })
+        .catch(error => console.log('ERROR REQUEST', error));
     };
   },
 };

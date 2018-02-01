@@ -1,7 +1,7 @@
-import constants from './../constants/constants';
+import CONSTANTS from './../constants/constants';
 
 const initialState = {
-  isAuthentificated: false,
+  isAuthentificated: !!localStorage.getItem('authorizationToken'),
   loading: false,
   signUp: {},
   signIn: {},
@@ -9,7 +9,7 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case constants.SIGN_UP_REQUESTING:
+    case CONSTANTS.SIGN_UP_REQUESTING:
       return {
         ...state,
         signUp: {
@@ -17,13 +17,12 @@ export default (state = initialState, { type, payload }) => {
         },
         loading: true,
       };
-    case constants.SIGN_UP_SUCCESS:
+    case CONSTANTS.SIGN_UP_SUCCESS:
       return {
         ...state,
         loading: false,
-        isAuthentificated: true,
       };
-    case constants.SIGN_UP_ERROR:
+    case CONSTANTS.SIGN_UP_ERROR:
       return {
         ...state,
         loading: false,
@@ -31,7 +30,7 @@ export default (state = initialState, { type, payload }) => {
           error: payload.error,
         },
       };
-    case constants.SIGN_IN_REQUESTING:
+    case CONSTANTS.SIGN_IN_REQUESTING:
       return {
         ...state,
         signIn: {
@@ -39,13 +38,14 @@ export default (state = initialState, { type, payload }) => {
         },
         loading: true,
       };
-    case constants.SIGN_IN_SUCCESS:
+    case CONSTANTS.SIGN_IN_SUCCESS:
       return {
         ...state,
         loading: false,
+        data: payload.data,
         isAuthentificated: true,
       };
-    case constants.SIGN_IN_ERROR:
+    case CONSTANTS.SIGN_IN_ERROR:
       return {
         ...state,
         loading: false,
@@ -53,13 +53,19 @@ export default (state = initialState, { type, payload }) => {
           error: payload.message,
         },
       };
-    case constants.SIGN_IN_REQUEST_ERROR:
+    case CONSTANTS.SIGN_IN_REQUEST_ERROR:
       return {
         ...state,
         loading: false,
         signIn: {
           error: 'Error request',
         },
+      };
+    case CONSTANTS.LOG_OUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isAuthentificated: false,
       };
     default:
       return state;
