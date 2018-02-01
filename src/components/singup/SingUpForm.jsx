@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import authActions from './../../actions/authActions';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
 import {
@@ -10,6 +13,7 @@ import {
   minLength5 as minLength5Validate,
   passwordEquality as passwordEqualityValidate,
 } from './../shared/validationForm';
+
 import AuthContainer from './../../containers/AuthContainer';
 
 class SingUpForm extends React.Component {
@@ -21,7 +25,7 @@ class SingUpForm extends React.Component {
   }
 
   handleSubmit(values) {
-    console.log(values, this.state);
+    this.props.signUpRequest(values);
   }
 
   render() {
@@ -31,27 +35,33 @@ class SingUpForm extends React.Component {
       invalid,
       pristine,
       anyTouched,
+      signUpError,
     } = this.props;
+
     return (
       <AuthContainer title="Sing up">
         <div className="card-body">
-          <form onSubmit={handleSubmit(this.handleSubmit)} noValidate>
+          <form
+            onSubmit={handleSubmit(this.handleSubmit)}
+            noValidate
+            className="mb-3"
+          >
             <Field
               component={InputField}
               type="email"
-              name="email"
+              name="login"
               label="Email"
               validate={[requiredValidate, emailValidate]}
             />
             <Field
               component={InputField}
-              name="firstName"
+              name="firstname"
               label="First Name"
               validate={[requiredValidate]}
             />
             <Field
               component={InputField}
-              name="lastName"
+              name="lastname"
               label="Last Name"
               validate={[requiredValidate]}
             />
@@ -83,6 +93,7 @@ class SingUpForm extends React.Component {
               disabled={(anyTouched || !pristine) && (invalid || submitting)}
             />
           </form>
+          {signUpError && <div className="alert alert-danger" role="alert">{signUpError}</div>}
         </div>
         <div className="card-footer">
           <h5>Have an account?</h5>
@@ -99,6 +110,8 @@ SingUpForm.propTypes = {
   invalid: PropTypes.bool,
   pristine: PropTypes.bool,
   anyTouched: PropTypes.bool,
+  signUpRequest: PropTypes.func.isRequired,
+  signUpError: PropTypes.string,
 };
 
 SingUpForm.defaultProps = {
@@ -106,8 +119,21 @@ SingUpForm.defaultProps = {
   invalid: false,
   pristine: true,
   anyTouched: false,
+  signUpError: '',
 };
+
+const mapStateToProps = state => ({
+  loading: state.user.loading,
+  signUpError: state.user.signUpError,
+});
+
+
+const mapDispathcToProps = dispatch => ({
+  signUpRequest: bindActionCreators(authActions.signUpRequest, dispatch),
+});
+
+const form = connect(mapStateToProps, mapDispathcToProps)(SingUpForm);
 
 export default reduxForm({
   form: 'singup',
-})(SingUpForm);
+})(form);
