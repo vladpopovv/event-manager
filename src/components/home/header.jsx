@@ -46,13 +46,6 @@ Header.propTypes = {
   logOutRequest: PropTypes.func.isRequired,
 };
 
-// Header.defaultProps = {
-//   userData: {
-//     firstname: '',
-//     lastname: '',
-//   },
-// };
-
 const mapStateToProps = state => ({
   userData: state.user.data,
 });
