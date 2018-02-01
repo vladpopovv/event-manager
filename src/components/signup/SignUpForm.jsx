@@ -16,7 +16,7 @@ import {
 
 import AuthContainer from './../../containers/AuthContainer';
 
-class SingUpForm extends React.Component {
+class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -39,7 +39,7 @@ class SingUpForm extends React.Component {
     } = this.props;
 
     return (
-      <AuthContainer title="Sing up">
+      <AuthContainer title="Sign up">
         <div className="card-body">
           <form
             onSubmit={handleSubmit(this.handleSubmit)}
@@ -87,7 +87,7 @@ class SingUpForm extends React.Component {
             />
             <FormButton
               type="submit"
-              text="Sing up"
+              text="Sign up"
               buttonType="primary"
               buttonFloat="right"
               disabled={(anyTouched || !pristine) && (invalid || submitting)}
@@ -97,14 +97,14 @@ class SingUpForm extends React.Component {
         </div>
         <div className="card-footer">
           <h5>Have an account?</h5>
-          <Link href="/login" to="/login">Sing in</Link>
+          <Link href="/login" to="/login">Sign in</Link>
         </div>
       </AuthContainer>
     );
   }
 }
 
-SingUpForm.propTypes = {
+SignUpForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool,
   invalid: PropTypes.bool,
@@ -114,7 +114,7 @@ SingUpForm.propTypes = {
   signUp: PropTypes.shape({}),
 };
 
-SingUpForm.defaultProps = {
+SignUpForm.defaultProps = {
   submitting: true,
   invalid: false,
   pristine: true,
@@ -132,8 +132,8 @@ const mapDispathcToProps = dispatch => ({
   signUpRequest: bindActionCreators(authActions.signUpRequest, dispatch),
 });
 
-const form = connect(mapStateToProps, mapDispathcToProps)(SingUpForm);
+const form = connect(mapStateToProps, mapDispathcToProps)(SignUpForm);
 
 export default reduxForm({
-  form: 'singup',
+  form: 'signup',
 })(form);

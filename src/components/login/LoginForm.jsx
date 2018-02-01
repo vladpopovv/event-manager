@@ -65,7 +65,7 @@ class LoginForm extends React.Component {
         </form>
         <div className="card-footer">
           <h5>Don`t you have account yet?</h5>
-          <Link href="/singup" to="/singup">Sing up</Link>
+          <Link href="/signup" to="/signup">Sing up</Link>
         </div>
       </AuthContainer>
     );

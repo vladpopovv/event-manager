@@ -1,9 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import SingUpForm from './SingUpForm';
-// import Authorization from './../authorization/Authorization';
+import SignUpForm from './SignUpForm';
 
-export default class SingUpPage extends React.Component {
+export default class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -13,11 +12,9 @@ export default class SingUpPage extends React.Component {
     return (
       <div className={classNames('container')}>
         <div className={classNames('row', 'justify-content-center', 'pt-5')}>
-          <SingUpForm />
+          <SignUpForm />
         </div>
       </div>
     );
   }
 }
-
-// export default Authorization(SingUpPage, false, 'home');
