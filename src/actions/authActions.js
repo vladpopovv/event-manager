@@ -26,10 +26,6 @@ export function signInRequest(data) {
     dispatch({ type: CONSTANTS.SIGN_IN_REQUESTING });
     return fetchRequest(data, signInUrl)
       .then((response) => {
-        console.log(response);
-        if (response.status >= 500) {
-          throw new Error('Server error');
-        }
         if (!response.ok && response.statusText === 'Unauthorized') {
           throw new Error('Invalid login or password.');
         }
@@ -55,12 +51,7 @@ export function signUpRequest(data) {
   return (dispatch) => {
     dispatch({ type: CONSTANTS.SIGN_UP_REQUESTING });
     return fetchRequest(data, signUpUrl)
-      .then((response) => {
-        if (response.status >= 500) {
-          throw new Error('Server error');
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then((json) => {
         if (json.error) {
           throw new Error(json.error);
@@ -91,12 +82,7 @@ export function logOutRequest() {
       type: CONSTANTS.LOG_OUT_SUCCESS,
     });
     fetch(logOutUrl, options)
-      .then((response) => {
-        if (response.status >= 500) {
-          throw new Error('Server error');
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then(json => dispatch({
         type: CONSTANTS.LOG_OUT_SUCCESS,
         payload: json,

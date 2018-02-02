@@ -1,8 +1,8 @@
 import fetchIntercept from 'fetch-intercept';
 import APICONSTANTS from './../constants/apiConstants';
+// import authToken from './authToken';
 
 const { APIURL } = APICONSTANTS;
-// import authToken from './authToken';
 
 fetchIntercept.register({
   request: (urlRequest, config) => {
@@ -18,18 +18,9 @@ fetchIntercept.register({
     return [url, options];
   },
 
-  // requestError: (error) => {
-  //   // Called when an error occured during another 'request' interceptor call
-  //   return Promise.reject(error);
-  // },
+  requestError: (error) => {
+    console.log('Request Error');
+    return Promise.reject(new Error('Server error', error));
+  },
 
-  // response: (response) => {
-  //   // Modify the reponse object
-  //   return response;
-  // },
-
-  // responseError: (error) => {
-  //   // Handle an fetch error
-  //   return Promise.reject(error);
-  // }
 });
