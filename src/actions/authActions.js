@@ -1,8 +1,8 @@
 import CONSTANTS from './../constants/constants';
 import APICONSTANTS from './../constants/apiConstants';
+import authToken from './authToken';
 
 const {
-  APIURL,
   signInUrl,
   signUpUrl,
   logOutUrl,
@@ -12,15 +12,12 @@ function getOptionsRequest(data) {
   return {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
   };
 }
 
 function fetchRequest(data, urlRequest) {
   const options = getOptionsRequest(data);
-  return fetch(`${APIURL}${urlRequest}`, options);
+  return fetch(urlRequest, options);
 }
 
 
@@ -39,7 +36,7 @@ export function signInRequest(data) {
         return response.json();
       })
       .then((json) => {
-        localStorage.setItem('authorizationToken', json.data.token);
+        authToken.setToken(json.data.token);
         localStorage.setItem('userData', JSON.stringify(json.data));
         return dispatch({
           type: CONSTANTS.SIGN_IN_SUCCESS,
@@ -66,11 +63,6 @@ export function signUpRequest(data) {
       })
       .then((json) => {
         if (json.error) {
-          console.log('ERROR', json.error);
-          // dispatch({
-          //   type: CONSTANTS.SIGN_UP_ERROR,
-          //   payload: json,
-          // });
           throw new Error(json.error);
         }
         dispatch(signInRequest({
@@ -92,17 +84,13 @@ export function signUpRequest(data) {
 export function logOutRequest() {
   const options = {
     method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      Authorization: localStorage.getItem('authorizationToken'),
-    },
   };
-  localStorage.clear();
+  authToken.clearToken();
   return (dispatch) => {
     dispatch({
       type: CONSTANTS.LOG_OUT_SUCCESS,
     });
-    fetch(`${APIURL}${logOutUrl}`, options)
+    fetch(logOutUrl, options)
       .then((response) => {
         if (response.status >= 500) {
           throw new Error('Server error');
