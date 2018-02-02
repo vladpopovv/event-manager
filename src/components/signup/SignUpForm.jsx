@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import authActions from './../../actions/authActions';
+import { signUpRequest } from './../../actions/authActions';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
 import {
@@ -24,8 +24,18 @@ class SignUpForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillUnmount() {
+
+  }
+
   handleSubmit(values) {
-    this.props.signUpRequest(values);
+    this.props.signUpRequest(values)
+      .then((resolve) => {
+        if (resolve.payload.success) {
+          return alert('You have successfully registered');
+        }
+        return false;
+      });
   }
 
   render() {
@@ -37,7 +47,9 @@ class SignUpForm extends React.Component {
       anyTouched,
       signUp: { error },
     } = this.props;
-
+    const isTouched = (anyTouched || !pristine);
+    const isSubmitDisabled = isTouched && (invalid || submitting);
+    // TODO: all fields in map
     return (
       <AuthContainer title="Sign up">
         <div className="card-body">
@@ -90,13 +102,13 @@ class SignUpForm extends React.Component {
               text="Sign up"
               buttonType="primary"
               buttonFloat="right"
-              disabled={(anyTouched || !pristine) && (invalid || submitting)}
+              disabled={isSubmitDisabled}
             />
           </form>
           {error && <div className="alert alert-danger" role="alert">{error}</div>}
         </div>
         <div className="card-footer">
-          <h5>Have an account?</h5>
+          <p className="m-0">Have an account?</p>
           <Link href="/login" to="/login">Sign in</Link>
         </div>
       </AuthContainer>
@@ -129,7 +141,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispathcToProps = dispatch => ({
-  signUpRequest: bindActionCreators(authActions.signUpRequest, dispatch),
+  signUpRequest: bindActionCreators(signUpRequest, dispatch),
 });
 
 const form = connect(mapStateToProps, mapDispathcToProps)(SignUpForm);

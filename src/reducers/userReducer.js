@@ -8,8 +8,6 @@ const initialState = {
   data: JSON.parse(localStorage.getItem('userData')),
 };
 
-console.log('Initital', initialState);
-
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case CONSTANTS.SIGN_UP_REQUESTING:
@@ -32,7 +30,7 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
         signUp: {
           ...state.singUp,
-          error: payload.error,
+          error: payload.message,
         },
       };
     case CONSTANTS.SIGN_IN_REQUESTING:

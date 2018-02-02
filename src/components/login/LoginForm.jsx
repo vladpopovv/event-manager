@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InputField from './../shared/InputField';
 import FormButton from './../shared/FormButton';
-import authActions from './../../actions/authActions';
+import { signInRequest } from './../../actions/authActions';
 import {
   required as requiredValidate,
   email as emailValidate,
@@ -34,6 +34,9 @@ class LoginForm extends React.Component {
       anyTouched,
       signIn: { error },
     } = this.props;
+    const isTouched = (anyTouched || !pristine);
+    const isSubmitDisabled = isTouched && (invalid || submitting);
+
     return (
       <AuthContainer title="Log in">
         <div className="card-body">
@@ -59,13 +62,13 @@ class LoginForm extends React.Component {
               text="Login"
               buttonType="primary"
               buttonFloat="right"
-              disabled={(anyTouched || !pristine) && (invalid || submitting)}
+              disabled={isSubmitDisabled}
             />
           </form>
           {error && <div className="alert alert-danger mb-0 mt-3" role="alert">{error}</div>}
         </div>
         <div className="card-footer">
-          <h5>Don`t you have account yet?</h5>
+          <p className="m-0">Don`t you have account yet?</p>
           <Link href="/signup" to="/signup">Sing up</Link>
         </div>
       </AuthContainer>
@@ -98,7 +101,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispathcToProps = dispatch => ({
-  signInRequest: bindActionCreators(authActions.signInRequest, dispatch),
+  signInRequest: bindActionCreators(signInRequest, dispatch),
 });
 
 const form = connect(mapStateToProps, mapDispathcToProps)(LoginForm);

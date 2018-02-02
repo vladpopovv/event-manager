@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import authActions from './../../actions/authActions';
+import { logOutRequest } from './../../actions/authActions';
 
 class Header extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispathcToProps = dispatch => ({
-  logOutRequest: bindActionCreators(authActions.logOutRequest, dispatch),
+  logOutRequest: bindActionCreators(logOutRequest, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispathcToProps)(Header);
