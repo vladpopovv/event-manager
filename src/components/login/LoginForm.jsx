@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InputField from './../shared/InputField';
+import InputPassword from './../shared/InputPassword';
 import FormButton from './../shared/FormButton';
 import { signInRequest } from './../../actions/authActions';
 import {
@@ -50,7 +51,7 @@ class LoginForm extends React.Component {
             />
 
             <Field
-              component={InputField}
+              component={InputPassword}
               type="password"
               name="password"
               label="Password"

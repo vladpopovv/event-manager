@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { signUpRequest } from './../../actions/authActions';
 import InputField from './../shared/InputField';
+import InputPassword from './../shared/InputPassword';
 import FormButton from './../shared/FormButton';
 import {
   required as requiredValidate,
@@ -85,14 +86,14 @@ class SignUpForm extends React.Component {
             />
             <Field
               type="password"
-              component={InputField}
+              component={InputPassword}
               name="password"
               label="Password"
               validate={[requiredValidate, minLength5Validate]}
             />
             <Field
               type="password"
-              component={InputField}
+              component={InputPassword}
               name="passwordRepeat"
               label="Repeat password"
               validate={[requiredValidate, passwordEqualityValidate]}

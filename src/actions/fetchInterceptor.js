@@ -1,6 +1,6 @@
 import fetchIntercept from 'fetch-intercept';
 import APICONSTANTS from './../constants/apiConstants';
-// import authToken from './authToken';
+import authToken from './authToken';
 
 const { APIURL } = APICONSTANTS;
 
@@ -11,16 +11,20 @@ fetchIntercept.register({
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        // Authorization: authToken.getToken('authorizationToken'),
       },
     };
+    if (authToken.hasToken()) {
+      options.headers.Authorization = authToken.getToken('authorizationToken');
+    }
     const url = `${APIURL}${urlRequest}`;
     return [url, options];
   },
-
-  requestError: (error) => {
-    console.log('Request Error');
-    return Promise.reject(new Error('Server error', error));
-  },
+  // response: (response) => {
+  //   console.log(response);
+  //   if (response.status === 401) {
+  //     authToken.clearToken();
+  //   }
+  //   return Promise.reject(response);
+  // },
 
 });

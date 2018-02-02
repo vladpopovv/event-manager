@@ -1,4 +1,4 @@
-export default {
+const authToken = {
   setToken(token) {
     localStorage.setItem('authorizationToken', `Bearer ${token}`);
   },
@@ -8,4 +8,9 @@ export default {
   clearToken() {
     localStorage.clear();
   },
+  hasToken() {
+    return !!authToken.getToken();
+  },
 };
+
+export default authToken;
