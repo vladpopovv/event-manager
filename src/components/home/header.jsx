@@ -23,7 +23,7 @@ class Header extends React.Component {
           <li className="nav-item active">
             <Link to="/" href="/" className="nav-link">Home</Link>
           </li>
-          <li className="nav-item active">
+          <li className="nav-item">
             <Link to="/friends" href="/friends" className="nav-link">Friends</Link>
           </li>
         </ul>

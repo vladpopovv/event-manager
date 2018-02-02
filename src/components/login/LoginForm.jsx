@@ -34,35 +34,36 @@ class LoginForm extends React.Component {
       anyTouched,
       signIn: { error },
     } = this.props;
-    console.log(this.props);
     return (
-      <AuthContainer title="Login">
-        <form className="card-body" onSubmit={handleSubmit(this.handleSubmit)} noValidate>
-          <Field
-            component={InputField}
-            type="email"
-            name="login"
-            label="Email"
-            validate={[requiredValidate, emailValidate]}
-          />
+      <AuthContainer title="Log in">
+        <div className="card-body">
+          <form onSubmit={handleSubmit(this.handleSubmit)} noValidate>
+            <Field
+              component={InputField}
+              type="email"
+              name="login"
+              label="Email"
+              validate={[requiredValidate, emailValidate]}
+            />
 
-          <Field
-            component={InputField}
-            type="password"
-            name="password"
-            label="Password"
-            validate={[requiredValidate, minLength5Validate]}
-          />
+            <Field
+              component={InputField}
+              type="password"
+              name="password"
+              label="Password"
+              validate={[requiredValidate, minLength5Validate]}
+            />
 
-          <FormButton
-            type="submit"
-            text="Login"
-            buttonType="primary"
-            buttonFloat="right"
-            disabled={(anyTouched || !pristine) && (invalid || submitting)}
-          />
-          {error && <div className="alert alert-danger" role="alert">{error}</div>}
-        </form>
+            <FormButton
+              type="submit"
+              text="Login"
+              buttonType="primary"
+              buttonFloat="right"
+              disabled={(anyTouched || !pristine) && (invalid || submitting)}
+            />
+          </form>
+          {error && <div className="alert alert-danger mb-0 mt-3" role="alert">{error}</div>}
+        </div>
         <div className="card-footer">
           <h5>Don`t you have account yet?</h5>
           <Link href="/signup" to="/signup">Sing up</Link>
