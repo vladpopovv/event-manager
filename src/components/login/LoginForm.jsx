@@ -8,11 +8,7 @@ import InputField from './../shared/InputField';
 import InputPassword from './../shared/InputPassword';
 import FormButton from './../shared/FormButton';
 import { signInRequest } from './../../actions/authActions';
-import {
-  required as requiredValidate,
-  email as emailValidate,
-  minLength5 as minLength5Validate,
-} from './../shared/validationForm';
+import validators from './../validators/validationForm';
 import AuthContainer from './../../containers/AuthContainer';
 
 class LoginForm extends React.Component {
@@ -42,14 +38,14 @@ class LoginForm extends React.Component {
         type: 'email',
         name: 'login',
         label: 'Email',
-        validate: [requiredValidate, emailValidate],
+        validate: [validators.required, validators.email],
       },
       {
         type: 'password',
         component: InputPassword,
         name: 'password',
         label: 'Password',
-        validate: [requiredValidate, minLength5Validate],
+        validate: [validators.required, validators.minLength5],
       },
     ];
 

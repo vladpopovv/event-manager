@@ -21,7 +21,7 @@ export default class InputField extends React.PureComponent {
     });
   }
 
-  renderToggleVisible(toggleClasses) {
+  renderToggleVisible() {
     return (
       <div className="input-group-prepend">
         <div
@@ -31,7 +31,11 @@ export default class InputField extends React.PureComponent {
           onKeyDown={this.onToggleVisible}
           role="button"
         >
-          <i className={toggleClasses} />
+          <i className={classNames('fa', {
+              'fa-eye': !this.state.isHidden,
+              'fa-eye-slash': this.state.isHidden,
+            })}
+          />
         </div>
       </div>
     );
@@ -47,8 +51,6 @@ export default class InputField extends React.PureComponent {
       'is-invalid': touched && error,
     });
 
-    const toggleType = this.state.isHidden ? '' : '-slash';
-    const toggleClasses = classNames('fa', `fa-eye${toggleType}`);
     const inputType = this.state.isHidden ? 'password' : 'text';
     const inputError = (touched && error) ? error : '';
 
@@ -60,7 +62,7 @@ export default class InputField extends React.PureComponent {
         >
           {label}
           <div className="input-group">
-            {this.renderToggleVisible(toggleClasses)}
+            {this.renderToggleVisible()}
             <input
               {...input}
               id={`${form}-${input.name}`}

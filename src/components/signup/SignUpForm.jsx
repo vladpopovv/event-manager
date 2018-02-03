@@ -8,12 +8,7 @@ import { signUpRequest } from './../../actions/authActions';
 import InputField from './../shared/InputField';
 import InputPassword from './../shared/InputPassword';
 import FormButton from './../shared/FormButton';
-import {
-  required as requiredValidate,
-  email as emailValidate,
-  minLength5 as minLength5Validate,
-  passwordEquality as passwordEqualityValidate,
-} from './../shared/validationForm';
+import validators from './../validators/validationForm';
 
 import AuthContainer from './../../containers/AuthContainer';
 
@@ -60,33 +55,37 @@ class SignUpForm extends React.Component {
         type: 'email',
         name: 'login',
         label: 'Email',
-        validate: [requiredValidate, emailValidate],
+        validate: [validators.required, validators.email],
       },
       {
         component: InputField,
         name: 'firstname',
         label: 'First Name',
-        validate: [requiredValidate],
+        validate: [validators.required],
       },
       {
         component: InputField,
         name: 'lastname',
         label: 'Last Name',
-        validate: [requiredValidate],
+        validate: [validators.required],
       },
       {
         type: 'password',
         component: InputPassword,
         name: 'password',
         label: 'Password',
-        validate: [requiredValidate, minLength5Validate],
+        validate: [validators.required, validators.minLength5],
       },
       {
         type: 'password',
         component: InputPassword,
         name: 'passwordRepeat',
         label: 'Repeat password',
-        validate: [requiredValidate, minLength5Validate, passwordEqualityValidate],
+        validate: [
+          validators.required,
+          validators.minLength5,
+          validators.passwordEquality,
+        ],
       },
     ];
 
