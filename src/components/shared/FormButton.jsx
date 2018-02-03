@@ -2,31 +2,26 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-export default class FormButton extends React.PureComponent {
-  render() {
-    const {
-      text,
-      type,
-      buttonType,
-      buttonFloat,
-      disabled,
-    } = this.props;
-    const btnClasses = classNames('btn', {
-      [`btn-${buttonType}`]: buttonType,
-      [`float-${buttonFloat}`]: true,
-    });
-    return (
-      <div className="clearfix">
-        <button type={type} className={btnClasses} disabled={disabled}>
-          {text}
-        </button>
-      </div>
-    );
-  }
-}
+const FormButton = (props) => {
+  const btnClasses = classNames('btn', {
+    [`btn-${props.buttonType}`]: props.buttonType,
+    [`float-${props.buttonFloat}`]: true,
+  });
+  return (
+    <div className="clearfix">
+      <button
+        type={props.type}
+        className={btnClasses}
+        disabled={props.disabled}
+      >
+        {props.text}
+      </button>
+    </div>
+  );
+};
 
 FormButton.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   type: PropTypes.string,
   buttonType: PropTypes.string,
   buttonFloat: PropTypes.string,
@@ -34,8 +29,11 @@ FormButton.propTypes = {
 };
 
 FormButton.defaultProps = {
-  type: '',
+  text: 'Submit',
+  type: 'submit',
   buttonType: '',
   buttonFloat: 'left',
   disabled: false,
 };
+
+export default FormButton;

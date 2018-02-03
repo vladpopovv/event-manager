@@ -5,41 +5,33 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { logOutRequest } from './../../actions/authActions';
 
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  render() {
-    const { userData } = this.props;
-    return (
-      <div
-        className="navbar navbar-expand-md navbar-dark fixed-top bg-dark "
-      >
-        <Link href="/" to="/" className="navbar-brand">Event manager</Link>
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
-            <Link to="/" href="/" className="nav-link">Home</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/friends" href="/friends" className="nav-link">Friends</Link>
-          </li>
-        </ul>
-        <div className="">
-          <span className="text-light mr-2">Hello, {userData.firstname} {userData.lastname}</span>
-          <button
-            className="btn btn-sm btn-outline-warning"
-            onClick={this.props.logOutRequest}
-          >
-            Log out
-          </button>
-        </div>
+const Header = (props) => {
+  const { userData } = props;
+  return (
+    <div
+      className="navbar navbar-expand-md navbar-dark fixed-top bg-dark "
+    >
+      <Link href="/" to="/" className="navbar-brand">Event manager</Link>
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item active">
+          <Link to="/" href="/" className="nav-link">Home</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/friends" href="/friends" className="nav-link">Friends</Link>
+        </li>
+      </ul>
+      <div className="">
+        <span className="text-light mr-2">Hello, {userData.firstname} {userData.lastname}</span>
+        <button
+          className="btn btn-sm btn-outline-warning"
+          onClick={props.logOutRequest}
+        >
+          Log out
+        </button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Header.propTypes = {
   userData: PropTypes.shape({}).isRequired,

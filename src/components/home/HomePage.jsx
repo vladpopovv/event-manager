@@ -1,18 +1,10 @@
 import React from 'react';
 import Header from './header';
 
-export default class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
+const HomePage = () => (
+  <div>
+    <Header />
+  </div>
+);
 
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div>
-        <Header />
-      </div>
-    );
-  }
-}
+export default HomePage;
