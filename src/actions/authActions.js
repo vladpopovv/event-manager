@@ -1,6 +1,7 @@
 import CONSTANTS from './../constants/constants';
 import APICONSTANTS from './../constants/apiConstants';
 import authToken from './authToken';
+import notificationActions from './notification/notificationActions';
 
 const {
   signInUrl,
@@ -26,6 +27,7 @@ const authActions = {
       dispatch({ type: CONSTANTS.SIGN_IN_REQUESTING });
       return fetchRequest(data, signInUrl)
         .then((response) => {
+          dispatch(notificationActions.addNew('warning', 'Title', 'description'));
           if (!response.ok && response.statusText === 'Unauthorized') {
             throw new Error('Invalid login or password.');
           }
