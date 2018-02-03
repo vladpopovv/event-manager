@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Notification from './Notification';
-import style from './notification.less';
+import './notification.less';
 import notificationActions from './../../actions/notification/notificationActions';
 
 const NotificationWrapper = (props) => {

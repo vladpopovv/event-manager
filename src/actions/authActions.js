@@ -27,8 +27,8 @@ const authActions = {
       dispatch({ type: CONSTANTS.SIGN_IN_REQUESTING });
       return fetchRequest(data, signInUrl)
         .then((response) => {
-          dispatch(notificationActions.addNew('warning', 'Title', 'description'));
           if (!response.ok && response.statusText === 'Unauthorized') {
+            dispatch(notificationActions.addNew('danger', 'Invalid login or password.'));
             throw new Error('Invalid login or password.');
           }
           return response.json();
