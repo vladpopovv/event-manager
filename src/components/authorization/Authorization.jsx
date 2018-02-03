@@ -2,41 +2,24 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import userAction from './../../actions/userAction';
 
-const Authorization = (WrappedComponent, needAuth, redirectTo = 'login') => {
-  class WithAuthorization extends React.Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {};
+const Authorization = (WrappedComponent, needAuth = true, redirectTo = '/login') => {
+  const WithAuthorization = (props) => {
+    if (props.isAuthentificated === needAuth) {
+      return <WrappedComponent {...props} />;
     }
-
-    render() {
-      const isAuthentificated = !!localStorage.getItem('authorizationToken');
-      if (isAuthentificated === needAuth) {
-        return <WrappedComponent {...this.props} />;
-      }
-      return <Redirect to={`${redirectTo}`} />;
-    }
-  }
+    return <Redirect to={`${redirectTo}`} />;
+  };
 
   WithAuthorization.propTypes = {
-    user: PropTypes.shape({
-      isAuthentificated: PropTypes.bool.isRequired,
-    }).isRequired,
+    isAuthentificated: PropTypes.bool.isRequired,
   };
 
   const mapStateToProps = state => ({
-    user: state.user,
+    isAuthentificated: state.user.isAuthentificated,
   });
 
-  const mapDispachToProps = dispatch => ({
-    checkAuthentificated: bindActionCreators(userAction.checkAuthentificated, dispatch),
-  });
-
-  return connect(mapStateToProps, mapDispachToProps)(WithAuthorization);
+  return connect(mapStateToProps)(WithAuthorization);
 };
 
 export default Authorization;

@@ -17,7 +17,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Authorization(HomePage, true, '/login')} />
+        <Route exact path="/" component={Authorization(HomePage)} />
         <Route path="/login" component={Authorization(LoginPage, false, '/')} />
         <Route path="/signup" component={Authorization(SingUpPage, false, '/')} />
         <Route component={NotFound} />

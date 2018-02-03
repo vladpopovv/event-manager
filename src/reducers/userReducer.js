@@ -1,7 +1,8 @@
 import CONSTANTS from './../constants/constants';
+import authToken from './../actions/authToken';
 
 const initialState = {
-  isAuthentificated: !!localStorage.getItem('authorizationToken'),
+  isAuthentificated: authToken.hasToken(),
   loading: false,
   signUp: {},
   signIn: {},
