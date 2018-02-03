@@ -18,7 +18,6 @@ import AuthContainer from './../../containers/AuthContainer';
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -37,26 +36,37 @@ class LoginForm extends React.Component {
     } = this.props;
     const isTouched = (anyTouched || !pristine);
     const isSubmitDisabled = isTouched && (invalid || submitting);
+    const fields = [
+      {
+        component: InputField,
+        type: 'email',
+        name: 'login',
+        label: 'Email',
+        validate: [requiredValidate, emailValidate],
+      },
+      {
+        type: 'password',
+        component: InputPassword,
+        name: 'password',
+        label: 'Password',
+        validate: [requiredValidate, minLength5Validate],
+      },
+    ];
 
     return (
       <AuthContainer title="Log in">
         <div className="card-body">
           <form onSubmit={handleSubmit(this.handleSubmit)} noValidate>
-            <Field
-              component={InputField}
-              type="email"
-              name="login"
-              label="Email"
-              validate={[requiredValidate, emailValidate]}
-            />
-
-            <Field
-              component={InputPassword}
-              type="password"
-              name="password"
-              label="Password"
-              validate={[requiredValidate, minLength5Validate]}
-            />
+            {fields.map(fieldItem => (
+              <Field
+                key={fieldItem.name}
+                component={fieldItem.component}
+                type={fieldItem.type}
+                name={fieldItem.name}
+                label={fieldItem.label}
+                validate={fieldItem.validate}
+              />
+            ))}
 
             <FormButton
               type="submit"

@@ -2,19 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 import SignUpForm from './SignUpForm';
 
-export default class SignUpPage extends React.Component {
-  constructor(props) {
-    super(props);
+const SignUpPage = () => (
+  <div className={classNames('container')}>
+    <div className={classNames('row', 'justify-content-center', 'pt-5')}>
+      <SignUpForm />
+    </div>
+  </div>
+);
 
-    this.state = {};
-  }
-  render() {
-    return (
-      <div className={classNames('container')}>
-        <div className={classNames('row', 'justify-content-center', 'pt-5')}>
-          <SignUpForm />
-        </div>
-      </div>
-    );
-  }
-}
+export default SignUpPage;

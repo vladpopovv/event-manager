@@ -20,8 +20,6 @@ import AuthContainer from './../../containers/AuthContainer';
 class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -30,7 +28,13 @@ class SignUpForm extends React.Component {
   }
 
   handleSubmit(values) {
-    this.props.signUpRequest(values)
+    const dataRequest = {
+      login: values.login,
+      firstname: values.firstname,
+      lastname: values.lastname,
+      password: values.password,
+    };
+    this.props.signUpRequest(dataRequest)
       .then((resolve) => {
         if (resolve.payload.success) {
           return alert('You have successfully registered');
@@ -50,7 +54,42 @@ class SignUpForm extends React.Component {
     } = this.props;
     const isTouched = (anyTouched || !pristine);
     const isSubmitDisabled = isTouched && (invalid || submitting);
-    // TODO: all fields in map
+    const fields = [
+      {
+        component: InputField,
+        type: 'email',
+        name: 'login',
+        label: 'Email',
+        validate: [requiredValidate, emailValidate],
+      },
+      {
+        component: InputField,
+        name: 'firstname',
+        label: 'First Name',
+        validate: [requiredValidate],
+      },
+      {
+        component: InputField,
+        name: 'lastname',
+        label: 'Last Name',
+        validate: [requiredValidate],
+      },
+      {
+        type: 'password',
+        component: InputPassword,
+        name: 'password',
+        label: 'Password',
+        validate: [requiredValidate, minLength5Validate],
+      },
+      {
+        type: 'password',
+        component: InputPassword,
+        name: 'passwordRepeat',
+        label: 'Repeat password',
+        validate: [requiredValidate, minLength5Validate, passwordEqualityValidate],
+      },
+    ];
+
     return (
       <AuthContainer title="Sign up">
         <div className="card-body">
@@ -59,45 +98,17 @@ class SignUpForm extends React.Component {
             noValidate
             className="mb-3"
           >
-            <Field
-              component={InputField}
-              type="email"
-              name="login"
-              label="Email"
-              validate={[requiredValidate, emailValidate]}
-            />
-            <Field
-              component={InputField}
-              name="firstname"
-              label="First Name"
-              validate={[requiredValidate]}
-            />
-            <Field
-              component={InputField}
-              name="lastname"
-              label="Last Name"
-              validate={[requiredValidate]}
-            />
-            <Field
-              component={InputField}
-              name="nickName"
-              label="Nick Name"
-              validate={[requiredValidate]}
-            />
-            <Field
-              type="password"
-              component={InputPassword}
-              name="password"
-              label="Password"
-              validate={[requiredValidate, minLength5Validate]}
-            />
-            <Field
-              type="password"
-              component={InputPassword}
-              name="passwordRepeat"
-              label="Repeat password"
-              validate={[requiredValidate, passwordEqualityValidate]}
-            />
+            {fields.map(fieldItem => (
+              <Field
+                key={fieldItem.name}
+                component={fieldItem.component}
+                type={fieldItem.type}
+                name={fieldItem.name}
+                label={fieldItem.label}
+                validate={fieldItem.validate}
+              />
+            ))}
+
             <FormButton
               type="submit"
               text="Sign up"
