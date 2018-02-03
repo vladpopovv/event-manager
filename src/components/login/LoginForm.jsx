@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import InputField from './../shared/InputField';
 import InputPassword from './../shared/InputPassword';
 import FormButton from './../shared/FormButton';
-import { signInRequest } from './../../actions/authActions';
+import authActions from './../../actions/authActions';
 import validators from './../validators/validationForm';
 import AuthContainer from './../../containers/AuthContainer';
 
@@ -108,7 +108,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispathcToProps = dispatch => ({
-  signInRequest: bindActionCreators(signInRequest, dispatch),
+  signInRequest: bindActionCreators(authActions.signInRequest, dispatch),
 });
 
 const form = connect(mapStateToProps, mapDispathcToProps)(LoginForm);

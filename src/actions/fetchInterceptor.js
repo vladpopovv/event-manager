@@ -19,12 +19,16 @@ fetchIntercept.register({
     const url = `${APIURL}${urlRequest}`;
     return [url, options];
   },
-  // response: (response) => {
-  //   console.log(response);
-  //   if (response.status === 401) {
-  //     authToken.clearToken();
-  //   }
-  //   return Promise.reject(response);
-  // },
+
+  response: (response) => {
+    if (response.status === 401) {
+      authToken.clearToken();
+    }
+    return response;
+  },
+
+  responseError: () => {
+    throw new Error('Sorry, a query error. Check your connection');
+  },
 
 });
