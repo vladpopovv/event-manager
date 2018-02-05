@@ -5,7 +5,7 @@ import 'bootstrap';
 
 const FriendItem = props => (
   <li className="list-group-item d-flex justify-content-between align-items-center">
-    <Link to={`/user/${props.friend.id}`} href={`/user/${props.friend.id}`}>{props.friend.firstname} {props.friend.lastname}</Link>
+    <Link className="text-dark" to={`/user/${props.friend.id}`} href={`/user/${props.friend.id}`}>{props.friend.firstname} {props.friend.lastname}</Link>
     <div>
       <div className="dropdown">
         <button
