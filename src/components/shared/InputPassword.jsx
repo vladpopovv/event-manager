@@ -58,7 +58,7 @@ export default class InputField extends React.PureComponent {
       <InputGroup error={inputError} >
         <label
           htmlFor={`${form}-${input.name}`}
-          className="col-12 p-0"
+          className="col-12 p-0 mb-0"
         >
           {label}
           <div className="input-group">

@@ -5,11 +5,10 @@ import classNames from 'classnames';
 const InputGroup = (props) => {
   const { error, children } = props;
   return (
-    <div className="form-group">
+    <div className="form-group mb-1">
       <div className={classNames('col-12', 'p-0')}>
         {children}
-        {error &&
-          <span className="text-danger">{error}</span>}
+        <div className={classNames('text-danger', { invisible: !error })}>{error}&nbsp;</div>
       </div>
     </div>
   );
