@@ -7,7 +7,7 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case CONSTANTS.NOTIFICATION_ADD_NEW:
+    case CONSTANTS.NOTIFICATION_ADD_NEW: {
       return {
         ...state,
         notifications: state.notifications.concat({
@@ -16,6 +16,7 @@ export default (state = initialState, { type, payload }) => {
         }),
         count: state.count + 1,
       };
+    }
     case CONSTANTS.NOTIFICATION_DELETE:
       return {
         ...state,
