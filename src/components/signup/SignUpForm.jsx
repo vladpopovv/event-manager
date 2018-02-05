@@ -30,14 +30,14 @@ class SignUpForm extends React.Component {
   render() {
     const {
       handleSubmit,
-      submitting,
+      loading,
       invalid,
       pristine,
       anyTouched,
       signUp: { error },
     } = this.props;
     const isTouched = (anyTouched || !pristine);
-    const isSubmitDisabled = isTouched && (invalid || submitting);
+    const isSubmitDisabled = isTouched && (invalid || loading);
     const fields = [
       {
         component: InputField,
@@ -98,6 +98,7 @@ class SignUpForm extends React.Component {
             ))}
 
             <FormButton
+              loading={loading}
               type="submit"
               text="Sign up"
               buttonType="primary"
@@ -118,7 +119,7 @@ class SignUpForm extends React.Component {
 
 SignUpForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool,
+  loading: PropTypes.bool,
   invalid: PropTypes.bool,
   pristine: PropTypes.bool,
   anyTouched: PropTypes.bool,
@@ -127,7 +128,7 @@ SignUpForm.propTypes = {
 };
 
 SignUpForm.defaultProps = {
-  submitting: true,
+  loading: true,
   invalid: false,
   pristine: true,
   anyTouched: false,

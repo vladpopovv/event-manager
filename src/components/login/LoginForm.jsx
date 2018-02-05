@@ -24,14 +24,14 @@ class LoginForm extends React.Component {
   render() {
     const {
       handleSubmit,
-      submitting,
+      loading,
       invalid,
       pristine,
       anyTouched,
       signIn: { error },
     } = this.props;
     const isTouched = (anyTouched || !pristine);
-    const isSubmitDisabled = isTouched && (invalid || submitting);
+    const isSubmitDisabled = isTouched && (invalid || loading);
     const fields = [
       {
         component: InputField,
@@ -85,7 +85,7 @@ class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool,
+  loading: PropTypes.bool,
   invalid: PropTypes.bool,
   pristine: PropTypes.bool,
   anyTouched: PropTypes.bool,
@@ -94,7 +94,7 @@ LoginForm.propTypes = {
 };
 
 LoginForm.defaultProps = {
-  submitting: true,
+  loading: true,
   pristine: false,
   invalid: true,
   anyTouched: false,
