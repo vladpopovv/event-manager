@@ -34,7 +34,7 @@ export default class Notification extends React.Component {
   }
 
   onMouseLeave() {
-    this.timer = setTimeout(this.onClickDelete, 3000);
+    this.startTimer();
     this.setState({
       isActive: false,
     });

@@ -9,7 +9,7 @@ import SignUpPage from './components/signup/SignUpPage';
 import HomePage from './components/home/HomePage';
 import NotFound from './components/shared/NotFound';
 import NotificationWrapper from './components/notification/NotificationWrapper';
-import './actions/fetchInterceptor';
+import './actions/authorization/fetchInterceptor';
 import './style/main.less';
 
 const store = createStore();

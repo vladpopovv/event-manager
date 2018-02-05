@@ -1,5 +1,5 @@
 import fetchIntercept from 'fetch-intercept';
-import APICONSTANTS from './../constants/apiConstants';
+import APICONSTANTS from './../../constants/apiConstants';
 import authToken from './authToken';
 import authActions from './authActions';
 

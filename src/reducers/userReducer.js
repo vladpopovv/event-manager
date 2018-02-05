@@ -1,5 +1,5 @@
 import CONSTANTS from './../constants/constants';
-import authToken from './../actions/authToken';
+import authToken from './../actions/authorization/authToken';
 
 const initialState = {
   isAuthentificated: authToken.hasToken(),
