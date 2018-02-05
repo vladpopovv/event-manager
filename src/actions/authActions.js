@@ -28,12 +28,21 @@ const authActions = {
       return fetchRequest(data, signInUrl)
         .then((response) => {
           if (!response.ok && response.statusText === 'Unauthorized') {
-            dispatch(notificationActions.addNew('danger', 'Invalid login or password.'));
+            // dispatch(notificationActions.addNew(
+            //   'danger',
+            //   'Unsuccessfully!',
+            //   'Invalid login or password.',
+            // ));
             throw new Error('Invalid login or password.');
           }
           return response.json();
         })
         .then((json) => {
+          // dispatch(notificationActions.addNew(
+          //   'success',
+          //   'Successfully!',
+          //   'You have successfully login.',
+          // ));
           authToken.setToken(json.data.token);
           localStorage.setItem('userData', JSON.stringify(json.data));
           return dispatch({
@@ -56,6 +65,11 @@ const authActions = {
           if (json.error) {
             throw new Error(json.error);
           }
+          dispatch(notificationActions.addNew(
+            'success',
+            'Successfully!',
+            'You have successfully registered.',
+          ));
           dispatch(authActions.signInRequest({
             login: data.login,
             password: data.password,

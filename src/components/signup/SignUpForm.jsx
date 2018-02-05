@@ -9,17 +9,12 @@ import InputField from './../shared/InputField';
 import InputPassword from './../shared/InputPassword';
 import FormButton from './../shared/FormButton';
 import validators from './../validators/validationForm';
-
-import AuthContainer from './../../containers/AuthContainer';
+import AuthContainer from './../containers/AuthContainer';
 
 class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentWillUnmount() {
-
   }
 
   handleSubmit(values) {
@@ -29,13 +24,7 @@ class SignUpForm extends React.Component {
       lastname: values.lastname,
       password: values.password,
     };
-    this.props.signUpRequest(dataRequest)
-      .then((resolve) => {
-        if (resolve.payload.success) {
-          return alert('You have successfully registered');
-        }
-        return false;
-      });
+    this.props.signUpRequest(dataRequest);
   }
 
   render() {

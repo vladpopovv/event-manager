@@ -1,6 +1,7 @@
 import fetchIntercept from 'fetch-intercept';
 import APICONSTANTS from './../constants/apiConstants';
 import authToken from './authToken';
+import authActions from './authActions';
 
 const { APIURL } = APICONSTANTS;
 
@@ -22,7 +23,7 @@ fetchIntercept.register({
 
   response: (response) => {
     if (response.status === 401) {
-      authToken.clearToken();
+      authActions.logOutRequest();
     }
     return response;
   },

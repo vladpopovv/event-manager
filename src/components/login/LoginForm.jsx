@@ -9,8 +9,7 @@ import InputPassword from './../shared/InputPassword';
 import FormButton from './../shared/FormButton';
 import authActions from './../../actions/authActions';
 import validators from './../validators/validationForm';
-import AuthContainer from './../../containers/AuthContainer';
-import NotificationWrapper from './../notification/NotificationWrapper';
+import AuthContainer from './../containers/AuthContainer';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -53,7 +52,6 @@ class LoginForm extends React.Component {
     return (
       <AuthContainer title="Log in">
         <div className="card-body">
-          <NotificationWrapper />
           <form onSubmit={handleSubmit(this.handleSubmit)} noValidate>
             {fields.map(fieldItem => (
               <Field
