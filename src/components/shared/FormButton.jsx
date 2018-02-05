@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import './formButton.less';
 
 const FormButton = (props) => {
   const btnClasses = classNames('btn', {
@@ -15,6 +16,12 @@ const FormButton = (props) => {
         disabled={props.disabled}
       >
         {props.text}
+        <i className={classNames('fa', 'ml-2', {
+            'fa-sign-in': !props.loading,
+            'fa-spinner': props.loading,
+            spinner: props.loading,
+          })}
+        />
       </button>
     </div>
   );
@@ -26,6 +33,7 @@ FormButton.propTypes = {
   buttonType: PropTypes.string,
   buttonFloat: PropTypes.string,
   disabled: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 FormButton.defaultProps = {
@@ -34,6 +42,7 @@ FormButton.defaultProps = {
   buttonType: '',
   buttonFloat: 'left',
   disabled: false,
+  loading: false,
 };
 
 export default FormButton;

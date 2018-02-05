@@ -22,6 +22,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    console.error(this.props);
     const {
       handleSubmit,
       loading,
@@ -65,6 +66,7 @@ class LoginForm extends React.Component {
             ))}
 
             <FormButton
+              loading={loading}
               type="submit"
               text="Login"
               buttonType="primary"
