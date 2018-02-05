@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import InputField from './../shared/InputField';
 import InputPassword from './../shared/InputPassword';
 import FormButton from './../shared/FormButton';
-import authActions from './../../actions/authActions';
+import authActions from './../../actions/authorization/authActions';
 import validators from './../validators/validationForm';
 import AuthContainer from './../containers/AuthContainer';
 

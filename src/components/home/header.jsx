@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import authActions from './../../actions/authActions';
+import authActions from './../../actions/authorization/authActions';
 
 const Header = (props) => {
   const { userData } = props;

@@ -14,10 +14,12 @@ export default class Notification extends React.Component {
     this.onClickDelete = this.onClickDelete.bind(this);
     this.onMouseEnter = this.onMouseEnter.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.startTimer = this.startTimer.bind(this);
   }
 
+
   componentDidMount() {
-    this.timer = setTimeout(this.onClickDelete, 3000);
+    this.startTimer();
   }
 
   onClickDelete() {
@@ -36,6 +38,10 @@ export default class Notification extends React.Component {
     this.setState({
       isActive: false,
     });
+  }
+
+  startTimer() {
+    this.timer = setTimeout(this.onClickDelete, 3000);
   }
 
   render() {

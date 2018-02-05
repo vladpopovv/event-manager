@@ -1,7 +1,7 @@
-import CONSTANTS from './../constants/constants';
-import APICONSTANTS from './../constants/apiConstants';
+import CONSTANTS from './../../constants/constants';
+import APICONSTANTS from './../../constants/apiConstants';
 import authToken from './authToken';
-import notificationActions from './notification/notificationActions';
+import notificationActions from './../notification/notificationActions';
 
 const {
   signInUrl,
@@ -28,21 +28,16 @@ const authActions = {
       return fetchRequest(data, signInUrl)
         .then((response) => {
           if (!response.ok && response.statusText === 'Unauthorized') {
-            // dispatch(notificationActions.addNew(
-            //   'danger',
-            //   'Unsuccessfully!',
-            //   'Invalid login or password.',
-            // ));
             throw new Error('Invalid login or password.');
           }
           return response.json();
         })
         .then((json) => {
-          // dispatch(notificationActions.addNew(
-          //   'success',
-          //   'Successfully!',
-          //   'You have successfully login.',
-          // ));
+          dispatch(notificationActions.addNew(
+            'success',
+            'Successfully!',
+            'You have successfully login.',
+          ));
           authToken.setToken(json.data.token);
           localStorage.setItem('userData', JSON.stringify(json.data));
           return dispatch({

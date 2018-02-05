@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import authActions from './../../actions/authActions';
+import authActions from './../../actions/authorization/authActions';
 import InputField from './../shared/InputField';
 import InputPassword from './../shared/InputPassword';
 import FormButton from './../shared/FormButton';

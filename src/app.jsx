@@ -8,7 +8,7 @@ import LoginPage from './components/login/LoginPage';
 import SignUpPage from './components/signup/SignUpPage';
 import HomePage from './components/home/HomePage';
 import NotFound from './components/shared/NotFound';
-// import NotificationWrapper from './components/notification/NotificationWrapper';
+import NotificationWrapper from './components/notification/NotificationWrapper';
 import './actions/fetchInterceptor';
 import './style/main.less';
 
@@ -26,4 +26,11 @@ ReactDOM.render(
     </BrowserRouter>
   </Provider>,
   document.getElementById('app'),
+);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <NotificationWrapper />
+  </Provider>,
+  document.getElementById('notifications'),
 );
