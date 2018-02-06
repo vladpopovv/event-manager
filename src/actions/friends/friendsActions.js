@@ -4,6 +4,7 @@ import notificationActions from './../notification/notificationActions';
 
 const {
   getFriendsUrl,
+  searchUsersUrl,
 } = APICONSTANTS;
 
 
@@ -22,6 +23,25 @@ const friendsActions = {
           dispatch(notificationActions.addNew('danger', 'Request error', error));
           return dispatch({
             type: CONSTANTS.FRIENDS_GET_FRIENDS_ERROR,
+            payload: error,
+          });
+        });
+    };
+  },
+  searchUsers(query) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.FRIENDS_SEARCH_REQUESTING });
+      return fetch(`${searchUsersUrl}?q=${query}`)
+        .then(response => response.json())
+        .then(json =>
+          dispatch({
+            type: CONSTANTS.FRIENDS_SEARCH_SUCCESS,
+            payload: json.data,
+          }))
+        .catch((error) => {
+          dispatch(notificationActions.addNew('danger', 'Request error', error));
+          return dispatch({
+            type: CONSTANTS.FRIENDS_SEARCH_ERROR,
             payload: error,
           });
         });
