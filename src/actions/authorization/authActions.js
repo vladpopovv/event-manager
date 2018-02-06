@@ -3,6 +3,8 @@ import APICONSTANTS from './../../constants/apiConstants';
 import authToken from './authToken';
 import notificationActions from './../notification/notificationActions';
 
+// fetch('/friends').then(response => response.json()).then(json => console.error(json));
+
 const {
   signInUrl,
   signUpUrl,
@@ -13,6 +15,9 @@ function getOptionsRequest(data) {
   return {
     method: 'POST',
     body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   };
 }
 

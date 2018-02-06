@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import FriendItem from './FriendItem';
+import friendsActions from './../../actions/friends/friendsActions';
 
 class FriendList extends React.Component {
   constructor(props) {
@@ -10,7 +12,17 @@ class FriendList extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.props.getFriends();
+  }
+
   render() {
+    const { friends } = this.props;
+    if (friends.length === 0) {
+      return (
+        <p>Friend list is empty</p>
+      );
+    }
     return (
       <ul className="list-group">
         {this.props.friends.map(friend => (
@@ -22,6 +34,7 @@ class FriendList extends React.Component {
 }
 
 FriendList.propTypes = {
+  getFriends: PropTypes.func.isRequired,
   friends: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
@@ -33,8 +46,8 @@ const mapStateToProps = state => ({
   friends: state.friends.friends,
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   getFollowers:
-// })
+const mapDispatchToProps = dispatch => ({
+  getFriends: bindActionCreators(friendsActions.getFriends, dispatch),
+});
 
-export default connect(mapStateToProps)(FriendList);
+export default connect(mapStateToProps, mapDispatchToProps)(FriendList);
