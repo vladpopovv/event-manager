@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './formButton.less';
 
 const FormButton = (props) => {
-  const btnClasses = classNames('btn', {
+  const btnClasses = classNames('btn', 'btn-sm', {
     [`btn-${props.buttonType}`]: props.buttonType,
   });
   return (
@@ -15,11 +15,13 @@ const FormButton = (props) => {
       onClick={props.onClickHandler}
     >
       {props.text}
-      <i className={classNames('fa', `fa-${props.icon}`, {
-          'fa-spinner': props.loading,
-          spinner: props.loading,
-        })}
-      />
+      {props.icon &&
+        <i className={classNames('fa', `fa-${props.icon}`, {
+            'fa-spinner': props.loading,
+            spinner: props.loading,
+          })}
+        />
+      }
     </button>
   );
 };
@@ -35,7 +37,7 @@ FormButton.propTypes = {
 };
 
 FormButton.defaultProps = {
-  icon: 'plus',
+  icon: '',
   text: '',
   type: 'button',
   buttonType: '',

@@ -7,6 +7,7 @@ const {
   searchUsersUrl,
   addToFriendsUrl,
   getFriendRequetsUrl,
+  deleteFriendsUrl,
 } = APICONSTANTS;
 
 
@@ -70,6 +71,32 @@ const friendsActions = {
           dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.FRIENDS_ADD_ERROR,
+            payload: error.message,
+          });
+        });
+    };
+  },
+  deleteFriends(user) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.FRIENDS_DETELE_REQUESTING });
+      return fetch(deleteFriendsUrl, {
+        method: 'POST',
+        body: JSON.stringify({
+          userIds: [user.id],
+        }),
+      })
+        .then(response => response.json())
+        .then((json) => {
+          dispatch(notificationActions.addNew('info', 'Success', `${user.firstname} ${user.lastname} has been removed from your friends list`));
+          return dispatch({
+            type: CONSTANTS.FRIENDS_DELETE_SUCCESS,
+            payload: json.data,
+          });
+        })
+        .catch((error) => {
+          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
+          return dispatch({
+            type: CONSTANTS.FRIENDS_DELETE_ERROR,
             payload: error.message,
           });
         });

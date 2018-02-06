@@ -7,4 +7,5 @@ export default {
   searchUsersUrl: 'users',
   addToFriendsUrl: 'sendFriendRequests',
   getFriendRequetsUrl: 'friends/requests/income',
+  deleteFriendsUrl: 'deleteFriends',
 };

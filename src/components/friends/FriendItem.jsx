@@ -5,6 +5,10 @@ import ControlButton from './../shared/ControlButton';
 import FriendsItemContainer from './../containers/FriendsItemContainer';
 
 const FriendItem = (props) => {
+  console.error(props.deleteHandler);
+  const onDeleteFriends = () => {
+    props.deleteHandler(props.friend);
+  };
   const userLink = `/user/${props.friend.id}`;
   return (
     <FriendsItemContainer>
@@ -24,6 +28,7 @@ const FriendItem = (props) => {
           <ControlButton
             buttonType="outline-danger"
             icon="trash"
+            onClickHandler={onDeleteFriends}
           />
         </div>
       </div>
@@ -37,6 +42,7 @@ FriendItem.propTypes = {
     firstname: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired,
   }).isRequired,
+  deleteHandler: PropTypes.func.isRequired,
 };
 
 export default FriendItem;

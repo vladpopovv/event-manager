@@ -19,23 +19,11 @@ class FriendList extends React.Component {
 
   render() {
     const { friends } = this.props;
-    const buttons = [
-      {
-        type: 'button',
-        style: 'outline-success',
-        icon: 'comments-o',
-      },
-      {
-        type: 'button',
-        style: 'outline-danger',
-        icon: 'trash',
-      },
-    ];
     return (
       <FriendsListContainer listName="Friends" isEmpty={(friends.length === 0)}>
         <ul className="list-group">
           {this.props.friends.map(friend => (
-            <FriendItem key={friend.id} friend={friend} buttons={buttons} />
+            <FriendItem key={friend.id} friend={friend} deleteHandler={this.props.deleteFriends} />
           ))}
         </ul>
       </FriendsListContainer>
@@ -45,6 +33,7 @@ class FriendList extends React.Component {
 
 FriendList.propTypes = {
   getFriends: PropTypes.func.isRequired,
+  deleteFriends: PropTypes.func.isRequired,
   friends: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
@@ -58,6 +47,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getFriends: bindActionCreators(friendsActions.getFriends, dispatch),
+  deleteFriends: bindActionCreators(friendsActions.deleteFriends, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendList);

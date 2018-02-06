@@ -42,16 +42,16 @@ class SearchFriends extends React.Component {
   render() {
     return (
       <div>
-        <form className="form-inline">
+        <form className="form-inline d-flex justify-content-between pb-1">
           <input
-            className="form-control col-9 mr-2"
+            className="form-control col-10 mr-2"
             type="search"
             placeholder="Search"
             value={this.state.query}
             onChange={this.onChangeQuery}
           />
           <button
-            className="btn btn-outline-success my-2 my-0"
+            className="btn btn-outline-success"
             type="submit"
             onClick={this.onSubmitSearch}
           >
