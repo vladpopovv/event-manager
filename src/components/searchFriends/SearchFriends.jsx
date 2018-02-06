@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import FriendItem from './FriendItem';
+import SearchFriendsItem from './SearchFriendsItem';
 import friendsActions from './../../actions/friends/friendsActions';
 
 class SearchFriends extends React.Component {
@@ -58,9 +58,13 @@ class SearchFriends extends React.Component {
             <i className="fa fa-search" />
           </button>
         </form>
-        <ul>
+        <ul className="list-group">
           {this.props.foundUsers.map(user => (
-            <FriendItem friend={user} />
+            <SearchFriendsItem
+              key={user.id}
+              user={user}
+              onClickAddHandler={this.props.addToFriends}
+            />
           ))}
         </ul>
       </div>
@@ -71,6 +75,7 @@ class SearchFriends extends React.Component {
 SearchFriends.propTypes = {
   foundUsers: PropTypes.arrayOf(PropTypes.shape({})),
   searchUsers: PropTypes.func.isRequired,
+  addToFriends: PropTypes.func.isRequired,
 };
 
 SearchFriends.defaultProps = {
@@ -83,6 +88,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   searchUsers: bindActionCreators(friendsActions.searchUsers, dispatch),
+  addToFriends: bindActionCreators(friendsActions.addToFriends, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFriends);

@@ -20,7 +20,7 @@ const friendsActions = {
             payload: json.data,
           }))
         .catch((error) => {
-          dispatch(notificationActions.addNew('danger', 'Request error', error));
+          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.FRIENDS_GET_FRIENDS_ERROR,
             payload: error,
@@ -39,13 +39,16 @@ const friendsActions = {
             payload: json.data,
           }))
         .catch((error) => {
-          dispatch(notificationActions.addNew('danger', 'Request error', error));
+          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.FRIENDS_SEARCH_ERROR,
-            payload: error,
+            payload: error.message,
           });
         });
     };
+  },
+  addToFriends(userId) {
+    console.log(userId);
   },
 };
 

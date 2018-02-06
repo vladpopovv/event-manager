@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import FriendsList from './FriendsList';
 import FriendsRequestList from './FriendsRequestList';
-import SearchFriends from './SearchFriends';
+import SearchFriends from './../searchFriends/SearchFriends';
 
 const FriendsPage = () => (
   <div className="container">

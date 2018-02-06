@@ -13,8 +13,8 @@ class FriendsRequestList extends React.Component {
   render() {
     return (
       <ul className="list-group">
-        {this.props.followers.map(follower => (
-          <FriendsRequestItem key={follower.id} follower={follower} />
+        {this.props.users.map(user => (
+          <FriendsRequestItem key={user.id} user={user} />
         ))}
       </ul>
     );
@@ -22,15 +22,15 @@ class FriendsRequestList extends React.Component {
 }
 
 FriendsRequestList.propTypes = {
-  followers: PropTypes.arrayOf(PropTypes.shape({})),
+  users: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 FriendsRequestList.defaultProps = {
-  followers: [],
+  users: [],
 };
 
 const mapStateToProps = state => ({
-  followers: state.friends.followers,
+  users: state.friends.followers,
 });
 
 // const mapDispatchToProps = dispatch => ({

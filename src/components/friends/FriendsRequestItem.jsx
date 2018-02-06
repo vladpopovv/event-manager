@@ -7,7 +7,7 @@ const FriendsRequestItem = props => (
     className="list-group-item border-top-0 border-left-0 border-right-0
     border-bottom d-flex justify-content-between align-items-center"
   >
-    <Link className="text-dark" to={`/user/${props.follower.id}`} href={`/user/${props.follower.id}`}>{props.follower.firstname} {props.follower.lastname}</Link>
+    <Link className="text-dark" to={`/user/${props.user.id}`} href={`/user/${props.user.id}`}>{props.user.firstname} {props.user.lastname}</Link>
     <div>
       <div className="btn-group" role="group">
         <button type="button" className="btn btn-outline-success">
@@ -22,7 +22,7 @@ const FriendsRequestItem = props => (
 );
 
 FriendsRequestItem.propTypes = {
-  follower: PropTypes.shape({
+  user: PropTypes.shape({
     id: PropTypes.number.isRequired,
     firstname: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired,
