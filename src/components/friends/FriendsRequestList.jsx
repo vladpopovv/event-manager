@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FollowerItem from './FollowerItem';
+import FriendsRequestItem from './FriendsRequestItem';
 
-class FollowerList extends React.Component {
+class FriendsRequestList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -14,18 +14,18 @@ class FollowerList extends React.Component {
     return (
       <ul className="list-group">
         {this.props.followers.map(follower => (
-          <FollowerItem key={follower.id} follower={follower} />
+          <FriendsRequestItem key={follower.id} follower={follower} />
         ))}
       </ul>
     );
   }
 }
 
-FollowerList.propTypes = {
+FriendsRequestList.propTypes = {
   followers: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
-FollowerList.defaultProps = {
+FriendsRequestList.defaultProps = {
   followers: [],
 };
 
@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
 });
 
 // const mapDispatchToProps = dispatch => ({
-//   getFollowers:
+//   getFriendsRequests:
 // })
 
-export default connect(mapStateToProps)(FollowerList);
+export default connect(mapStateToProps)(FriendsRequestList);

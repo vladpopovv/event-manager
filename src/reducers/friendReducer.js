@@ -1,7 +1,11 @@
 import CONSTANTS from './../constants/constants';
 
 const initialState = {
-  friends: [],
+  friends: [{
+    firstname: 'Vova',
+    lastname: 'Ivanov',
+    id: 1,
+  }],
   followers: [{
     firstname: 'Vova',
     lastname: 'Ivanov',
@@ -21,7 +25,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        friends: payload,
+        // friends: payload,
       };
     case CONSTANTS.FRIENDS_GET_FRIENDS_ERROR:
       return {

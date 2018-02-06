@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import 'bootstrap';
 
 const FriendItem = props => (
-  <li className="list-group-item d-flex justify-content-between align-items-center">
+  <li
+    className="list-group-item border-top-0 border-left-0 border-right-0
+    border-bottom d-flex justify-content-between align-items-center"
+  >
     <Link className="text-dark" to={`/user/${props.friend.id}`} href={`/user/${props.friend.id}`}>{props.friend.firstname} {props.friend.lastname}</Link>
     <div>
       <div className="dropdown">
