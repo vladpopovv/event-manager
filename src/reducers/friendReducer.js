@@ -83,7 +83,24 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.FRIENDS_SEARCH_ERROR:
       return {
         ...state,
+        loading: false,
+        error: payload,
+      };
+    case CONSTANTS.FRIENDS_ADD_REQUESTING:
+      return {
+        ...state,
         loading: true,
+        error: payload,
+      };
+    case CONSTANTS.FRIENDS_ADD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case CONSTANTS.FRIENDS_ADD_ERROR:
+      return {
+        ...state,
+        loading: false,
         error: payload,
       };
     default:

@@ -5,7 +5,7 @@ import ControlButton from './../shared/ControlButton';
 
 const SearchFriendsItem = (props) => {
   const onClickAddHandler = () => {
-    props.onClickAddHandler(props.user.id);
+    props.onClickAddHandler(props.user);
   };
   const userUrl = `/users/${props.user.id}`;
   return (

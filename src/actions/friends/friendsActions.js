@@ -5,6 +5,7 @@ import notificationActions from './../notification/notificationActions';
 const {
   getFriendsUrl,
   searchUsersUrl,
+  addToFriendsUrl,
 } = APICONSTANTS;
 
 
@@ -47,8 +48,31 @@ const friendsActions = {
         });
     };
   },
-  addToFriends(userId) {
-    console.log(userId);
+  addToFriends(user) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.FRIENDS_ADD_REQUESTING });
+      return fetch(addToFriendsUrl, {
+        method: 'POST',
+        body: JSON.stringify({
+          userIds: [user.id],
+        }),
+      })
+        .then(response => response.json())
+        .then((json) => {
+          dispatch(notificationActions.addNew('info', 'Success', `The request was successfully sent to ${user.firstname} ${user.lastname}`));
+          return dispatch({
+            type: CONSTANTS.FRIENDS_ADD_SUCCESS,
+            payload: json.data,
+          });
+        })
+        .catch((error) => {
+          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
+          return dispatch({
+            type: CONSTANTS.FRIENDS_ADD_ERROR,
+            payload: error.message,
+          });
+        });
+    };
   },
 };
 

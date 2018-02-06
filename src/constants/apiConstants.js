@@ -5,4 +5,5 @@ export default {
   logOutUrl: 'logout',
   getFriendsUrl: 'friends',
   searchUsersUrl: 'users',
+  addToFriendsUrl: 'sendFriendRequests',
 };
