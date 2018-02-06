@@ -1,4 +1,4 @@
-import CONSTANTS from './../constants/constants';
+import CONSTANTS from './../constants/actionConstants';
 import authToken from './../actions/authorization/authToken';
 
 const initialState = {

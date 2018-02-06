@@ -1,4 +1,4 @@
-import CONSTANTS from './../../constants/constants';
+import CONSTANTS from './../../constants/actionConstants';
 
 export default {
   addNew(type, title, description) {

@@ -1,4 +1,4 @@
-import CONSTANTS from './../../constants/constants';
+import CONSTANTS from './../../constants/actionConstants';
 import APICONSTANTS from './../../constants/apiConstants';
 import authToken from './authToken';
 import notificationActions from './../notification/notificationActions';
