@@ -1,4 +1,4 @@
-import CONSTANTS from './../constants/constants';
+import CONSTANTS from './../constants/actionConstants';
 
 const initialState = {
   friends: [{
@@ -34,19 +34,19 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
         error: payload,
       };
-    case CONSTANTS.FRIENDS_GET_FOLLOWERS_REQUESTING:
+    case CONSTANTS.FRIENDS_GET_REQUESTS_REQUESTING:
       return {
         ...state,
         loading: true,
         error: '',
       };
-    case CONSTANTS.FRIENDS_GET_FOLLOWERS_SUCCESS:
+    case CONSTANTS.FRIENDS_GET_REQUESTS_SUCCESS:
       return {
         ...state,
         loading: false,
-        followers: payload,
+        // followers: payload,
       };
-    case CONSTANTS.FRIENDS_GET_FOLLOWERS_ERROR:
+    case CONSTANTS.FRIENDS_GET_REQUESTS_ERROR:
       return {
         ...state,
         loading: false,

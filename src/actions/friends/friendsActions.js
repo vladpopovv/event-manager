@@ -1,4 +1,4 @@
-import CONSTANTS from './../../constants/constants';
+import CONSTANTS from './../../constants/actionConstants';
 import APICONSTANTS from './../../constants/apiConstants';
 import notificationActions from './../notification/notificationActions';
 
@@ -6,6 +6,7 @@ const {
   getFriendsUrl,
   searchUsersUrl,
   addToFriendsUrl,
+  getFriendRequetsUrl,
 } = APICONSTANTS;
 
 
@@ -69,6 +70,26 @@ const friendsActions = {
           dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.FRIENDS_ADD_ERROR,
+            payload: error.message,
+          });
+        });
+    };
+  },
+  getFriendRequets() {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.FRIENDS_GET_REQUESTS_REQUESTING });
+      return fetch(getFriendRequetsUrl)
+        .then(response => response.json())
+        .then(json => (
+          dispatch({
+            type: CONSTANTS.FRIENDS_GET_REQUESTS_SUCCESS,
+            payload: json.data,
+          })
+        ))
+        .catch((error) => {
+          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
+          return dispatch({
+            type: CONSTANTS.FRIENDS_GET_REQUESTS_ERROR,
             payload: error.message,
           });
         });

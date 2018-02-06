@@ -1,33 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import 'bootstrap';
+import ControlButton from './../shared/ControlButton';
+import FriendsItemContainer from './../containers/FriendsItemContainer';
 
-const FriendItem = props => (
-  <li
-    className="list-group-item border-top-0 border-left-0 border-right-0
-    border-bottom d-flex justify-content-between align-items-center"
-  >
-    <Link className="text-dark" to={`/user/${props.friend.id}`} href={`/user/${props.friend.id}`}>{props.friend.firstname} {props.friend.lastname}</Link>
-    <div>
-      <div className="dropdown">
-        <button
-          className="btn btn-outline-secondary"
-          type="button"
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-        >
-          <i className="fa fa-ellipsis-h" />
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <button className="dropdown-item">Send message</button>
-          <div className="dropdown-divider" />
-          <button className="dropdown-item">Delete</button>
+const FriendItem = (props) => {
+  const userLink = `/user/${props.friend.id}`;
+  return (
+    <FriendsItemContainer>
+      <Link
+        className="text-dark"
+        to={userLink}
+        href={userLink}
+      >
+        {props.friend.firstname} {props.friend.lastname}
+      </Link>
+      <div>
+        <div className="btn-group" role="group">
+          <ControlButton
+            buttonType="outline-success"
+            icon="comments-o"
+          />
+          <ControlButton
+            buttonType="outline-danger"
+            icon="trash"
+          />
         </div>
       </div>
-    </div>
-  </li>
-);
+    </FriendsItemContainer>
+  );
+};
 
 FriendItem.propTypes = {
   friend: PropTypes.shape({

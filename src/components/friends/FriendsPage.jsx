@@ -1,8 +1,9 @@
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import FriendsList from './FriendsList';
 import FriendsRequestList from './FriendsRequestList';
 import SearchFriends from './../searchFriends/SearchFriends';
+import FriendsNavs from './FriendsNavs';
 
 const FriendsPage = () => (
   <div className="container">
@@ -16,22 +17,7 @@ const FriendsPage = () => (
       <div className="col-4 p-0">
         <div className="card border-0">
           <div className="card-header p-0 border-bottom">
-            <ul className="list-group">
-              <Link
-                className="list-group-item border-0"
-                href="/friends"
-                to="/friends"
-              >
-                All friends
-              </Link>
-              <Link
-                className="list-group-item border-0"
-                href="/friends/request"
-                to="/friends/request"
-              >
-                Friends Requests
-              </Link>
-            </ul>
+            <FriendsNavs />
           </div>
           <div className="card-body">
             <SearchFriends />

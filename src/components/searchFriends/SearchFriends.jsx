@@ -44,7 +44,7 @@ class SearchFriends extends React.Component {
       <div>
         <form className="form-inline">
           <input
-            className="form-control w-75 mr-2"
+            className="form-control col-9 mr-2"
             type="search"
             placeholder="Search"
             value={this.state.query}

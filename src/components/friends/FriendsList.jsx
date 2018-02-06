@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FriendItem from './FriendItem';
+import FriendsListContainer from './../containers/FriendsListContainer';
 import friendsActions from './../../actions/friends/friendsActions';
 
 class FriendList extends React.Component {
@@ -18,17 +19,26 @@ class FriendList extends React.Component {
 
   render() {
     const { friends } = this.props;
-    if (friends.length === 0) {
-      return (
-        <p>Friend list is empty</p>
-      );
-    }
+    const buttons = [
+      {
+        type: 'button',
+        style: 'outline-success',
+        icon: 'comments-o',
+      },
+      {
+        type: 'button',
+        style: 'outline-danger',
+        icon: 'trash',
+      },
+    ];
     return (
-      <ul className="list-group">
-        {this.props.friends.map(friend => (
-          <FriendItem key={friend.id} friend={friend} />
-        ))}
-      </ul>
+      <FriendsListContainer listName="Friends" isEmpty={(friends.length === 0)}>
+        <ul className="list-group">
+          {this.props.friends.map(friend => (
+            <FriendItem key={friend.id} friend={friend} buttons={buttons} />
+          ))}
+        </ul>
+      </FriendsListContainer>
     );
   }
 }

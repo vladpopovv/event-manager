@@ -6,4 +6,5 @@ export default {
   getFriendsUrl: 'friends',
   searchUsersUrl: 'users',
   addToFriendsUrl: 'sendFriendRequests',
+  getFriendRequetsUrl: 'friends/requests/income',
 };
