@@ -3,10 +3,11 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import './formButton.less';
 
-const FormButton = (props) => {
+const ControlButton = (props) => {
   const btnClasses = classNames('btn', 'btn-sm', {
     [`btn-${props.buttonType}`]: props.buttonType,
   });
+  const icon = props.loading ? 'fa-spinner' : `fa-${props.icon}`;
   return (
     <button
       type={props.type}
@@ -16,8 +17,7 @@ const FormButton = (props) => {
     >
       {props.text}
       {props.icon &&
-        <i className={classNames('fa', `fa-${props.icon}`, {
-            'fa-spinner': props.loading,
+        <i className={classNames('fa', icon, {
             spinner: props.loading,
           })}
         />
@@ -26,7 +26,7 @@ const FormButton = (props) => {
   );
 };
 
-FormButton.propTypes = {
+ControlButton.propTypes = {
   icon: PropTypes.string,
   text: PropTypes.string,
   type: PropTypes.string,
@@ -36,7 +36,7 @@ FormButton.propTypes = {
   onClickHandler: PropTypes.func.isRequired,
 };
 
-FormButton.defaultProps = {
+ControlButton.defaultProps = {
   icon: '',
   text: '',
   type: 'button',
@@ -45,4 +45,4 @@ FormButton.defaultProps = {
   loading: false,
 };
 
-export default FormButton;
+export default ControlButton;

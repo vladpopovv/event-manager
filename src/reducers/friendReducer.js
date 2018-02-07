@@ -66,7 +66,7 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.FRIENDS_DELETE_ERROR:
       return {
         ...state,
-        loading: true,
+        loading: false,
         error: payload,
       };
     case CONSTANTS.FRIENDS_SEARCH_REQUESTING:

@@ -23,7 +23,12 @@ class FriendList extends React.Component {
       <FriendsListContainer listName="Friends" isEmpty={(friends.length === 0)}>
         <ul className="list-group">
           {this.props.friends.map(friend => (
-            <FriendItem key={friend.id} friend={friend} deleteHandler={this.props.deleteFriends} />
+            <FriendItem
+              key={friend.id}
+              friend={friend}
+              deleteHandler={this.props.deleteFriends}
+              loading={this.props.loading}
+            />
           ))}
         </ul>
       </FriendsListContainer>
@@ -34,6 +39,7 @@ class FriendList extends React.Component {
 FriendList.propTypes = {
   getFriends: PropTypes.func.isRequired,
   deleteFriends: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
   friends: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
@@ -43,6 +49,7 @@ FriendList.defaultProps = {
 
 const mapStateToProps = state => ({
   friends: state.friends.friends,
+  loading: state.friends.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
