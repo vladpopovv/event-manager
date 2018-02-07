@@ -18,11 +18,12 @@ class FriendsRequestList extends React.Component {
   }
 
   render() {
+    // console.error('PROPS', this.props.users[0].friender);
     return (
-      <FriendsListContainer listName="Friends" isEmpty={(this.props.users.length === 0)}>
+      <FriendsListContainer listName="Friends" isEmpty={(this.props.requests.length === 0)}>
         <ul className="list-group">
-          {this.props.users.map(user => (
-            <FriendsRequestItem key={user.id} user={user} />
+          {this.props.requests.map(requestItem => (
+            <FriendsRequestItem key={requestItem.id} requestData={requestItem} />
           ))}
         </ul>
       </FriendsListContainer>
@@ -32,15 +33,15 @@ class FriendsRequestList extends React.Component {
 
 FriendsRequestList.propTypes = {
   getFriendRequets: PropTypes.func.isRequired,
-  users: PropTypes.arrayOf(PropTypes.shape({})),
+  requests: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 FriendsRequestList.defaultProps = {
-  users: [],
+  requests: [],
 };
 
 const mapStateToProps = state => ({
-  users: state.friends.followers,
+  requests: state.friends.followers,
 });
 
 const mapDispatchToProps = dispatch => ({

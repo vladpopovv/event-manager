@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import FriendsItemContainer from './../containers/FriendsItemContainer';
 
 const FriendsRequestItem = (props) => {
-  const userLink = `/user/${props.user.id}`;
+  const userLink = `/user/${props.requestData.friender.id}`;
   return (
     <FriendsItemContainer>
       <Link
@@ -12,7 +12,7 @@ const FriendsRequestItem = (props) => {
         to={userLink}
         href={userLink}
       >
-        {props.user.firstname} {props.user.lastname}
+        {props.requestData.friender.firstname} {props.requestData.friender.lastname}
       </Link>
       <div>
         <div className="btn-group" role="group">
@@ -29,10 +29,12 @@ const FriendsRequestItem = (props) => {
 };
 
 FriendsRequestItem.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    firstname: PropTypes.string.isRequired,
-    lastname: PropTypes.string.isRequired,
+  requestData: PropTypes.shape({
+    friender: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      firstname: PropTypes.string.isRequired,
+      lastname: PropTypes.string.isRequired,
+    }),
   }).isRequired,
 };
 

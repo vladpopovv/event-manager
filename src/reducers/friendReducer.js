@@ -6,11 +6,7 @@ const initialState = {
     lastname: 'Ivanov',
     id: 1,
   }],
-  followers: [{
-    firstname: 'Vova',
-    lastname: 'Ivanov',
-    id: 1,
-  }],
+  followers: [],
   foundUsers: [],
 };
 
@@ -44,7 +40,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        // followers: payload,
+        followers: payload,
       };
     case CONSTANTS.FRIENDS_GET_REQUESTS_ERROR:
       return {
