@@ -22,7 +22,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        // friends: payload,
+        friends: payload,
       };
     case CONSTANTS.FRIENDS_GET_FRIENDS_ERROR:
       return {
@@ -82,11 +82,26 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
         error: payload,
       };
+    case CONSTANTS.FRIENDS_SEND_REQUEST_REQUESTING:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CONSTANTS.FRIENDS_SEND_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case CONSTANTS.FRIENDS_SEND_REQUEST_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
     case CONSTANTS.FRIENDS_ADD_REQUESTING:
       return {
         ...state,
         loading: true,
-        error: payload,
       };
     case CONSTANTS.FRIENDS_ADD_SUCCESS:
       return {

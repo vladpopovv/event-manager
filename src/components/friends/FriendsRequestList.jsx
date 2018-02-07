@@ -20,10 +20,14 @@ class FriendsRequestList extends React.Component {
   render() {
     // console.error('PROPS', this.props.users[0].friender);
     return (
-      <FriendsListContainer listName="Friends" isEmpty={(this.props.requests.length === 0)}>
+      <FriendsListContainer listName="Requests" isEmpty={(this.props.requests.length === 0)}>
         <ul className="list-group">
           {this.props.requests.map(requestItem => (
-            <FriendsRequestItem key={requestItem.id} requestData={requestItem} />
+            <FriendsRequestItem
+              key={requestItem.id}
+              requestData={requestItem}
+              addToFriendsHandler={this.props.addToFriends}
+            />
           ))}
         </ul>
       </FriendsListContainer>
@@ -34,6 +38,7 @@ class FriendsRequestList extends React.Component {
 FriendsRequestList.propTypes = {
   getFriendRequets: PropTypes.func.isRequired,
   requests: PropTypes.arrayOf(PropTypes.shape({})),
+  addToFriends: PropTypes.func.isRequired,
 };
 
 FriendsRequestList.defaultProps = {
@@ -46,6 +51,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getFriendRequets: bindActionCreators(friendsActions.getFriendRequets, dispatch),
+  addToFriends: bindActionCreators(friendsActions.addToFriends, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsRequestList);

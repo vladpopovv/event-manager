@@ -63,7 +63,7 @@ class SearchFriends extends React.Component {
             <SearchFriendsItem
               key={user.id}
               user={user}
-              onClickAddHandler={this.props.addToFriends}
+              onClickAddHandler={this.props.sendRequestToFriends}
             />
           ))}
         </ul>
@@ -75,7 +75,7 @@ class SearchFriends extends React.Component {
 SearchFriends.propTypes = {
   foundUsers: PropTypes.arrayOf(PropTypes.shape({})),
   searchUsers: PropTypes.func.isRequired,
-  addToFriends: PropTypes.func.isRequired,
+  sendRequestToFriends: PropTypes.func.isRequired,
 };
 
 SearchFriends.defaultProps = {
@@ -88,7 +88,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   searchUsers: bindActionCreators(friendsActions.searchUsers, dispatch),
-  addToFriends: bindActionCreators(friendsActions.addToFriends, dispatch),
+  sendRequestToFriends: bindActionCreators(friendsActions.sendRequestToFriends, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFriends);

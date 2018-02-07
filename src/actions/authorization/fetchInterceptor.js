@@ -22,7 +22,7 @@ fetchIntercept.register({
   },
 
   response: (response) => {
-    if (response.status === 401) {
+    if (response.status === 401 && authToken.hasToken()) {
       authActions.logOutRequest();
     }
     return response;

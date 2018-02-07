@@ -2,25 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FriendListContainer = (props) => {
-  const { ListName } = props;
+  const { listName } = props;
   return (
     <div>
-      <h1 className="m-3">My {ListName}</h1>
+      <h1 className="m-3">My {listName}</h1>
       { props.isEmpty &&
-        <p className="m-3">{ListName} list is empty</p>}
+        <p className="m-3">{listName} list is empty</p>}
       {props.children}
     </div>
   );
 };
 
 FriendListContainer.propTypes = {
-  ListName: PropTypes.string,
+  listName: PropTypes.string,
   isEmpty: PropTypes.bool,
   children: PropTypes.shape({}).isRequired,
 };
 
 FriendListContainer.defaultProps = {
-  ListName: 'Friends',
+  listName: 'Friends',
   isEmpty: false,
 };
 

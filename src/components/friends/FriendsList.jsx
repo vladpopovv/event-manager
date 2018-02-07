@@ -39,12 +39,13 @@ class FriendList extends React.Component {
 FriendList.propTypes = {
   getFriends: PropTypes.func.isRequired,
   deleteFriends: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   friends: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 FriendList.defaultProps = {
   friends: [],
+  loading: false,
 };
 
 const mapStateToProps = state => ({
