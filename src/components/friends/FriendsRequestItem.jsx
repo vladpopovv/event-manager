@@ -10,6 +10,7 @@ const FriendsRequestItem = (props) => {
   const deleteRequestHandler = () => (props.deleteRequestHandler(props.requestData.friender));
   const diffTime = moment(props.requestData.createdAt).fromNow();
   const userLink = `/user/${props.requestData.friender.id}`;
+
   return (
     <FriendsItemContainer>
       <Link

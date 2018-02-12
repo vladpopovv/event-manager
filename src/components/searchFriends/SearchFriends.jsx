@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SearchFriendsItem from './SearchFriendsItem';
 import friendsActions from './../../actions/friends/friendsActions';
+import './searchFriends.less';
 
 class SearchFriends extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class SearchFriends extends React.Component {
 
     this.state = {
       query: '',
+      submitSuccess: false,
     };
 
     this.onChangeQuery = this.onChangeQuery.bind(this);
@@ -22,8 +24,9 @@ class SearchFriends extends React.Component {
     clearTimeout(this.debouceTimer);
     this.setState({
       query: e.target.value,
+      submitSuccess: false,
     });
-    this.debouceTimer = setTimeout(this.getFoundUser, 1000);
+    this.debouceTimer = setTimeout(this.getFoundUser, 500);
   }
 
   onSubmitSearch(e) {
@@ -36,18 +39,37 @@ class SearchFriends extends React.Component {
     if (query === '') {
       return;
     }
-    this.props.searchUsers(query);
+    this.props.searchUsers(query)
+      .then(() => this.setState({
+        submitSuccess: true,
+      }));
+  }
+
+  renderList() {
+    return (
+      <ul className="list-group">
+        {this.props.foundUsers.map(user => (
+          <SearchFriendsItem
+            key={user.id}
+            user={user}
+            onClickAddHandler={this.props.sendRequestToFriends}
+          />
+        ))}
+      </ul>
+    );
   }
 
   render() {
+    const { query, submitSuccess } = this.state;
+    const flag = query && submitSuccess && !(this.props.foundUsers.length > 0);
     return (
       <div>
         <form className="form-inline d-flex justify-content-between pb-1">
           <input
             className="form-control col-10 mr-2"
             type="search"
-            placeholder="Search"
-            value={this.state.query}
+            placeholder="Find friends"
+            value={query}
             onChange={this.onChangeQuery}
           />
           <button
@@ -58,15 +80,12 @@ class SearchFriends extends React.Component {
             <i className="fa fa-search" />
           </button>
         </form>
-        <ul className="list-group">
-          {this.props.foundUsers.map(user => (
-            <SearchFriendsItem
-              key={user.id}
-              user={user}
-              onClickAddHandler={this.props.sendRequestToFriends}
-            />
-          ))}
-        </ul>
+        <div className="search__list my-1">
+          {flag
+            ? <span>Nothing found on your request</span>
+            : query && this.renderList()
+          }
+        </div>
       </div>
     );
   }
