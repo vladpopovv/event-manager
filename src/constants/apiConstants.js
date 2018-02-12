@@ -4,7 +4,7 @@ export default {
   signUpUrl: 'signup',
   logOutUrl: 'logout',
   getFriendsUrl: 'friends',
-  searchUsersUrl: 'users',
+  searchUsersUrl: 'users/search',
   addToFriendsUrl: 'sendFriendRequests',
   sendRequestToFriendsUrl: 'sendFriendRequests',
   getFriendRequetsUrl: 'friends/requests/income',

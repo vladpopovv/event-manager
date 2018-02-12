@@ -62,6 +62,7 @@ const friendsActions = {
       })
         .then(response => response.json())
         .then((json) => {
+          dispatch(friendsActions.getFriendRequets());
           dispatch(notificationActions.addNew('info', 'Success', `The request was successfully sent to ${user.firstname} ${user.lastname}`));
           return dispatch({
             type: CONSTANTS.FRIENDS_SEND_REQUEST_SUCCESS,
@@ -88,6 +89,7 @@ const friendsActions = {
       })
         .then(response => response.json())
         .then((json) => {
+          dispatch(friendsActions.getFriendRequets());
           dispatch(notificationActions.addNew('info', 'Success', `The request was successfully sent to ${user.firstname} ${user.lastname}`));
           return dispatch({
             type: CONSTANTS.FRIENDS_ADD_SUCCESS,
@@ -114,6 +116,7 @@ const friendsActions = {
       })
         .then(response => response.json())
         .then((json) => {
+          dispatch(friendsActions.getFriends());
           dispatch(notificationActions.addNew(
             'info',
             'Success',

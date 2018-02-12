@@ -68,6 +68,11 @@ export default (state = initialState, { type, payload }) => {
           error: 'Error request',
         },
       };
+    case CONSTANTS.LOG_OUT_REQUESTING:
+      return {
+        ...initialState,
+        loading: true,
+      };
     case CONSTANTS.LOG_OUT_SUCCESS:
       return {
         ...state,

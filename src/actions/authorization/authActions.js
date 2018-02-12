@@ -92,7 +92,7 @@ const authActions = {
     authToken.clearToken();
     return (dispatch) => {
       dispatch({
-        type: CONSTANTS.LOG_OUT_SUCCESS,
+        type: CONSTANTS.LOG_OUT_REQUESTING,
       });
       fetch(logOutUrl, options)
         .then(response => response.json())
