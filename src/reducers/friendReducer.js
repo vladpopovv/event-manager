@@ -1,11 +1,7 @@
 import CONSTANTS from './../constants/actionConstants';
 
 const initialState = {
-  friends: [{
-    firstname: 'Vova',
-    lastname: 'Ivanov',
-    id: 1,
-  }],
+  friends: [],
   followers: [],
   foundUsers: [],
 };
@@ -60,6 +56,23 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
       };
     case CONSTANTS.FRIENDS_DELETE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    case CONSTANTS.FRIENDS_DELETE_REQUEST_REQUESTING:
+      return {
+        ...state,
+        loading: true,
+        error: '',
+      };
+    case CONSTANTS.FRIENDS_DELETE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case CONSTANTS.FRIENDS_DELETE_REQUEST_ERROR:
       return {
         ...state,
         loading: false,

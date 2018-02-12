@@ -8,7 +8,6 @@ const {
   addToFriendsUrl,
   getFriendRequetsUrl,
   deleteFriendsUrl,
-  sendRequestToFriendsUrl,
 } = APICONSTANTS;
 
 
@@ -54,7 +53,7 @@ const friendsActions = {
   sendRequestToFriends(user) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.FRIENDS_SEND_REQUEST_REQUESTING });
-      return fetch(sendRequestToFriendsUrl, {
+      return fetch(addToFriendsUrl, {
         method: 'POST',
         body: JSON.stringify({
           userIds: [user.id],
@@ -89,8 +88,8 @@ const friendsActions = {
       })
         .then(response => response.json())
         .then((json) => {
+          dispatch(notificationActions.addNew('info', 'Success', `${user.firstname} ${user.lastname} has been successfully added to your friends list`));
           dispatch(friendsActions.getFriendRequets());
-          dispatch(notificationActions.addNew('info', 'Success', `The request was successfully sent to ${user.firstname} ${user.lastname}`));
           return dispatch({
             type: CONSTANTS.FRIENDS_ADD_SUCCESS,
             payload: json.data,
@@ -100,6 +99,34 @@ const friendsActions = {
           dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.FRIENDS_ADD_ERROR,
+            payload: error.message,
+          });
+        });
+    };
+  },
+  deleteRequestToFriends(user) {
+    const url = `friends/${user.id}/requests`;
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.FRIENDS_DELETE_REQUEST_REQUESTING });
+      return fetch(url, {
+        method: 'delete',
+        // body: JSON.stringify({
+        //   userIds: [user.id],
+        // }),
+      })
+        .then(response => response.json())
+        .then((json) => {
+          dispatch(notificationActions.addNew('info', 'Success', `${user.firstname} ${user.lastname} request was successfully deleted`));
+          dispatch(friendsActions.getFriendRequets());
+          return dispatch({
+            type: CONSTANTS.FRIENDS_DELETE_REQUEST_SUCCESS,
+            payload: json.data,
+          });
+        })
+        .catch((error) => {
+          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
+          return dispatch({
+            type: CONSTANTS.FRIENDS_DELETE_REQUEST_ERROR,
             payload: error.message,
           });
         });

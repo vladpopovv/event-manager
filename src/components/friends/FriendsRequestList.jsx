@@ -27,6 +27,7 @@ class FriendsRequestList extends React.Component {
               key={requestItem.id}
               requestData={requestItem}
               addToFriendsHandler={this.props.addToFriends}
+              deleteRequestHandler={this.props.deleteRequest}
             />
           ))}
         </ul>
@@ -39,6 +40,7 @@ FriendsRequestList.propTypes = {
   getFriendRequets: PropTypes.func.isRequired,
   requests: PropTypes.arrayOf(PropTypes.shape({})),
   addToFriends: PropTypes.func.isRequired,
+  deleteRequest: PropTypes.func.isRequired,
 };
 
 FriendsRequestList.defaultProps = {
@@ -52,6 +54,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getFriendRequets: bindActionCreators(friendsActions.getFriendRequets, dispatch),
   addToFriends: bindActionCreators(friendsActions.addToFriends, dispatch),
+  deleteRequest: bindActionCreators(friendsActions.deleteRequestToFriends, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsRequestList);
