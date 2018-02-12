@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SearchFriendsItem from './SearchFriendsItem';
 import friendsActions from './../../actions/friends/friendsActions';
+import ControlButton from './../shared/ControlButton';
 import './searchFriends.less';
 
 class SearchFriends extends React.Component {
@@ -53,6 +54,7 @@ class SearchFriends extends React.Component {
             key={user.id}
             user={user}
             onClickAddHandler={this.props.sendRequestToFriends}
+            addBtnLoading={this.props.sendRequestLoading.indexOf(user.id) !== -1}
           />
         ))}
       </ul>
@@ -72,13 +74,14 @@ class SearchFriends extends React.Component {
             value={query}
             onChange={this.onChangeQuery}
           />
-          <button
-            className="btn btn-outline-success"
+          <ControlButton
+            buttonType="outline-success"
+            icon="search"
             type="submit"
-            onClick={this.onSubmitSearch}
-          >
-            <i className="fa fa-search" />
-          </button>
+            loading={this.props.loading}
+            onClickHandler={this.onSubmitSearch}
+            disabled={this.props.loading}
+          />
         </form>
         <div className="search__list my-1">
           {flag
@@ -95,14 +98,20 @@ SearchFriends.propTypes = {
   foundUsers: PropTypes.arrayOf(PropTypes.shape({})),
   searchUsers: PropTypes.func.isRequired,
   sendRequestToFriends: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  sendRequestLoading: PropTypes.arrayOf(PropTypes.number),
 };
 
 SearchFriends.defaultProps = {
   foundUsers: [],
+  loading: false,
+  sendRequestLoading: [],
 };
 
 const mapStateToProps = state => ({
   foundUsers: state.friends.foundUsers,
+  loading: state.friends.loading.searchLoading,
+  sendRequestLoading: state.friends.loading.sendRequestLoading,
 });
 
 const mapDispatchToProps = dispatch => ({

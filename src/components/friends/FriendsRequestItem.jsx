@@ -27,6 +27,8 @@ const FriendsRequestItem = (props) => {
             buttonType="outline-success"
             icon="plus-circle"
             onClickHandler={addToFriendsHandler}
+            loading={props.addToFriendsLoading}
+            disabled={props.addToFriendsLoading}
           />
           <ControlButton
             buttonType="outline-danger"
@@ -49,7 +51,12 @@ FriendsRequestItem.propTypes = {
     createdAt: PropTypes.string.isRequired,
   }).isRequired,
   addToFriendsHandler: PropTypes.func.isRequired,
+  addToFriendsLoading: PropTypes.bool,
   deleteRequestHandler: PropTypes.func.isRequired,
+};
+
+FriendsRequestItem.defaultProps = {
+  addToFriendsLoading: false,
 };
 
 export default FriendsRequestItem;

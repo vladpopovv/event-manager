@@ -23,9 +23,9 @@ const SearchFriendsItem = (props) => {
       <ControlButton
         type="button"
         buttonType="outline-success"
-        text="Send request"
-        disabled={false}
-        loading={false}
+        icon="plus"
+        disabled={props.addBtnLoading}
+        loading={props.addBtnLoading}
         onClickHandler={onClickAddHandler}
       />
     </li>
@@ -39,6 +39,11 @@ SearchFriendsItem.propTypes = {
     lastname: PropTypes.string.isRequired,
   }).isRequired,
   onClickAddHandler: PropTypes.func.isRequired,
+  addBtnLoading: PropTypes.bool,
+};
+
+SearchFriendsItem.defaultProps = {
+  addBtnLoading: false,
 };
 
 export default SearchFriendsItem;

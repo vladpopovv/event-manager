@@ -18,7 +18,7 @@ class FriendsRequestList extends React.Component {
   }
 
   render() {
-    // console.error('PROPS', this.props.users[0].friender);
+    console.error('PROPS', this.props.addToFriendsLoading, this.props.requests);
     return (
       <FriendsListContainer listName="Requests" isEmpty={(this.props.requests.length === 0)}>
         <ul className="list-group">
@@ -26,6 +26,9 @@ class FriendsRequestList extends React.Component {
             <FriendsRequestItem
               key={requestItem.id}
               requestData={requestItem}
+              addToFriendsLoading={
+                this.props.addToFriendsLoading.indexOf(requestItem.friender.id) !== -1
+              }
               addToFriendsHandler={this.props.addToFriends}
               deleteRequestHandler={this.props.deleteRequest}
             />
@@ -38,6 +41,7 @@ class FriendsRequestList extends React.Component {
 
 FriendsRequestList.propTypes = {
   getFriendRequets: PropTypes.func.isRequired,
+  addToFriendsLoading: PropTypes.arrayOf(PropTypes.number),
   requests: PropTypes.arrayOf(PropTypes.shape({})),
   addToFriends: PropTypes.func.isRequired,
   deleteRequest: PropTypes.func.isRequired,
@@ -45,10 +49,12 @@ FriendsRequestList.propTypes = {
 
 FriendsRequestList.defaultProps = {
   requests: [],
+  addToFriendsLoading: [],
 };
 
 const mapStateToProps = state => ({
   requests: state.friends.followers,
+  addToFriendsLoading: state.friends.loading.addToFriendsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({

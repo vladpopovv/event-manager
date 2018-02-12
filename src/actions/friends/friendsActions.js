@@ -52,7 +52,10 @@ const friendsActions = {
   },
   sendRequestToFriends(user) {
     return (dispatch) => {
-      dispatch({ type: CONSTANTS.FRIENDS_SEND_REQUEST_REQUESTING });
+      dispatch({
+        type: CONSTANTS.FRIENDS_SEND_REQUEST_REQUESTING,
+        payload: user.id,
+      });
       return fetch(addToFriendsUrl, {
         method: 'POST',
         body: JSON.stringify({
@@ -65,21 +68,24 @@ const friendsActions = {
           dispatch(notificationActions.addNew('info', 'Success', `The request was successfully sent to ${user.firstname} ${user.lastname}`));
           return dispatch({
             type: CONSTANTS.FRIENDS_SEND_REQUEST_SUCCESS,
-            payload: json.data,
+            payload: { data: json.data, id: user.id },
           });
         })
         .catch((error) => {
           dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.FRIENDS_SEND_REQUEST_ERROR,
-            payload: error.message,
+            payload: { error: error.message, id: user.id },
           });
         });
     };
   },
   addToFriends(user) {
     return (dispatch) => {
-      dispatch({ type: CONSTANTS.FRIENDS_ADD_REQUESTING });
+      dispatch({
+        type: CONSTANTS.FRIENDS_ADD_REQUESTING,
+        payload: user.id,
+      });
       return fetch(addToFriendsUrl, {
         method: 'POST',
         body: JSON.stringify({
@@ -88,18 +94,18 @@ const friendsActions = {
       })
         .then(response => response.json())
         .then((json) => {
-          dispatch(notificationActions.addNew('info', 'Success', `${user.firstname} ${user.lastname} has been successfully added to your friends list`));
           dispatch(friendsActions.getFriendRequets());
+          dispatch(notificationActions.addNew('info', 'Success', `${user.firstname} ${user.lastname} has been successfully added to your friends list`));
           return dispatch({
             type: CONSTANTS.FRIENDS_ADD_SUCCESS,
-            payload: json.data,
+            payload: { data: json.data, id: user.id },
           });
         })
         .catch((error) => {
           dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.FRIENDS_ADD_ERROR,
-            payload: error.message,
+            payload: { error: error.message, id: user.id },
           });
         });
     };
