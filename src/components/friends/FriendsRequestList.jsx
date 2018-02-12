@@ -18,7 +18,6 @@ class FriendsRequestList extends React.Component {
   }
 
   render() {
-    console.error('PROPS', this.props.addToFriendsLoading, this.props.requests);
     return (
       <FriendsListContainer listName="Requests" isEmpty={(this.props.requests.length === 0)}>
         <ul className="list-group">

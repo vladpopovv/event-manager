@@ -27,7 +27,8 @@ class FriendList extends React.Component {
               key={friend.id}
               friend={friend}
               deleteHandler={this.props.deleteFriends}
-              loading={this.props.loading}
+              deleteLoading={
+                this.props.deleteFriendsLoading.indexOf(friend.id) !== -1}
             />
           ))}
         </ul>
@@ -39,18 +40,18 @@ class FriendList extends React.Component {
 FriendList.propTypes = {
   getFriends: PropTypes.func.isRequired,
   deleteFriends: PropTypes.func.isRequired,
-  loading: PropTypes.bool,
   friends: PropTypes.arrayOf(PropTypes.shape({})),
+  deleteFriendsLoading: PropTypes.arrayOf(PropTypes.number),
 };
 
 FriendList.defaultProps = {
   friends: [],
-  loading: false,
+  deleteFriendsLoading: [],
 };
 
 const mapStateToProps = state => ({
   friends: state.friends.friends,
-  loading: state.friends.loading,
+  deleteFriendsLoading: state.friends.loading.deleteFriendsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
