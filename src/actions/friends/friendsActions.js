@@ -113,7 +113,10 @@ const friendsActions = {
   deleteRequestToFriends(user) {
     const url = `friends/${user.id}/requests`;
     return (dispatch) => {
-      dispatch({ type: CONSTANTS.FRIENDS_DELETE_REQUEST_REQUESTING });
+      dispatch({
+        type: CONSTANTS.FRIENDS_DELETE_REQUEST_REQUESTING,
+        payload: user.id,
+      });
       return fetch(url, {
         method: 'delete',
         // body: JSON.stringify({
@@ -126,14 +129,14 @@ const friendsActions = {
           dispatch(friendsActions.getFriendRequets());
           return dispatch({
             type: CONSTANTS.FRIENDS_DELETE_REQUEST_SUCCESS,
-            payload: json.data,
+            payload: { data: json.data, id: user.id },
           });
         })
         .catch((error) => {
           dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.FRIENDS_DELETE_REQUEST_ERROR,
-            payload: error.message,
+            payload: { error: error.message, id: user.id },
           });
         });
     };

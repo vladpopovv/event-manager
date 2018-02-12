@@ -8,6 +8,7 @@ const initialState = {
     sendRequestLoading: [],
     addToFriendsLoading: [],
     deleteFriendsLoading: [],
+    deleteRequestsLoading: [],
   },
 };
 
@@ -100,19 +101,32 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.FRIENDS_DELETE_REQUEST_REQUESTING:
       return {
         ...state,
-        // loading: true,
+        loading: {
+          ...state.loading,
+          deleteRequestsLoading: state.loading.deleteRequestsLoading.concat(payload),
+        },
         error: '',
       };
     case CONSTANTS.FRIENDS_DELETE_REQUEST_SUCCESS:
       return {
         ...state,
-        // loading: false,
+        loading: {
+          ...state.loading,
+          deleteRequestsLoading:
+            state.loading.deleteRequestsLoading.filter(userItemId =>
+              payload.id !== userItemId),
+        },
       };
     case CONSTANTS.FRIENDS_DELETE_REQUEST_ERROR:
       return {
         ...state,
-        // loading: false,
-        error: payload,
+        loading: {
+          ...state.loading,
+          deleteRequestsLoading:
+            state.loading.deleteRequestsLoading.filter(userItemId =>
+              payload.id !== userItemId),
+        },
+        error: payload.error,
       };
     case CONSTANTS.FRIENDS_SEARCH_REQUESTING:
       return {

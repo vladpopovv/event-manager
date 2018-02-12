@@ -34,6 +34,8 @@ const FriendsRequestItem = (props) => {
             buttonType="outline-danger"
             icon="trash"
             onClickHandler={deleteRequestHandler}
+            loading={props.deleteRequestLoading}
+            disabled={props.deleteRequestLoading}
           />
         </div>
       </div>
@@ -52,11 +54,13 @@ FriendsRequestItem.propTypes = {
   }).isRequired,
   addToFriendsHandler: PropTypes.func.isRequired,
   addToFriendsLoading: PropTypes.bool,
+  deleteRequestLoading: PropTypes.bool,
   deleteRequestHandler: PropTypes.func.isRequired,
 };
 
 FriendsRequestItem.defaultProps = {
   addToFriendsLoading: false,
+  deleteRequestLoading: false,
 };
 
 export default FriendsRequestItem;

@@ -28,6 +28,9 @@ class FriendsRequestList extends React.Component {
               addToFriendsLoading={
                 this.props.addToFriendsLoading.indexOf(requestItem.friender.id) !== -1
               }
+              deleteRequestLoading={
+                this.props.deleteRequestsLoading.indexOf(requestItem.friender.id) !== -1
+              }
               addToFriendsHandler={this.props.addToFriends}
               deleteRequestHandler={this.props.deleteRequest}
             />
@@ -41,6 +44,7 @@ class FriendsRequestList extends React.Component {
 FriendsRequestList.propTypes = {
   getFriendRequets: PropTypes.func.isRequired,
   addToFriendsLoading: PropTypes.arrayOf(PropTypes.number),
+  deleteRequestsLoading: PropTypes.arrayOf(PropTypes.number),
   requests: PropTypes.arrayOf(PropTypes.shape({})),
   addToFriends: PropTypes.func.isRequired,
   deleteRequest: PropTypes.func.isRequired,
@@ -49,11 +53,13 @@ FriendsRequestList.propTypes = {
 FriendsRequestList.defaultProps = {
   requests: [],
   addToFriendsLoading: [],
+  deleteRequestsLoading: [],
 };
 
 const mapStateToProps = state => ({
   requests: state.friends.followers,
   addToFriendsLoading: state.friends.loading.addToFriendsLoading,
+  deleteRequestsLoading: state.friends.loading.deleteRequestsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
