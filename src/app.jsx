@@ -9,10 +9,11 @@ import SignUpPage from './components/signup/SignUpPage';
 import Layout from './components/layout/Layout';
 import NotFound from './components/shared/NotFound';
 import NotificationWrapper from './components/notification/NotificationWrapper';
-import './actions/authorization/fetchInterceptor';
+import fetchInterceptor from './actions/authorization/fetchInterceptor';
 import './style/main.less';
 
 const store = createStore();
+fetchInterceptor(store);
 
 ReactDOM.render(
   <Provider store={store}>

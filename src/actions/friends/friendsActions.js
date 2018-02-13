@@ -16,7 +16,6 @@ const friendsActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.FRIENDS_GET_FRIENDS_REQUESTING });
       return fetch(getFriendsUrl)
-        .then(response => response.json())
         .then(json =>
           dispatch({
             type: CONSTANTS.FRIENDS_GET_FRIENDS_SUCCESS,
@@ -35,7 +34,6 @@ const friendsActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.FRIENDS_SEARCH_REQUESTING });
       return fetch(`${searchUsersUrl}?q=${query}`)
-        .then(response => response.json())
         .then(json =>
           dispatch({
             type: CONSTANTS.FRIENDS_SEARCH_SUCCESS,
@@ -62,7 +60,6 @@ const friendsActions = {
           userIds: [user.id],
         }),
       })
-        .then(response => response.json())
         .then((json) => {
           dispatch(friendsActions.getFriendRequets());
           dispatch(notificationActions.addNew('info', 'Success', `The request was successfully sent to ${user.firstname} ${user.lastname}`));
@@ -92,7 +89,6 @@ const friendsActions = {
           userIds: [user.id],
         }),
       })
-        .then(response => response.json())
         .then((json) => {
           dispatch(friendsActions.getFriendRequets());
           dispatch(notificationActions.addNew('info', 'Success', `${user.firstname} ${user.lastname} has been successfully added to your friends list`));
@@ -123,7 +119,6 @@ const friendsActions = {
           userIds: [user.id],
         }),
       })
-        .then(response => response.json())
         .then((json) => {
           dispatch(notificationActions.addNew('info', 'Success', `${user.firstname} ${user.lastname} request was successfully deleted`));
           dispatch(friendsActions.getFriendRequets());
@@ -153,7 +148,6 @@ const friendsActions = {
           userIds: [user.id],
         }),
       })
-        .then(response => response.json())
         .then((json) => {
           dispatch(friendsActions.getFriends());
           dispatch(notificationActions.addNew(
@@ -179,7 +173,6 @@ const friendsActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.FRIENDS_GET_REQUESTS_REQUESTING });
       return fetch(getFriendRequetsUrl)
-        .then(response => response.json())
         .then(json => (
           dispatch({
             type: CONSTANTS.FRIENDS_GET_REQUESTS_SUCCESS,

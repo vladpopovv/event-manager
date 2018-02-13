@@ -29,12 +29,6 @@ const authActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.SIGN_IN_REQUESTING });
       return fetchRequest(data, signInUrl)
-        .then((response) => {
-          if (!response.ok && response.statusText === 'Unauthorized') {
-            throw new Error('Invalid login or password.');
-          }
-          return response.json();
-        })
         .then((json) => {
           dispatch(notificationActions.addNew(
             'success',
@@ -57,7 +51,6 @@ const authActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.USER_GET_DATA_REQUESTING });
       return fetch('whoami')
-        .then(response => response.json())
         .then(json => dispatch({
           type: CONSTANTS.USER_GET_DATA_SUCCESS,
           payload: json.data,
@@ -72,7 +65,6 @@ const authActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.SIGN_UP_REQUESTING });
       return fetchRequest(data, signUpUrl)
-        .then(response => response.json())
         .then((json) => {
           if (json.error) {
             throw new Error(json.error);
@@ -107,7 +99,6 @@ const authActions = {
         type: CONSTANTS.LOG_OUT_REQUESTING,
       });
       fetch(logOutUrl, options)
-        .then(response => response.json())
         .then(json => dispatch({
           type: CONSTANTS.LOG_OUT_SUCCESS,
           payload: json,
