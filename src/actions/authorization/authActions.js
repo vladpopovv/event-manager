@@ -3,8 +3,6 @@ import APICONSTANTS from './../../constants/apiConstants';
 import authToken from './authToken';
 import notificationActions from './../notification/notificationActions';
 
-// fetch('/friends').then(response => response.json()).then(json => console.error(json));
-
 const {
   signInUrl,
   signUpUrl,
@@ -52,6 +50,21 @@ const authActions = {
         })
         .catch(error => dispatch({
           type: CONSTANTS.SIGN_IN_ERROR,
+          payload: error,
+        }));
+    };
+  },
+  getUserDataRequest() {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.USER_GET_DATA_REQUESTING });
+      return fetch('whoami')
+        .then(response => response.json())
+        .then(json => dispatch({
+          type: CONSTANTS.USER_GET_DATA_SUCCESS,
+          payload: json.data,
+        }))
+        .catch(error => dispatch({
+          type: CONSTANTS.USER_GET_DATA_ERROR,
           payload: error,
         }));
     };
