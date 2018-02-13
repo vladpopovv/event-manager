@@ -67,21 +67,25 @@ class SearchFriends extends React.Component {
     return (
       <div>
         <form className="form-inline d-flex justify-content-between pb-1">
-          <input
-            className="form-control col-10 mr-2"
-            type="search"
-            placeholder="Find friends"
-            value={query}
-            onChange={this.onChangeQuery}
-          />
-          <ControlButton
-            buttonType="outline-success"
-            icon="search"
-            type="submit"
-            loading={this.props.loading}
-            onClickHandler={this.onSubmitSearch}
-            disabled={this.props.loading}
-          />
+          <div className="input-group w-100">
+            <input
+              className="form-control"
+              type="search"
+              placeholder="Find friends"
+              value={query}
+              onChange={this.onChangeQuery}
+            />
+            <div className="input-group-append">
+              <ControlButton
+                buttonType="outline-success"
+                icon="search"
+                type="submit"
+                loading={this.props.loading}
+                onClickHandler={this.onSubmitSearch}
+                disabled={this.props.loading}
+              />
+            </div>
+          </div>
         </form>
         <div className="search__list my-1">
           {flag
