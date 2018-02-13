@@ -42,7 +42,6 @@ const authActions = {
             'You have successfully login.',
           ));
           authToken.setToken(json.data.token);
-          localStorage.setItem('userData', JSON.stringify(json.data));
           return dispatch({
             type: CONSTANTS.SIGN_IN_SUCCESS,
             payload: json,

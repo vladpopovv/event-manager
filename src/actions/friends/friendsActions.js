@@ -111,17 +111,17 @@ const friendsActions = {
     };
   },
   deleteRequestToFriends(user) {
-    const url = `friends/${user.id}/requests`;
+    const url = 'deleteFriends';
     return (dispatch) => {
       dispatch({
         type: CONSTANTS.FRIENDS_DELETE_REQUEST_REQUESTING,
         payload: user.id,
       });
       return fetch(url, {
-        method: 'delete',
-        // body: JSON.stringify({
-        //   userIds: [user.id],
-        // }),
+        method: 'post',
+        body: JSON.stringify({
+          userIds: [user.id],
+        }),
       })
         .then(response => response.json())
         .then((json) => {

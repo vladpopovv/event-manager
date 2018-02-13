@@ -6,11 +6,30 @@ const initialState = {
   loading: false,
   signUp: {},
   signIn: {},
-  data: JSON.parse(localStorage.getItem('userData')),
+  data: {},
+  // data: JSON.parse(localStorage.getItem('userData')),
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+    case CONSTANTS.USER_GET_DATA_REQUESTING:
+      return {
+        ...state,
+        error: '',
+        loading: true,
+      };
+    case CONSTANTS.USER_GET_DATA_SUCCESS:
+      return {
+        ...state,
+        data: payload,
+        loading: false,
+      };
+    case CONSTANTS.USER_GET_DATA_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload.message,
+      };
     case CONSTANTS.SIGN_UP_REQUESTING:
       return {
         ...state,
