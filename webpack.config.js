@@ -43,4 +43,13 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: [
+      '.jsx',
+      '.js',
+    ],
+    alias: {
+      Redusers: path.resolve(__dirname, 'src/redusers'),
+    },
+  },
 };
