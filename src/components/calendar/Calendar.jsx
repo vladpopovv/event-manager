@@ -47,7 +47,7 @@ class Calendar extends React.Component {
   }
 
   renderWeek(weekItem) {
-    console.log(this.year);
+    console.log(this.state.year);
     return (
       <tr>
         {weekItem.map(dayItem => (
@@ -58,19 +58,10 @@ class Calendar extends React.Component {
   }
 
   render() {
-    const arrayDays = CalendarUtility.getMonth(this.state.year, this.state.month);
     const currentMonth = moment().month(this.state.month).format('MMMM');
     const currentYear = this.state.year;
-    const weeks = [];
+    const weeks = CalendarUtility.getMonthByWeek(currentYear, this.state.month);
     const weekDaysName = moment.weekdaysShort();
-
-    for (let weekIndex = 0; weekIndex < arrayDays.length; weekIndex += 7) {
-      const rows = [];
-      for (let dayIndex = weekIndex; dayIndex < weekIndex + 7; dayIndex += 1) {
-        rows.push(arrayDays[dayIndex]);
-      }
-      weeks.push(rows);
-    }
 
     return (
       <div className="col-8">
