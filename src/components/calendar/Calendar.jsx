@@ -82,7 +82,7 @@ class Calendar extends React.Component {
     const weekDaysName = Moment.weekdaysShort();
 
     return (
-      <div className="col-8">
+      <div>
         <Modal show={this.state.modalIsOpen} onHide={this.closeModal}>
           <NewEvent onHide={this.closeModal} />
         </Modal>
