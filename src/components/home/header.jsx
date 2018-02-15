@@ -9,7 +9,7 @@ const Header = (props) => {
   const { userData } = props;
   return (
     <div
-      className="navbar navbar-expand-md navbar-dark fixed-top bg-dark "
+      className="navbar navbar-expand-md navbar-dark bg-dark "
     >
       <Link href="/" to="/" className="navbar-brand">Event manager</Link>
       <ul className="navbar-nav mr-auto">

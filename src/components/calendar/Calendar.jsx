@@ -1,8 +1,11 @@
 import React from 'react';
-import moment from 'moment';
+import Moment from 'moment';
+import NewEvent from './../event/NewEvent';
+import Modal from './../modal/Modal';
 import DayItem from './DayItem';
 import CalendarUtility from './../../utility/calendarUtility';
 import './calendarStyle.less';
+
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -11,11 +14,14 @@ class Calendar extends React.Component {
     this.state = {
       month: date.getMonth(),
       year: date.getFullYear(),
+      modalIsOpen: true,
     };
 
     this.onClickPrev = this.onClickPrev.bind(this);
     this.onClickNext = this.onClickNext.bind(this);
     this.onClickToday = this.onClickToday.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   onClickPrev() {
@@ -46,6 +52,18 @@ class Calendar extends React.Component {
     });
   }
 
+  openModal() {
+    this.setState({
+      modalIsOpen: true,
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalIsOpen: false,
+    });
+  }
+
   renderWeek(weekItem) {
     console.log(this.state.year);
     return (
@@ -58,17 +76,20 @@ class Calendar extends React.Component {
   }
 
   render() {
-    const currentMonth = moment().month(this.state.month).format('MMMM');
+    const currentMonth = Moment().month(this.state.month).format('MMMM');
     const currentYear = this.state.year;
     const weeks = CalendarUtility.getMonthByWeek(currentYear, this.state.month);
-    const weekDaysName = moment.weekdaysShort();
+    const weekDaysName = Moment.weekdaysShort();
 
     return (
       <div className="col-8">
+        <Modal show={this.state.modalIsOpen} onHide={this.closeModal}>
+          <NewEvent onHide={this.closeModal} />
+        </Modal>
         <div className="calendar">
           <div className="calendar__top d-flex justify-content-between align-content-center p-2">
             <div>
-              <button className="calendar__btn">
+              <button onClick={this.openModal} className="calendar__btn">
                 Add event
               </button>
               <button onClick={this.onClickToday} className="calendar__btn">
