@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import './modal.less';
 
 const Modal = (props) => {
-  console.log(props);
   if (!props.show) {
     return null;
   }
   return (
-    <div className="">
+    <div>
       <div
         className="modal__background"
         onClick={props.onHide}
