@@ -6,12 +6,14 @@ const ParticipantsItem = (props) => {
   const { friend } = props;
   const onClickRemove = () => props.clickRemoveHandler(friend);
   return (
-    <div>
-      {friend.firstname} {friend.lastname}
-      <EventButton
-        clickHandler={onClickRemove}
-        text="remove"
-      />
+    <div className="invite__item">
+      <div className="invite__item-body m-2">
+        {friend.firstname} {friend.lastname}
+        <EventButton
+          clickHandler={onClickRemove}
+          text="remove"
+        />
+      </div>
     </div>
   );
 };

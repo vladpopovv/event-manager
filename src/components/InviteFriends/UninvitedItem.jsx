@@ -6,12 +6,14 @@ const UninvitedItem = (props) => {
   const { friend } = props;
   const onClickAdd = () => props.clickAddHandler(friend);
   return (
-    <div>
-      {friend.firstname} {friend.lastname}
-      <EventButton
-        clickHandler={onClickAdd}
-        text="invite"
-      />
+    <div className="invite__item">
+      <div className="invite__item-body m-2">
+        {friend.firstname} {friend.lastname}
+        <EventButton
+          clickHandler={onClickAdd}
+          text="invite"
+        />
+      </div>
     </div>
   );
 };

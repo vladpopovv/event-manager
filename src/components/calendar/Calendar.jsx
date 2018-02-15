@@ -89,10 +89,10 @@ class Calendar extends React.Component {
         <div className="calendar">
           <div className="calendar__top d-flex justify-content-between align-content-center p-2">
             <div>
-              <button onClick={this.openModal} className="calendar__btn">
+              <button onClick={this.openModal} className="calendar__btn mr-2">
                 Add event
               </button>
-              <button onClick={this.onClickToday} className="calendar__btn">
+              <button onClick={this.onClickToday} className="calendar__btn mr-2">
                 Today
               </button>
             </div>

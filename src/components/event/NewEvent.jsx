@@ -11,10 +11,27 @@ class NewEvent extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {};
+    this.state = {
+      invitedFriends: [],
+    };
+
+    this.onChangeInvitedFriends = this.onChangeInvitedFriends.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  onChangeInvitedFriends(invitedFriends) {
+    this.setState({
+      invitedFriends,
+    });
+  }
+
+  handleSubmit(value) {
+    console.log(value, this.state.invitedFriends);
   }
 
   render() {
+    // console.log(this.state.invitedFriends);
+    const { handleSubmit } = this.props;
     const fields = [
       {
         component: InputField,
@@ -45,7 +62,7 @@ class NewEvent extends React.Component {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form>
+          <form onSubmit={handleSubmit(this.handleSubmit)} >
             <div className="modal-body">
               <div className="row">
                 <div className="col-6">
@@ -77,7 +94,7 @@ class NewEvent extends React.Component {
                   validate={fieldItem.validate}
                 />
               ))}
-              <Invite />
+              <Invite onChangeInvitedFriends={this.onChangeInvitedFriends} />
 
             </div>
             <div className="modal-footer">
@@ -107,6 +124,7 @@ class NewEvent extends React.Component {
 
 NewEvent.propTypes = {
   onHide: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 

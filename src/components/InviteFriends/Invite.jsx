@@ -6,6 +6,7 @@ import friendsActions from './../../actions/friends/friendsActions';
 import EventButton from './../shared/EventButton';
 import UninvitedFriends from './UninvitedFriends';
 import Participants from './Participants';
+import './InviteStyle.less';
 
 class Invites extends React.Component {
   constructor(props) {
@@ -42,8 +43,15 @@ class Invites extends React.Component {
   addToEventHandler(friend) {
     const { friends } = this.props;
     const invitedFriends = this.state.invitedFriends.concat(friend);
+
     const uninvitedFriends = friends.filter(friendItem =>
       (invitedFriends.indexOf(friendItem) < 0));
+
+    const invitedFriendsID = [];
+    invitedFriends.forEach(friendItem => invitedFriendsID.push(friendItem.id));
+
+    this.props.onChangeInvitedFriends(invitedFriendsID);
+
     this.setState({
       invitedFriends,
       uninvitedFriends,
@@ -53,8 +61,15 @@ class Invites extends React.Component {
   removeFromEventHandler(friend) {
     const { friends } = this.props;
     const uninvitedFriends = this.state.uninvitedFriends.concat(friend);
+
     const invitedFriends = friends.filter(friendItem =>
       (uninvitedFriends.indexOf(friendItem) < 0));
+
+    const invitedFriendsID = [];
+    invitedFriends.forEach(friendItem => invitedFriendsID.push(friendItem.id));
+
+    this.props.onChangeInvitedFriends(invitedFriendsID);
+
     this.setState({
       invitedFriends,
       uninvitedFriends,
@@ -65,7 +80,7 @@ class Invites extends React.Component {
     return (
       <div>
         <div>
-          <span>Friends</span>
+          <span>Participants</span>
           <div className="float-right">
             <EventButton
               clickHandler={this.onToggleOpenFriendsList}
@@ -88,6 +103,7 @@ class Invites extends React.Component {
 }
 
 Invites.propTypes = {
+  onChangeInvitedFriends: PropTypes.func.isRequired,
   getFriends: PropTypes.func.isRequired,
   friends: PropTypes.arrayOf(PropTypes.shape({})),
 };
