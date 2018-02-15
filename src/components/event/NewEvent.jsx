@@ -1,11 +1,14 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import InputField from './../shared/InputField';
 import InputTextarea from './../shared/InputTextarea';
 import FormButton from './../shared/FormButton';
 import validators from './../validators/validationForm';
 import Invite from './../InviteFriends/Invite';
+import eventAction from './../../actions/eventsActions/eventsActions';
 
 class NewEvent extends React.Component {
   constructor(props, context) {
@@ -26,7 +29,10 @@ class NewEvent extends React.Component {
   }
 
   handleSubmit(value) {
-    console.log(value, this.state.invitedFriends);
+    this.props.addNewEvent({
+      ...value,
+      participants: this.state.invitedFriends,
+    }).then(() => this.props.onHide());
   }
 
   render() {
@@ -125,9 +131,19 @@ class NewEvent extends React.Component {
 NewEvent.propTypes = {
   onHide: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  addNewEvent: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  loading: state.events.loading.adding,
+});
+
+const mapDispathcToProps = dispatch => ({
+  addNewEvent: bindActionCreators(eventAction.addNewEvent, dispatch),
+});
+
+const NewEventForm = connect(mapStateToProps, mapDispathcToProps)(NewEvent);
 
 export default reduxForm({
   form: 'addNewEvent',
-})(NewEvent);
+})(NewEventForm);

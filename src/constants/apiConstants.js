@@ -9,4 +9,5 @@ export default {
   sendRequestToFriendsUrl: 'sendFriendRequests',
   getFriendRequetsUrl: 'friends/requests/income',
   deleteFriendsUrl: 'deleteFriends',
+  addNewEventUrl: 'events',
 };
