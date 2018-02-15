@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import friendsActions from './../../actions/friends/friendsActions';
 import EventButton from './../shared/EventButton';
@@ -88,11 +89,18 @@ class Invites extends React.Component {
             />
           </div>
         </div>
-        {this.state.addFriendsIsShow &&
-          <UninvitedFriends
-            friends={this.state.uninvitedFriends}
-            addHandler={this.addToEventHandler}
-          />}
+        <ReactCSSTransitionGroup
+          transitionName="uninvitedFriends"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+          component="div"
+        >
+          {this.state.addFriendsIsShow &&
+            <UninvitedFriends
+              friends={this.state.uninvitedFriends}
+              addHandler={this.addToEventHandler}
+            />}
+        </ReactCSSTransitionGroup>
         <Participants
           friends={this.state.invitedFriends}
           removeHandler={this.removeFromEventHandler}

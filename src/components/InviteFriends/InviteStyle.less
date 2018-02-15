@@ -1,7 +1,7 @@
 .invite__friends-list {
   height: 100px;
   width: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .invite__item {
@@ -11,4 +11,33 @@
 .invite__item-body {
   display: flex;
   justify-content: space-between;
+}
+
+.invite__message {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.uninvitedFriends-enter {
+  height: 0;
+  opacity: 0.01;
+}
+
+.uninvitedFriends-enter.uninvitedFriends-enter-active {
+  height: 100px;
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
+
+.uninvitedFriends-leave {
+  height: 100px;
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
+
+.uninvitedFriends-leave.uninvitedFriends-leave-active {
+  height: 0;
+  opacity: 0.01;
 }

@@ -6,6 +6,12 @@ const Participants = props => (
   <div>
     <small>Invited Participants</small>
     <div className="invite__friends-list my-2 border rounded">
+      {props.friends.length === 0 &&
+        <div className="invite__message">
+          <span className="text-muted">
+            You have not invited any friends yet
+          </span>
+        </div>}
       {props.friends.map(friend => (
         <ParticipantsItem
           key={friend.id}
