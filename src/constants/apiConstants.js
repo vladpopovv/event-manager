@@ -3,4 +3,10 @@ export default {
   signInUrl: 'signin',
   signUpUrl: 'signup',
   logOutUrl: 'logout',
+  getFriendsUrl: 'friends',
+  searchUsersUrl: 'users/search',
+  addToFriendsUrl: 'sendFriendRequests',
+  sendRequestToFriendsUrl: 'sendFriendRequests',
+  getFriendRequetsUrl: 'friends/requests/income',
+  deleteFriendsUrl: 'deleteFriends',
 };
