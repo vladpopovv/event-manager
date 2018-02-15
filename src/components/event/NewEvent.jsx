@@ -5,6 +5,7 @@ import InputField from './../shared/InputField';
 import InputTextarea from './../shared/InputTextarea';
 import FormButton from './../shared/FormButton';
 import validators from './../validators/validationForm';
+import InviteFriends from './InviteFriends';
 
 class NewEvent extends React.Component {
   constructor(props, context) {
@@ -76,6 +77,7 @@ class NewEvent extends React.Component {
                   validate={fieldItem.validate}
                 />
               ))}
+              <InviteFriends />
 
             </div>
             <div className="modal-footer">
