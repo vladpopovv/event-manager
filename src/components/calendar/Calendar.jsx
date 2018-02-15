@@ -14,7 +14,7 @@ class Calendar extends React.Component {
     this.state = {
       month: date.getMonth(),
       year: date.getFullYear(),
-      modalIsOpen: true,
+      modalIsOpen: false,
     };
 
     this.onClickPrev = this.onClickPrev.bind(this);
