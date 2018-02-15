@@ -4,6 +4,7 @@ import notificationActions from './../notification/notificationActions';
 
 const {
   addNewEventUrl,
+  getEventsOfRangeUrl,
 } = APICONSTANTS;
 
 const eventAction = {
@@ -29,6 +30,24 @@ const eventAction = {
           dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.EVENT_ADD_ERROR,
+            payload: { error: error.message },
+          });
+        });
+    };
+  },
+
+  getEventsOfRange(startDate, endDate) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.EVENT_GET_RANGE_REQUESTING });
+      return fetch(`${getEventsOfRangeUrl}?from_date=${startDate}&to_date=${endDate}`)
+        .then(json => dispatch({
+          type: CONSTANTS.EVENT_GET_RANGE_SUCCESS,
+          payload: json.data,
+        }))
+        .catch((error) => {
+          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
+          return dispatch({
+            type: CONSTANTS.EVENT_GET_RANGE_ERROR,
             payload: { error: error.message },
           });
         });

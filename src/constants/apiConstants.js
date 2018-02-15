@@ -10,4 +10,5 @@ export default {
   getFriendRequetsUrl: 'friends/requests/income',
   deleteFriendsUrl: 'deleteFriends',
   addNewEventUrl: 'events',
+  getEventsOfRangeUrl: 'events',
 };

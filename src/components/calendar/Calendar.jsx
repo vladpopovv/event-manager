@@ -1,5 +1,9 @@
 import React from 'react';
 import Moment from 'moment';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import eventsActions from './../../actions/eventsActions/eventsActions';
 import NewEvent from './../event/NewEvent';
 import Modal from './../modal/Modal';
 import DayItem from './DayItem';
@@ -22,6 +26,12 @@ class Calendar extends React.Component {
     this.onClickToday = this.onClickToday.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
+  }
+
+  componentDidMount() {
+    const firstDayOfMonth = Moment([this.state.year, this.state.month, 1]).startOf('month');
+    const lastDayOfMonth = Moment([this.state.year, this.state.month, 1]).endOf('month');
+    this.props.getEventsOfRange(firstDayOfMonth, lastDayOfMonth);
   }
 
   onClickPrev() {
@@ -129,4 +139,16 @@ class Calendar extends React.Component {
   }
 }
 
-export default Calendar;
+Calendar.propTypes = {
+  getEventsOfRange: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  events: state.events.events,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getEventsOfRange: bindActionCreators(eventsActions.getEventsOfRange, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
