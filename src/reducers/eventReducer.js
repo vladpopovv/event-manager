@@ -1,7 +1,7 @@
 import CONSTANTS from './../constants/actionConstants';
 
 const initialState = {
-  eventsOfRange: [],
+  events: [],
   loading: {
     adding: false,
   },

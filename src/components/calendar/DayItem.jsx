@@ -1,19 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import EventItem from './../event/EventItem';
+// import EventMore from './../event/EventMore';
 
 const DayItem = (props) => {
-  // const dayData = props.dayData;
   const dayClasses = classNames('calendar__day', {
     inactive: props.dayData.isBefore || props.dayData.isAfter,
   });
+  const { events } = props.dayData.eventsData;
+  console.error(props.dayData);
+  const hasEvents = events && events.length !== 0;
+  // const isMore = events.length > 1;
+
   return (
     <div className={dayClasses}>
-      {props.dayData.day.date()}
+      <span>
+        {props.dayData.day.date()}
+        {hasEvents &&
+          <EventItem event={events[0]} />
+        }
+      </span>
     </div>
   );
 };
-
+// {hasEvents &&
+//   isMore
+//   ? <EventMore events={events} />
+//   : <EventItem event={events[0]} />
+// }
 DayItem.propTypes = {
   dayData: PropTypes.shape({
     day: PropTypes.shape({
@@ -21,6 +36,11 @@ DayItem.propTypes = {
     }),
     isBefore: PropTypes.bool,
     isAfter: PropTypes.bool,
+    eventsData: PropTypes.shape({
+      events: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string,
+      })),
+    }),
   }).isRequired,
 };
 

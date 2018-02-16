@@ -1,5 +1,5 @@
 import React from 'react';
-import Moment from 'moment';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,7 +9,6 @@ import Modal from './../modal/Modal';
 import DayItem from './DayItem';
 import CalendarUtility from './../../utility/calendarUtility';
 import './calendarStyle.less';
-
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -26,12 +25,11 @@ class Calendar extends React.Component {
     this.onClickToday = this.onClickToday.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.getEvents = this.getEvents.bind(this);
   }
 
   componentDidMount() {
-    const firstDayOfMonth = Moment([this.state.year, this.state.month, 1]).startOf('month');
-    const lastDayOfMonth = Moment([this.state.year, this.state.month, 1]).endOf('month');
-    this.props.getEventsOfRange(firstDayOfMonth, lastDayOfMonth);
+    this.getEvents(this.state.year, this.state.month);
   }
 
   onClickPrev() {
@@ -42,6 +40,7 @@ class Calendar extends React.Component {
       year: prevYear,
       month: prevMonth,
     });
+    this.getEvents(prevYear, prevMonth);
   }
 
   onClickNext() {
@@ -52,14 +51,23 @@ class Calendar extends React.Component {
       year: nextYear,
       month: nextMonth,
     });
+    this.getEvents(nextYear, nextMonth);
   }
 
   onClickToday() {
     const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
     this.setState({
-      month: date.getMonth(),
-      year: date.getFullYear(),
+      month,
+      year,
     });
+    this.getEvents(year, month);
+  }
+
+  getEvents(year, month) {
+    const { firstDayOfRange, lastDayOfRange } = CalendarUtility.getRangePoint(year, month);
+    this.props.getEventsOfRange(firstDayOfRange, lastDayOfRange);
   }
 
   openModal() {
@@ -74,23 +82,30 @@ class Calendar extends React.Component {
     });
   }
 
+
   renderWeek(weekItem) {
-    console.log(this.state.year);
+    console.log(this.events);
     return (
       <tr>
         {weekItem.map(dayItem => (
-          <td key={dayItem.d} className="border"><DayItem dayData={dayItem} /></td>
+          <td key={dayItem.d} className="border">
+            <DayItem dayData={dayItem} />
+          </td>
         ))}
       </tr>
     );
   }
 
   render() {
-    const currentMonth = Moment().month(this.state.month).format('MMMM');
+    const currentMonth = moment().month(this.state.month).format('MMMM');
     const currentYear = this.state.year;
-    const weeks = CalendarUtility.getMonthByWeek(currentYear, this.state.month);
-    const weekDaysName = Moment.weekdaysShort();
 
+    const weekDaysName = moment.weekdaysShort();
+    const dayOfMonth = CalendarUtility.getMonth(currentYear, this.state.month);
+    const eventsDays = CalendarUtility.getEventsDays(this.props.events, dayOfMonth);
+
+    const weeks = CalendarUtility.getMonthByWeek(eventsDays);
+    console.log('weeks', eventsDays);
     return (
       <div>
         <Modal show={this.state.modalIsOpen} onHide={this.closeModal}>
@@ -129,7 +144,7 @@ class Calendar extends React.Component {
               </tr>
             </thead>
             <tbody className="">
-              {weeks.map(weekItem => this.renderWeek(weekItem))
+              {weeks.map(weekItem => this.renderWeek(weekItem, eventsDays))
               }
             </tbody>
           </table>
@@ -140,7 +155,12 @@ class Calendar extends React.Component {
 }
 
 Calendar.propTypes = {
+  events: PropTypes.arrayOf(PropTypes.shape({})),
   getEventsOfRange: PropTypes.func.isRequired,
+};
+
+Calendar.defaultProps = {
+  events: [],
 };
 
 const mapStateToProps = state => ({
