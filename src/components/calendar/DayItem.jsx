@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import moment from 'moment';
 import EventItem from './../event/EventItem';
 // import EventMore from './../event/EventMore';
 
@@ -9,31 +10,25 @@ const DayItem = (props) => {
     inactive: props.dayData.isBefore || props.dayData.isAfter,
   });
   const { events } = props.dayData.eventsData;
-  console.error(props.dayData);
   const hasEvents = events && events.length !== 0;
+  const day = moment(props.dayData.day).date();
   // const isMore = events.length > 1;
 
   return (
     <div className={dayClasses}>
       <span>
-        {props.dayData.day.date()}
-        {hasEvents &&
-          <EventItem event={events[0]} />
-        }
+        {day}
       </span>
+      {hasEvents &&
+        <EventItem event={events[0]} />
+      }
     </div>
   );
 };
-// {hasEvents &&
-//   isMore
-//   ? <EventMore events={events} />
-//   : <EventItem event={events[0]} />
-// }
+
 DayItem.propTypes = {
   dayData: PropTypes.shape({
-    day: PropTypes.shape({
-      date: PropTypes.func.isRequired,
-    }),
+    day: PropTypes.string,
     isBefore: PropTypes.bool,
     isAfter: PropTypes.bool,
     eventsData: PropTypes.shape({

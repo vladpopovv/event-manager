@@ -2,6 +2,7 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
 const moment = extendMoment(Moment);
+const formatDate = 'MM-DD-YYYY';
 
 const CalendarUtility = {
   getMonth(year, month) {
@@ -11,30 +12,35 @@ const CalendarUtility = {
 
     const range = moment.range(firstDayOfRange, lastDayOfRange);
     const days = Array.from(range.by('day'));
-    const arrayDays = [];
+    const mapDays = new Map();
 
     days.forEach((day) => {
-      arrayDays.push({
-        day,
+      const date = day.format(formatDate);
+      mapDays.set(date, {
+        day: date,
         isBefore: day.isBefore(firstDayOfMonth, 'day'),
         isAfter: day.isAfter(lastDayOfMonth, 'day'),
-        eventsData: {
-          events: [],
-        },
+        // eventsData: {
+        //   events: [],
+        // },
       });
     });
-
-    return arrayDays;
+    return mapDays;
   },
-  getMonthByWeek(arrayDays) {
-    const monthByWeek = [];
-    for (let weekIndex = 0; weekIndex < arrayDays.length; weekIndex += 7) {
-      const rows = [];
-      for (let dayIndex = weekIndex; dayIndex < weekIndex + 7; dayIndex += 1) {
-        rows.push(arrayDays[dayIndex]);
+  getMonthByWeek(mapDays) {
+    const monthByWeek = new Map();
+    let weekCounter = 0;
+    mapDays.forEach((dayItem, i) => {
+      let currentWeek = new Map();
+      if (i % 7 === 0 && i > 0) {
+        weekCounter += 1;
       }
-      monthByWeek.push(rows);
-    }
+      if (monthByWeek.has(weekCounter)) {
+        currentWeek = monthByWeek.get(weekCounter);
+      }
+      currentWeek.set(dayItem.day, dayItem);
+      monthByWeek.set(weekCounter, currentWeek);
+    });
 
     return monthByWeek;
   },
@@ -43,7 +49,6 @@ const CalendarUtility = {
     const newDays = [];
     days.forEach((dayItem) => {
       const date = moment(dayItem.day).format('MM-DD-YYYY');
-      console.log('events[date]', events[date]);
       const currentDay = {
         ...dayItem,
         eventsData: {
@@ -78,7 +83,7 @@ const CalendarUtility = {
   getEventsByRange(daysByEventRange, eventsDays, event) {
     const eventsByRange = {};
     daysByEventRange.forEach((day) => {
-      const date = Moment(day).format('MM-DD-YYYY');
+      const date = moment(day).format('MM-DD-YYYY');
       const currentEvents = eventsDays[date] ? eventsDays[date].events : [];
 
       eventsByRange[date] = {

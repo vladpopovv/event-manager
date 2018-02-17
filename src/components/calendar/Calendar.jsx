@@ -84,16 +84,15 @@ class Calendar extends React.Component {
 
 
   renderWeek(weekItem) {
-    console.log(this.events);
-    return (
-      <tr>
-        {weekItem.map(dayItem => (
-          <td key={dayItem.d} className="border">
-            <DayItem dayData={dayItem} />
-          </td>
-        ))}
-      </tr>
-    );
+    console.log('RENDER WEEK', weekItem, this);
+    const renderDays = [];
+    for (const dayItem of weekItem) {
+      renderDays.push(
+        <td key={dayItem.day} className="border">
+          <DayItem dayData={dayItem[1]} />
+        </td>);
+    }
+    return (renderDays);
   }
 
   render() {
@@ -103,9 +102,11 @@ class Calendar extends React.Component {
     const weekDaysName = moment.weekdaysShort();
     const dayOfMonth = CalendarUtility.getMonth(currentYear, this.state.month);
     const eventsDays = CalendarUtility.getEventsDays(this.props.events, dayOfMonth);
-
     const weeks = CalendarUtility.getMonthByWeek(eventsDays);
-    console.log('weeks', eventsDays);
+    const weeksRender = [];
+    for (const week of weeks.values()) {
+      weeksRender.push(<tr>{this.renderWeek(week)}</tr>);
+    }
     return (
       <div>
         <Modal show={this.state.modalIsOpen} onHide={this.closeModal}>
@@ -144,8 +145,7 @@ class Calendar extends React.Component {
               </tr>
             </thead>
             <tbody className="">
-              {weeks.map(weekItem => this.renderWeek(weekItem, eventsDays))
-              }
+              {weeksRender}
             </tbody>
           </table>
         </div>
