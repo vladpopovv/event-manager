@@ -6,7 +6,7 @@ import EventItem from './../event/EventItem';
 // import EventMore from './../event/EventMore';
 
 const DayItem = (props) => {
-  const dayClasses = classNames('calendar__day', {
+  const dayClasses = classNames({
     inactive: props.dayData.isBefore || props.dayData.isAfter,
   });
   const { events } = props.dayData.eventsData;

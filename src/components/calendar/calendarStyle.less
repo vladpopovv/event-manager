@@ -16,11 +16,14 @@
 }
 
 .calendar__header{
+  display: flex;
+  flex-wrap: wrap;
+
   background-color: @calendar_primary_color;
 }
 
 .calendar-header__item {
-  width: 14.28%;
+  width: 100% / 7;
   padding: 5px 0;
 
   text-align: center;
@@ -28,8 +31,13 @@
   font-size: 14px;
 }
 
+.calendar__body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .calendar__day{
-  width: 100%;
+  width: 100% / 7;
   height: 100px;
 
   &.inactive {

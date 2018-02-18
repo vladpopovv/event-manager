@@ -20,9 +20,9 @@ const CalendarUtility = {
         day: date,
         isBefore: day.isBefore(firstDayOfMonth, 'day'),
         isAfter: day.isAfter(lastDayOfMonth, 'day'),
-        // eventsData: {
-        //   events: [],
-        // },
+        eventsData: {
+          events: [],
+        },
       });
     });
     return mapDays;
@@ -46,19 +46,28 @@ const CalendarUtility = {
   },
 
   setEventsToDays(days, events = []) {
-    const newDays = [];
+    let daysWithEvents = days;
     days.forEach((dayItem) => {
-      const date = moment(dayItem.day).format('MM-DD-YYYY');
-      const currentDay = {
-        ...dayItem,
-        eventsData: {
-          events: date in events ? events[date].events : [],
-        },
-      };
-      newDays.push(currentDay);
+      const date = dayItem.day;
+      const currentEvents = date in events ? events[date].events : [];
+      daysWithEvents = CalendarUtility.setPropToMap(daysWithEvents, date, 'eventsData', {
+        events: currentEvents,
+      });
     });
+    console.log('daysWithEvents', daysWithEvents);
+    // const newDays = [];
+    // days.forEach((dayItem) => {
+    //   const date = moment(dayItem.day).format('MM-DD-YYYY');
+    //   const currentDay = {
+    //     ...dayItem,
+    //     eventsData: {
+    //       events: date in events ? events[date].events : [],
+    //     },
+    //   };
+    //   newDays.push(currentDay);
+    // });
 
-    return newDays;
+    return daysWithEvents;
   },
 
   getEventsDays(events, days) {
@@ -98,6 +107,15 @@ const CalendarUtility = {
       firstDayOfRange: moment([year, month, 1]).startOf('month').startOf('isoWeek'),
       lastDayOfRange: moment([year, month, 1]).endOf('month').endOf('isoWeek'),
     };
+  },
+
+  setPropToMap(targetMap, key, prop, value) {
+    const newValue = {
+      ...targetMap.get(key),
+    };
+    newValue[prop] = value;
+
+    return targetMap.set(key, newValue);
   },
 };
 

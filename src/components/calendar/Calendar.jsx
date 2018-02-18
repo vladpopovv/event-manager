@@ -82,19 +82,6 @@ class Calendar extends React.Component {
     });
   }
 
-
-  renderWeek(weekItem) {
-    console.log('RENDER WEEK', weekItem, this);
-    const renderDays = [];
-    for (const dayItem of weekItem) {
-      renderDays.push(
-        <td key={dayItem.day} className="border">
-          <DayItem dayData={dayItem[1]} />
-        </td>);
-    }
-    return (renderDays);
-  }
-
   render() {
     const currentMonth = moment().month(this.state.month).format('MMMM');
     const currentYear = this.state.year;
@@ -102,10 +89,13 @@ class Calendar extends React.Component {
     const weekDaysName = moment.weekdaysShort();
     const dayOfMonth = CalendarUtility.getMonth(currentYear, this.state.month);
     const eventsDays = CalendarUtility.getEventsDays(this.props.events, dayOfMonth);
-    const weeks = CalendarUtility.getMonthByWeek(eventsDays);
-    const weeksRender = [];
-    for (const week of weeks.values()) {
-      weeksRender.push(<tr>{this.renderWeek(week)}</tr>);
+    const daysRender = [];
+    for (const day of eventsDays.values()) {
+      daysRender.push(
+        <div className="calendar__day border">
+          <DayItem dayData={day} />
+        </div>
+      );
     }
     return (
       <div>
@@ -136,18 +126,16 @@ class Calendar extends React.Component {
               </div>
             </div>
           </div>
-          <table className="calendar__table">
-            <thead className="calendar__header">
-              <tr>
-                {weekDaysName.map(weekDay => (
-                  <th key={weekDay} className="calendar-header__item">{weekDay}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="">
-              {weeksRender}
-            </tbody>
-          </table>
+          <div className="calendar__table">
+            <div className="calendar__header">
+              {weekDaysName.map(weekDay => (
+                <div key={weekDay} className="calendar-header__item">{weekDay}</div>
+              ))}
+            </div>
+            <div className="calendar__body">
+              {daysRender}
+            </div>
+          </div>
         </div>
       </div>
     );
