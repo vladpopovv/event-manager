@@ -20,6 +20,7 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.EVENT_ADD_SUCCESS:
       return {
         ...state,
+        events: state.events.concat(payload),
         loading: {
           ...state.loading,
           adding: false,

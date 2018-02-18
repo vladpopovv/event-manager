@@ -7,7 +7,7 @@ const {
   getEventsOfRangeUrl,
 } = APICONSTANTS;
 
-const eventAction = {
+const eventActions = {
   addNewEvent(eventData) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.EVENT_ADD_REQUESTING });
@@ -23,7 +23,7 @@ const eventAction = {
           ));
           return dispatch({
             type: CONSTANTS.EVENT_ADD_SUCCESS,
-            payload: { data: json.data },
+            payload: json.data,
           });
         })
         .catch((error) => {
@@ -55,4 +55,4 @@ const eventAction = {
   },
 };
 
-export default eventAction;
+export default eventActions;
