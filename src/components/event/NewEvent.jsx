@@ -20,6 +20,7 @@ class NewEvent extends React.Component {
 
     this.onChangeInvitedFriends = this.onChangeInvitedFriends.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onClose = this.onClose.bind(this);
   }
 
   onChangeInvitedFriends(invitedFriends) {
@@ -28,11 +29,15 @@ class NewEvent extends React.Component {
     });
   }
 
+  onClose() {
+    this.props.onHide('addNewEvent');
+  }
+
   handleSubmit(value) {
     this.props.addNewEvent({
       ...value,
       participants: this.state.invitedFriends,
-    }).then(() => this.props.onHide());
+    }).then(() => this.onClose());
   }
 
   render() {
@@ -116,7 +121,7 @@ class NewEvent extends React.Component {
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
-                onClick={this.props.onHide}
+                onClick={this.onClose}
               >
                 Close
               </button>

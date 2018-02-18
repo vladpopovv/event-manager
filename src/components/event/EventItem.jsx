@@ -5,12 +5,13 @@ import './eventStyle.less';
 
 const EventItem = (props) => {
   const { event } = props;
+  const onClickEventHandler = () => props.onClickEventHandler(event);
   const eventClasses = classNames('event__item', {
     'first-day': event.isFirstDay,
     'last-day': event.isLastDay,
   });
   return (
-    <div className={eventClasses}>
+    <div className={eventClasses} role="presentation" onClick={onClickEventHandler}>
       {event.title}
     </div>
   );
@@ -18,6 +19,7 @@ const EventItem = (props) => {
 
 EventItem.propTypes = {
   event: PropTypes.shape({}).isRequired,
+  onClickEventHandler: PropTypes.func.isRequired,
 };
 
 export default EventItem;

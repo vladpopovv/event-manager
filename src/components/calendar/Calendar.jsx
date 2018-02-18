@@ -8,6 +8,7 @@ import NewEvent from './../event/NewEvent';
 import Modal from './../modal/Modal';
 import DayItem from './DayItem';
 import CalendarUtility from './../../utility/calendarUtility';
+import EventData from './../event/EventData';
 import './calendarStyle.less';
 
 class Calendar extends React.Component {
@@ -17,14 +18,18 @@ class Calendar extends React.Component {
     this.state = {
       month: date.get('month'),
       year: date.get('year'),
-      modalIsOpen: false,
+      modalAddEventIsOpen: false,
+      modalEventDataIsOpen: false,
+      eventData: {},
     };
 
     this.onClickPrev = this.onClickPrev.bind(this);
     this.onClickNext = this.onClickNext.bind(this);
     this.onClickToday = this.onClickToday.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.openModal = this.openModal.bind(this);
+    this.openModalEventData = this.openModalEventData.bind(this);
+    this.closeModalEventData = this.closeModalEventData.bind(this);
+    this.openModalAddEvent = this.openModalAddEvent.bind(this);
+    this.closeModalAddEvent = this.closeModalAddEvent.bind(this);
     this.getEvents = this.getEvents.bind(this);
   }
 
@@ -76,15 +81,29 @@ class Calendar extends React.Component {
     this.props.getEventsOfRange(firstDayOfRange, lastDayOfRange);
   }
 
-  openModal() {
+  openModalAddEvent() {
     this.setState({
-      modalIsOpen: true,
+      modalAddEventIsOpen: true,
     });
   }
 
-  closeModal() {
+  closeModalAddEvent() {
     this.setState({
-      modalIsOpen: false,
+      modalAddEventIsOpen: false,
+    });
+  }
+
+  openModalEventData(event) {
+    this.setState({
+      modalEventDataIsOpen: true,
+      eventData: event,
+    });
+  }
+
+  closeModalEventData() {
+    this.setState({
+      modalEventDataIsOpen: false,
+      eventData: {},
     });
   }
 
@@ -99,19 +118,23 @@ class Calendar extends React.Component {
     for (const day of eventsDays.values()) {
       daysRender.push(
         <div className="calendar__day border">
-          <DayItem dayData={day} />
+          <DayItem dayData={day} onClickEventHandler={this.openModalEventData}/>
         </div>
       );
     }
+
     return (
       <div>
-        <Modal show={this.state.modalIsOpen} onHide={this.closeModal}>
-          <NewEvent onHide={this.closeModal} />
+        <Modal show={this.state.modalAddEventIsOpen} onHide={this.closeModalAddEvent}>
+          <NewEvent onHide={this.closeModalAddEvent} />
+        </Modal>
+        <Modal show={this.state.modalEventDataIsOpen} onHide={this.closeModalEventData}>
+          <EventData onHide={this.closeModalEventData} event={this.state.eventData} />
         </Modal>
         <div className="calendar">
           <div className="calendar__top d-flex justify-content-between align-content-center p-2">
             <div>
-              <button onClick={this.openModal} className="calendar__btn mr-2">
+              <button onClick={this.openModalAddEvent} className="calendar__btn mr-2">
                 Add event
               </button>
               <button onClick={this.onClickToday} className="calendar__btn mr-2">

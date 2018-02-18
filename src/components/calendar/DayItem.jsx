@@ -21,13 +21,14 @@ const DayItem = (props) => {
         {day}
       </span>
       {hasEvents &&
-        <EventItem event={events[0]} />
+        <EventItem event={events[0]} onClickEventHandler={props.onClickEventHandler} />
       }
     </div>
   );
 };
 
 DayItem.propTypes = {
+  onClickEventHandler: PropTypes.func.isRequired,
   dayData: PropTypes.shape({
     day: PropTypes.string,
     isBefore: PropTypes.bool,

@@ -82,7 +82,7 @@ const CalendarUtility = {
         ...newEventsByRange,
       };
     });
-    console.log('eventsDays', eventsDays);
+
     return CalendarUtility.setEventsToDays(days, eventsDays);
   },
 
@@ -96,10 +96,7 @@ const CalendarUtility = {
       const date = moment(day).format('MM-DD-YYYY');
       const events = eventsDays[date] ? eventsDays[date].events : [];
 
-      // console.log(date, firstDayOfEvent === date, lastDayOfEvent, event);
       if (date === firstDayOfEvent) {
-        console.log('This is first day', date, firstDayOfEvent, event);
-        // debugger; // eslint-disable-line
         currentEvent = {
           ...currentEvent,
           isFirstDay: true,
