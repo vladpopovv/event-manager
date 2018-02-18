@@ -36,6 +36,7 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.EVENT_GET_RANGE_REQUESTING:
       return {
         ...state,
+        events: [],
         loading: {
           ...state.loading,
           getting: true,

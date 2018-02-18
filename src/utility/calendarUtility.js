@@ -6,13 +6,14 @@ const formatDate = 'MM-DD-YYYY';
 
 const CalendarUtility = {
   getMonth(year, month) {
-    const firstDayOfMonth = moment([year, month, 1]).startOf('month');
+    const firstDayOfMonth = moment([year, month, 1]);
     const lastDayOfMonth = moment([year, month, 1]).endOf('month');
     const { firstDayOfRange, lastDayOfRange } = CalendarUtility.getRangePoint(year, month);
 
     const range = moment.range(firstDayOfRange, lastDayOfRange);
     const days = Array.from(range.by('day'));
     const mapDays = new Map();
+    const today = moment().format(formatDate);
 
     days.forEach((day) => {
       const date = day.format(formatDate);
@@ -25,6 +26,14 @@ const CalendarUtility = {
         },
       });
     });
+
+    if (mapDays.has(today)) {
+      mapDays.set(today, {
+        ...mapDays.get(today),
+        isToday: true,
+      });
+    }
+
     return mapDays;
   },
   getMonthByWeek(mapDays) {
@@ -54,18 +63,6 @@ const CalendarUtility = {
         events: currentEvents,
       });
     });
-    console.log('daysWithEvents', daysWithEvents);
-    // const newDays = [];
-    // days.forEach((dayItem) => {
-    //   const date = moment(dayItem.day).format('MM-DD-YYYY');
-    //   const currentDay = {
-    //     ...dayItem,
-    //     eventsData: {
-    //       events: date in events ? events[date].events : [],
-    //     },
-    //   };
-    //   newDays.push(currentDay);
-    // });
 
     return daysWithEvents;
   },
@@ -104,7 +101,7 @@ const CalendarUtility = {
 
   getRangePoint(year, month) {
     return {
-      firstDayOfRange: moment([year, month, 1]).startOf('month').startOf('isoWeek'),
+      firstDayOfRange: moment([year, month, 1]).startOf('isoWeek'),
       lastDayOfRange: moment([year, month, 1]).endOf('month').endOf('isoWeek'),
     };
   },

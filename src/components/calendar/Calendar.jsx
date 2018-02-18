@@ -13,10 +13,10 @@ import './calendarStyle.less';
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
-    const date = new Date();
+    const date = moment();
     this.state = {
-      month: date.getMonth(),
-      year: date.getFullYear(),
+      month: date.get('month'),
+      year: date.get('year'),
       modalIsOpen: false,
     };
 
@@ -33,31 +33,37 @@ class Calendar extends React.Component {
   }
 
   onClickPrev() {
-    const { month, year } = this.state;
-    const prevMonth = (month === 0) ? 11 : month - 1;
-    const prevYear = (month === 0) ? year - 1 : year;
+    const currentMonth = this.state.month;
+    const currentYear = this.state.year;
+    const newDate = moment([currentYear, currentMonth]).subtract(1, 'month');
+    const year = newDate.get('year');
+    const month = newDate.get('month');
+
     this.setState({
-      year: prevYear,
-      month: prevMonth,
+      year,
+      month,
     });
-    this.getEvents(prevYear, prevMonth);
+    this.getEvents(year, month);
   }
 
   onClickNext() {
-    const { month, year } = this.state;
-    const nextMonth = (month === 11) ? 0 : month + 1;
-    const nextYear = (month === 11) ? year + 1 : year;
+    const currentMonth = this.state.month;
+    const currentYear = this.state.year;
+    const newDate = moment([currentYear, currentMonth]).add(1, 'month');
+    const year = newDate.get('year');
+    const month = newDate.get('month');
+
     this.setState({
-      year: nextYear,
-      month: nextMonth,
+      year,
+      month,
     });
-    this.getEvents(nextYear, nextMonth);
+    this.getEvents(year, month);
   }
 
   onClickToday() {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth();
+    const date = moment();
+    const year = date.get('year');
+    const month = date.get('month');
     this.setState({
       month,
       year,

@@ -1,4 +1,4 @@
-@calendar_primary_color: #9675ce;
+@calendar_primary_color: #ffc107;
 
 .calendar {
   border-radius: 6px;
@@ -40,9 +40,22 @@
   width: 100% / 7;
   height: 100px;
 
+}
+
+.calendar__day-content {
+  &.today .day__date{
+    border-radius: 50%;
+    color: #fff;
+    background-color: @calendar_primary_color;
+  }
+
   &.inactive {
     opacity: 0.7;
   }
+}
+
+.day__date {
+  padding: 3px;
 }
 
 .calendar__caption {

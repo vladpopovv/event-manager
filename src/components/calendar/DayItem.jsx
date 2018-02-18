@@ -6,8 +6,9 @@ import EventItem from './../event/EventItem';
 // import EventMore from './../event/EventMore';
 
 const DayItem = (props) => {
-  const dayClasses = classNames({
+  const dayClasses = classNames('calendar__day-content', {
     inactive: props.dayData.isBefore || props.dayData.isAfter,
+    today: props.dayData.isToday,
   });
   const { events } = props.dayData.eventsData;
   const hasEvents = events && events.length !== 0;
@@ -16,7 +17,7 @@ const DayItem = (props) => {
 
   return (
     <div className={dayClasses}>
-      <span>
+      <span className="day__date">
         {day}
       </span>
       {hasEvents &&
@@ -31,6 +32,7 @@ DayItem.propTypes = {
     day: PropTypes.string,
     isBefore: PropTypes.bool,
     isAfter: PropTypes.bool,
+    isToday: PropTypes.bool,
     eventsData: PropTypes.shape({
       events: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string,
