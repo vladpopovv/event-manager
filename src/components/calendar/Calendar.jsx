@@ -117,9 +117,11 @@ class Calendar extends React.Component {
     const daysRender = [];
     for (const day of eventsDays.values()) {
       daysRender.push(
-        <div className="calendar__day border">
-          <DayItem dayData={day} onClickEventHandler={this.openModalEventData}/>
-        </div>
+        <DayItem
+          dayData={day}
+          onClickEventHandler={this.openModalEventData}
+          onClickDay={this.openModalAddEvent}
+        />
       );
     }
 
