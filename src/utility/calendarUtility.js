@@ -82,18 +82,39 @@ const CalendarUtility = {
         ...newEventsByRange,
       };
     });
-
+    console.log('eventsDays', eventsDays);
     return CalendarUtility.setEventsToDays(days, eventsDays);
   },
 
   getEventsByRange(daysByEventRange, eventsDays, event) {
+    let currentEvent = event;
     const eventsByRange = {};
+    const firstDayOfEvent = moment(event.fromDate).format('MM-DD-YYYY');
+    const lastDayOfEvent = moment(event.toDate).format('MM-DD-YYYY');
     daysByEventRange.forEach((day) => {
+      currentEvent = event;
       const date = moment(day).format('MM-DD-YYYY');
-      const currentEvents = eventsDays[date] ? eventsDays[date].events : [];
+      const events = eventsDays[date] ? eventsDays[date].events : [];
+
+      // console.log(date, firstDayOfEvent === date, lastDayOfEvent, event);
+      if (date === firstDayOfEvent) {
+        console.log('This is first day', date, firstDayOfEvent, event);
+        // debugger; // eslint-disable-line
+        currentEvent = {
+          ...currentEvent,
+          isFirstDay: true,
+        };
+      }
+
+      if (date === lastDayOfEvent) {
+        currentEvent = {
+          ...currentEvent,
+          isLastDay: true,
+        };
+      }
 
       eventsByRange[date] = {
-        events: currentEvents.concat(event),
+        events: events.concat(currentEvent),
       };
     });
     return eventsByRange;
