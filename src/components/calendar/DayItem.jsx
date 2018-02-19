@@ -15,6 +15,10 @@ const DayItem = (props) => {
   // const onClickDay = () => props.onClickDay();
   // const onClickFirstEvent = () => props.onClickEventHandler(events[0]);
   const hasEvents = events && events.length !== 0;
+  const isSingleEventDay = events.length === 1;
+  const eventsListClasses = classNames('events-list', {
+    'single-event': isSingleEventDay,
+  });
   const day = moment(props.dayData.day).date();
   const firstEvents = events.slice(0, 2);
   const lastEvents = events.slice(2);
@@ -29,10 +33,11 @@ const DayItem = (props) => {
         <span className="day__date">
           {day}
         </span>
-        <div className="events-list">
+        <div className={eventsListClasses} >
           {hasEvents &&
             firstEvents.map(event => (
               <EventItem
+                key={event.id}
                 event={event}
                 onClickEventHandler={props.onClickEventHandler}
               />

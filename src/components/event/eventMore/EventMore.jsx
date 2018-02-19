@@ -23,6 +23,7 @@ const EventMore = (props) => {
       <div className="dropdown-menu events__dropdown">
         {events.map(event => (
           <button
+            key={event.id}
             className="dropdown-item"
             onClick={() => onClickEventHandler(event)}
           >

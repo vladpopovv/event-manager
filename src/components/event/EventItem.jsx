@@ -21,7 +21,6 @@ const EventItem = (props) => {
     <button
       className={eventClasses}
       onClick={onClickEventHandler}
-      disabled={props.disabled}
     >
       {event.title}
     </button>
@@ -31,11 +30,6 @@ const EventItem = (props) => {
 EventItem.propTypes = {
   event: PropTypes.shape({}).isRequired,
   onClickEventHandler: PropTypes.func.isRequired,
-  disabled: PropTypes.func,
-};
-
-EventItem.defaultProps = {
-  disabled: false,
 };
 
 export default EventItem;
