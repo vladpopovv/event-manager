@@ -9,6 +9,7 @@ import Modal from './../modal/Modal';
 import DayItem from './DayItem';
 import CalendarUtility from './../../utility/calendarUtility';
 import EventData from './../event/EventData';
+import Loader from './../shared/loader/Loader';
 import './calendarStyle.less';
 
 class Calendar extends React.Component {
@@ -115,15 +116,13 @@ class Calendar extends React.Component {
     const dayOfMonth = CalendarUtility.getMonth(currentYear, this.state.month);
     const eventsDays = CalendarUtility.getEventsDays(this.props.events, dayOfMonth);
     const daysRender = [];
-    for (const day of eventsDays.values()) {
-      daysRender.push(
-        <DayItem
-          dayData={day}
-          onClickEventHandler={this.openModalEventData}
-          onClickDay={this.openModalAddEvent}
-        />
-      );
-    }
+    eventsDays.forEach((day) => {
+      daysRender.push(<DayItem
+        dayData={day}
+        onClickEventHandler={this.openModalEventData}
+        onClickDay={this.openModalAddEvent}
+      />);
+    });
 
     return (
       <div>
@@ -134,6 +133,7 @@ class Calendar extends React.Component {
           <EventData onHide={this.closeModalEventData} event={this.state.eventData} />
         </Modal>
         <div className="calendar">
+          <Loader loading={this.props.loading} />
           <div className="calendar__top d-flex justify-content-between align-content-center p-2">
             <div>
               <button onClick={this.openModalAddEvent} className="calendar__btn mr-2">
@@ -175,15 +175,18 @@ class Calendar extends React.Component {
 
 Calendar.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({})),
+  loading: PropTypes.bool,
   getEventsOfRange: PropTypes.func.isRequired,
 };
 
 Calendar.defaultProps = {
   events: [],
+  loading: false,
 };
 
 const mapStateToProps = state => ({
   events: state.events.events,
+  loading: state.events.loading.getting,
 });
 
 const mapDispatchToProps = dispatch => ({

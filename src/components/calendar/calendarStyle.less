@@ -1,6 +1,9 @@
 @calendar_primary_color: #ffc107;
 
 .calendar {
+  position: relative;
+  overflow: hidden;
+
   border-radius: 6px;
   border: 1px solid #dee2e6;
 }
@@ -37,9 +40,11 @@
 }
 
 .calendar__day{
+  position: relative;
   width: 100% / 7;
   height: 100px;
 
+  box-shadow: 0 0 0 1px #dee2e6;
 }
 
 .calendar__day-content {
@@ -56,6 +61,14 @@
 
 .day__date {
   padding: 3px;
+}
+
+.events-list {
+  position: absolute;
+  top: 25px;
+  left: -1px;
+  right: -1px;
+  width: 100%;
 }
 
 .calendar__caption {

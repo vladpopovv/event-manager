@@ -80,6 +80,7 @@ class NewEvent extends React.Component {
                   <Field
                     component={InputField}
                     type="date"
+                    value="2017-11-08"
                     name="fromDate"
                     label="Start date"
                     validate={[validators.required]}

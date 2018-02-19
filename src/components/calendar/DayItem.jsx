@@ -19,7 +19,7 @@ const DayItem = (props) => {
 
   return (
     <div
-      className="calendar__day border"
+      className="calendar__day"
       onClick={events.length === 0 ? onClickDay : onClickFirstEvent}
       role="presentation"
     >
@@ -27,9 +27,11 @@ const DayItem = (props) => {
         <span className="day__date">
           {day}
         </span>
-        {hasEvents &&
-          <EventItem event={events[0]} onClickEventHandler={props.onClickEventHandler} />
-        }
+        <div className="events-list">
+          {hasEvents &&
+            <EventItem event={events[0]} onClickEventHandler={props.onClickEventHandler} />
+          }
+        </div>
       </div>
     </div>
   );
