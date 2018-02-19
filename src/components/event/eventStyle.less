@@ -1,4 +1,12 @@
 @event-border-radius: 20px;
+@event-color: #b797ef;
+@event-color-red: #e84225;
+@event-color-blue: #0077cc;
+@event-color-green: #42b983;
+@event-color-yellow: #ffc107;
+@event-color-orange: #fd7e14;
+@event-color-pink: #e83e8c;
+@event-color-teal: #20c997;
 
 .event__item {
   display: inline-block;
@@ -7,7 +15,7 @@
 
   color: #fff;
   vertical-align: middle;
-  background-color: #b797ef;
+  background-color: @event-color-yellow;
   border: none;
   border-radius: @event-border-radius;
 
@@ -18,19 +26,36 @@
   &:focus {
     outline: none;
   }
-  &.first-day {
-    border-radius: @event-border-radius 0 0 @event-border-radius;
+
+  &:hover {
+
   }
 
-  &.last-day {
-    border-radius: 0 @event-border-radius @event-border-radius 0;
+  &.blue {
+    background-color: @event-color-blue;
   }
 
-  &.first-day.last-day {
-    border-radius: @event-border-radius;
+  &.red {
+    background-color: @event-color-red;
   }
 
-  &.event__show-more {
+  &.yellow {
+    background-color: @event-color-yellow;
+  }
 
+  &.green {
+    background-color: @event-color-green;
+  }
+
+  &.orange {
+    background-color: @event-color-orange;
+  }
+
+  &.pink {
+    background-color: @event-color-pink;
+  }
+
+  &.teal {
+    background-color: @event-color-teal;
   }
 }

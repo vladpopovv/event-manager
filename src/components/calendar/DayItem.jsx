@@ -17,9 +17,9 @@ const DayItem = (props) => {
   const hasEvents = events && events.length !== 0;
   const day = moment(props.dayData.day).date();
   const firstEvents = events.slice(0, 2);
-  const isMore = events.length > 2;
-  // const moreCount = events.length - 2;
-  // onClick={events.length === 0 ? onClickDay : onClickFirstEvent}
+  const lastEvents = events.slice(2);
+  const isMore = !!lastEvents.length;
+
   return (
     <div
       className="calendar__day"
@@ -40,7 +40,7 @@ const DayItem = (props) => {
           }
           {isMore &&
             <EventMore
-              events={events}
+              events={lastEvents}
               onClickEventHandler={props.onClickEventHandler}
             />
            }

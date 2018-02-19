@@ -8,7 +8,7 @@ import './../eventStyle.less';
 const EventMore = (props) => {
   const { events } = props;
   const onClickEventHandler = event => props.onClickEventHandler(event);
-  const moreCount = events.length - 2;
+  const moreCount = events.length;
   return (
     <div className="btn-group">
       <button
@@ -21,11 +21,10 @@ const EventMore = (props) => {
         + {moreCount} more
       </button>
       <div className="dropdown-menu events__dropdown">
-        {events.map((event, i) => (
+        {events.map(event => (
           <button
             className="dropdown-item"
             onClick={() => onClickEventHandler(event)}
-            data-id={i}
           >
             <span className="events__title_dropdown">
               {event.title}

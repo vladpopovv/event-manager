@@ -5,11 +5,18 @@ import './eventStyle.less';
 
 const EventItem = (props) => {
   const { event } = props;
+  const colorClasses = [
+    'red',
+    'blue',
+    'yellow',
+    'green',
+    'teal',
+    'orange',
+    'pink',
+  ];
+  const color = colorClasses[(event.id * 5) % 6];
   const onClickEventHandler = () => props.onClickEventHandler(event);
-  const eventClasses = classNames('event__item', {
-    // 'first-day': event.isFirstDay,
-    // 'last-day': event.isLastDay,
-  });
+  const eventClasses = classNames('event__item', color);
   return (
     <button
       className={eventClasses}
