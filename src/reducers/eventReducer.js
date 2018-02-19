@@ -61,6 +61,31 @@ export default (state = initialState, { type, payload }) => {
           getting: false,
         },
       };
+    case CONSTANTS.EVENT_DELETE_REQUESTING:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          removing: true,
+        },
+      };
+    case CONSTANTS.EVENT_DELETE_SUCCESS:
+      return {
+        ...state,
+        events: state.events.filter(event => event.id === payload.id),
+        loading: {
+          ...state.loading,
+          removing: false,
+        },
+      };
+    case CONSTANTS.EVENTS_DELETE_ERROR:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          removing: false,
+        },
+      };
     default:
       return state;
   }

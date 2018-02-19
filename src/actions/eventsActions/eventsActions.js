@@ -15,6 +15,7 @@ const sortEvents = events => (
 const {
   addNewEventUrl,
   getEventsOfRangeUrl,
+  removeEventUrl,
 } = APICONSTANTS;
 
 const eventActions = {
@@ -58,6 +59,36 @@ const eventActions = {
           dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.EVENT_GET_RANGE_ERROR,
+            payload: { error: error.message },
+          });
+        });
+    };
+  },
+
+  deleteEvents(event) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.EVENT_DELETE_REQUESTING });
+      return fetch(removeEventUrl, {
+        method: 'DELETE',
+        body: JSON.stringify({
+          eventId: event.id,
+        }),
+      })
+        .then(() => {
+          dispatch(notificationActions.addNew(
+            'success',
+            'Successful deletion event',
+            `Successful deletion of the event "${event.title}"`,
+          ));
+          return dispatch({
+            type: CONSTANTS.EVENT_DELETE_SUCCESS,
+            payload: event,
+          });
+        })
+        .catch((error) => {
+          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
+          return dispatch({
+            type: CONSTANTS.EVENT_DELETE_ERROR,
             payload: { error: error.message },
           });
         });
