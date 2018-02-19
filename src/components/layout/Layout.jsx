@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import authActions from './../../actions/authorization/authActions';
 import Header from './../header/Header';
+import Footer from './../footer/Footer';
 import HomePage from './../home/HomePage';
 import FriendsPage from './../friends/FriendsPage';
 import NotFound from './../shared/NotFound';
@@ -26,6 +27,7 @@ class Layout extends React.Component {
           <Route path="/friends" component={FriendsPage} />
           <Route component={NotFound} />
         </Switch>
+        <Footer />
       </div>
     );
   }
