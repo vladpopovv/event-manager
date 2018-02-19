@@ -4,7 +4,7 @@ const initialState = {
   events: [],
   loading: {
     adding: false,
-    calendar: false,
+    getting: false,
   },
 };
 

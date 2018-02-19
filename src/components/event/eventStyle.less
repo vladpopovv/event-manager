@@ -1,14 +1,23 @@
 @event-border-radius: 20px;
 
 .event__item {
-  width: 100%;
-  height: 25px;
+  display: inline-block;
+  padding: 0 10px;
+  max-width: 100%;
 
   color: #fff;
-  text-align: center;
   vertical-align: middle;
   background-color: #b797ef;
+  border: none;
+  border-radius: @event-border-radius;
 
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  &:focus {
+    outline: none;
+  }
   &.first-day {
     border-radius: @event-border-radius 0 0 @event-border-radius;
   }
@@ -19,5 +28,9 @@
 
   &.first-day.last-day {
     border-radius: @event-border-radius;
+  }
+
+  &.event__show-more {
+
   }
 }

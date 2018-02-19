@@ -5,6 +5,10 @@ const moment = extendMoment(Moment);
 const formatDate = 'MM-DD-YYYY';
 
 const CalendarUtility = {
+  getDateByFormat(date, format = formatDate) {
+    return moment(date).format(format);
+  },
+
   getMonth(year, month) {
     const firstDayOfMonth = moment([year, month, 1]);
     const lastDayOfMonth = moment([year, month, 1]).endOf('month');
