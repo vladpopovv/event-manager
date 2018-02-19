@@ -130,7 +130,11 @@ class Calendar extends React.Component {
           <NewEvent onHide={this.closeModalAddEvent} />
         </Modal>
         <Modal show={this.state.modalEventDataIsOpen} onHide={this.closeModalEventData}>
-          <EventData onHide={this.closeModalEventData} event={this.state.eventData} />
+          <EventData
+            onHide={this.closeModalEventData}
+            event={this.state.eventData}
+            deleteEventHandler={this.props.deleteEvents}
+          />
         </Modal>
         <div className="calendar">
           <Loader loading={this.props.loading} />
@@ -177,6 +181,7 @@ Calendar.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({})),
   loading: PropTypes.bool,
   getEventsOfRange: PropTypes.func.isRequired,
+  deleteEvents: PropTypes.func.isRequired,
 };
 
 Calendar.defaultProps = {
@@ -191,6 +196,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getEventsOfRange: bindActionCreators(eventsActions.getEventsOfRange, dispatch),
+  deleteEvents: bindActionCreators(eventsActions.deleteEvents, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

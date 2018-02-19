@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import EventButton from './../shared/EventButton';
 
 const EventData = (props) => {
   const { event } = props;
   const fromDate = moment(event.fromDate).format('MM-DD-YYYY');
   const toDate = moment(event.toDate).format('MM-DD-YYYY');
+  const clickDeleteEventHandler = () => (
+    props.deleteEventHandler(event)
+      .then(() => props.onHide())
+  );
 
   return (
     <div className="modal-dialog" role="document">
@@ -55,6 +60,12 @@ const EventData = (props) => {
               </ul>
             </div>
           </div>
+          <div className="modal-footer">
+            <EventButton
+              clickHandler={clickDeleteEventHandler}
+              text="Delete event"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -64,6 +75,7 @@ const EventData = (props) => {
 EventData.propTypes = {
   event: PropTypes.shape({}).isRequired,
   onHide: PropTypes.func.isRequired,
+  deleteEventHandler: PropTypes.func.isRequired,
 };
 
 export default EventData;

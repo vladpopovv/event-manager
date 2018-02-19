@@ -11,4 +11,5 @@ export default {
   deleteFriendsUrl: 'deleteFriends',
   addNewEventUrl: 'events',
   getEventsOfRangeUrl: 'events',
+  deleteEventUrl: 'events',
 };

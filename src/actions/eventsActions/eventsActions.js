@@ -15,7 +15,7 @@ const sortEvents = events => (
 const {
   addNewEventUrl,
   getEventsOfRangeUrl,
-  removeEventUrl,
+  deleteEventUrl,
 } = APICONSTANTS;
 
 const eventActions = {
@@ -68,11 +68,8 @@ const eventActions = {
   deleteEvents(event) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.EVENT_DELETE_REQUESTING });
-      return fetch(removeEventUrl, {
+      return fetch(`${deleteEventUrl}/${event.id}`, {
         method: 'DELETE',
-        body: JSON.stringify({
-          eventId: event.id,
-        }),
       })
         .then(() => {
           dispatch(notificationActions.addNew(

@@ -72,7 +72,7 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.EVENT_DELETE_SUCCESS:
       return {
         ...state,
-        events: state.events.filter(event => event.id === payload.id),
+        events: state.events.filter(event => event.id !== payload.id),
         loading: {
           ...state.loading,
           removing: false,
