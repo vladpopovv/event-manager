@@ -12,7 +12,7 @@ const DayItem = (props) => {
     today: props.dayData.isToday,
   });
   const { events } = props.dayData.eventsData;
-  // const onClickDay = () => props.onClickDay();
+  const onClickDay = () => props.onClickDay(props.dayData.day);
   // const onClickFirstEvent = () => props.onClickEventHandler(events[0]);
   const hasEvents = events && events.length !== 0;
   const isSingleEventDay = events.length === 1;
@@ -27,6 +27,7 @@ const DayItem = (props) => {
   return (
     <div
       className="calendar__day"
+      onClick={onClickDay}
       role="presentation"
     >
       <div className={dayClasses}>
@@ -57,7 +58,7 @@ const DayItem = (props) => {
 
 DayItem.propTypes = {
   onClickEventHandler: PropTypes.func.isRequired,
-  // onClickDay: PropTypes.func.isRequired,
+  onClickDay: PropTypes.func.isRequired,
   dayData: PropTypes.shape({
     day: PropTypes.string,
     isBefore: PropTypes.bool,

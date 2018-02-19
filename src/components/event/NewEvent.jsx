@@ -1,13 +1,15 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import InputField from './../shared/InputField';
 import InputTextarea from './../shared/InputTextarea';
 import FormButton from './../shared/FormButton';
 import validators from './../validators/validationForm';
 import Invite from './../InviteFriends/Invite';
+import EventsList from './EventsList';
 import eventAction from './../../actions/eventsActions/eventsActions';
 
 class NewEvent extends React.Component {
@@ -21,6 +23,11 @@ class NewEvent extends React.Component {
     this.onChangeInvitedFriends = this.onChangeInvitedFriends.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onClose = this.onClose.bind(this);
+  }
+
+  componentDidMount() {
+    const date = moment(this.props.date).format('YYYY-MM-DD');
+    this.props.dispatch(change('addNewEvent', 'fromDate', date));
   }
 
   onChangeInvitedFriends(invitedFriends) {
@@ -41,7 +48,6 @@ class NewEvent extends React.Component {
   }
 
   render() {
-    // console.log(this.state.invitedFriends);
     const { handleSubmit } = this.props;
     const fields = [
       {
@@ -80,7 +86,6 @@ class NewEvent extends React.Component {
                   <Field
                     component={InputField}
                     type="date"
-                    value="2017-11-08"
                     name="fromDate"
                     label="Start date"
                     validate={[validators.required]}
@@ -107,7 +112,10 @@ class NewEvent extends React.Component {
                 />
               ))}
               <Invite onChangeInvitedFriends={this.onChangeInvitedFriends} />
-
+              <EventsList
+                days={this.props.events}
+                date={this.props.date}
+              />
             </div>
             <div className="modal-footer">
               <FormButton
@@ -138,6 +146,13 @@ NewEvent.propTypes = {
   onHide: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   addNewEvent: PropTypes.func.isRequired,
+  events: PropTypes.instanceOf(Map),
+  date: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+NewEvent.defaultProps = {
+  events: new Map(),
 };
 
 const mapStateToProps = state => ({
@@ -152,4 +167,7 @@ const NewEventForm = connect(mapStateToProps, mapDispathcToProps)(NewEvent);
 
 export default reduxForm({
   form: 'addNewEvent',
+  // initialValues: {
+  //   title: 'Test',
+  // },
 })(NewEventForm);

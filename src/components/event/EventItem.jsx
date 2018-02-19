@@ -15,7 +15,10 @@ const EventItem = (props) => {
     'pink',
   ];
   const color = colorClasses[(event.id * 5) % 6];
-  const onClickEventHandler = () => props.onClickEventHandler(event);
+  const onClickEventHandler = (e) => {
+    e.stopPropagation();
+    props.onClickEventHandler(event);
+  };
   const eventClasses = classNames('event__item', color);
   return (
     <button

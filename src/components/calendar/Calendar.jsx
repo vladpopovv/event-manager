@@ -22,6 +22,7 @@ class Calendar extends React.Component {
       modalAddEventIsOpen: false,
       modalEventDataIsOpen: false,
       eventData: {},
+      startEventDate: CalendarUtility.getDateByFormat(date),
     };
 
     this.onClickPrev = this.onClickPrev.bind(this);
@@ -82,9 +83,11 @@ class Calendar extends React.Component {
     this.props.getEventsOfRange(firstDayOfRange, lastDayOfRange);
   }
 
-  openModalAddEvent() {
+  openModalAddEvent(date) {
+    const startDate = CalendarUtility.getDateByFormat(date);
     this.setState({
       modalAddEventIsOpen: true,
+      startEventDate: startDate,
     });
   }
 
@@ -118,6 +121,7 @@ class Calendar extends React.Component {
     const daysRender = [];
     eventsDays.forEach((day) => {
       daysRender.push(<DayItem
+        key={day.day}
         dayData={day}
         onClickEventHandler={this.openModalEventData}
         onClickDay={this.openModalAddEvent}
@@ -127,7 +131,12 @@ class Calendar extends React.Component {
     return (
       <div>
         <Modal show={this.state.modalAddEventIsOpen} onHide={this.closeModalAddEvent}>
-          <NewEvent onHide={this.closeModalAddEvent} />
+          <NewEvent
+            onHide={this.closeModalAddEvent}
+            startDate={this.state.startEventDate}
+            events={eventsDays}
+            date={this.state.startEventDate}
+          />
         </Modal>
         <Modal show={this.state.modalEventDataIsOpen} onHide={this.closeModalEventData}>
           <EventData
