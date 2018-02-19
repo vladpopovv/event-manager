@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import { Link } from 'react-router-dom';
-import EventButton from './../shared/EventButton';
+import EventDescription from './EventDescription';
 
 const EventData = (props) => {
   const { event } = props;
-  const fromDate = moment(event.fromDate).format('MM-DD-YYYY');
-  const toDate = moment(event.toDate).format('MM-DD-YYYY');
   const clickDeleteEventHandler = () => (
     props.deleteEventHandler(event)
       .then(() => props.onHide())
@@ -28,45 +24,10 @@ const EventData = (props) => {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div>
-          <div className="modal-body">
-            <div className="row">
-              <div className="col-6">
-                Start date: {fromDate}
-              </div>
-              <div className="col-6">
-                End date: {toDate}
-              </div>
-            </div>
-            <div>
-              <span>Owner: </span>
-              <Link to={`/users/${event.owner.id}`} href={`/users/${event.owner.id}`}>
-                {event.owner.firstname} {event.owner.lastname}
-              </Link>
-            </div>
-            <div>
-              <span>Description: </span>
-              {event.description}
-            </div>
-            <div>
-              <ul className="list-group">
-                {event.participants.map(participant => (
-                  <li className="list-group-item">
-                    <Link to={`/users/${participant.id}`} href={`/users/${participant.id}`}>
-                      {participant.firstname} {participant.lastname}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="modal-footer">
-            <EventButton
-              clickHandler={clickDeleteEventHandler}
-              text="Delete event"
-            />
-          </div>
-        </div>
+        <EventDescription
+          clickDeleteEventHandler={clickDeleteEventHandler}
+          event={event}
+        />
       </div>
     </div>
   );
