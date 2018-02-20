@@ -38,6 +38,10 @@ class NewEvent extends React.Component {
     this.props.dispatch(change('addNewEvent', 'toDate', date));
   }
 
+  componentWillUnmount() {
+    this.props.clearEventList();
+  }
+
   onChangeInvitedFriends(invitedFriends) {
     this.setState({
       invitedFriends,
@@ -64,12 +68,12 @@ class NewEvent extends React.Component {
 
   getEventsRequest() {
     clearTimeout(this.debounceGetEvents);
+    const { startDate, endDate } = this.state;
     this.debounceGetEvents = setTimeout(() => {
-      const { startDate, endDate } = this.state;
       if (moment(startDate).isValid() && moment(endDate).isValid()) {
         this.props.getEventsByRange(startDate, endDate);
       }
-    }, 1000);
+    }, 500);
   }
 
   handleSubmit(value) {
@@ -150,6 +154,7 @@ class NewEvent extends React.Component {
               <EventsList
                 events={this.props.events}
                 date={this.state.startDate}
+                loading={this.props.loadingEvents}
               />
             </div>
             <div className="modal-footer">
@@ -182,23 +187,28 @@ NewEvent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   addNewEvent: PropTypes.func.isRequired,
   getEventsByRange: PropTypes.func.isRequired,
+  clearEventList: PropTypes.func.isRequired,
   events: PropTypes.arrayOf(PropTypes.shape()),
   date: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
+  loadingEvents: PropTypes.bool,
 };
 
 NewEvent.defaultProps = {
   events: [],
+  loadingEvents: false,
 };
 
 const mapStateToProps = state => ({
   loading: state.events.loading.adding,
+  loadingEvents: state.events.loading.gettingList,
   events: state.events.eventsList,
 });
 
 const mapDispathcToProps = dispatch => ({
   addNewEvent: bindActionCreators(eventAction.addNewEvent, dispatch),
   getEventsByRange: bindActionCreators(eventAction.getEventsListByRange, dispatch),
+  clearEventList: bindActionCreators(eventAction.clearEventList, dispatch),
 });
 
 const NewEventForm = connect(mapStateToProps, mapDispathcToProps)(NewEvent);

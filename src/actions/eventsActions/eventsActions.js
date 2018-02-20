@@ -111,6 +111,9 @@ const eventActions = {
         });
     };
   },
+  clearEventList() {
+    return dispatch => dispatch({ type: CONSTANTS.EVENT_CLEAR_LIST });
+  },
 };
 
 export default eventActions;

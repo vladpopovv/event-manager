@@ -6,6 +6,7 @@ const initialState = {
     adding: false,
     getting: false,
   },
+  eventsList: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -111,6 +112,11 @@ export default (state = initialState, { type, payload }) => {
           ...state.loading,
           removing: false,
         },
+      };
+    case CONSTANTS.EVENT_CLEAR_LIST:
+      return {
+        ...state,
+        eventsList: [],
       };
     default:
       return state;
