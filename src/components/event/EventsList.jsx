@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+// import moment from 'moment';
 import CalendarUtility from './../../utility/calendarUtility';
 import EventDescription from './EventDescription';
 
 const EventsList = (props) => {
-  const { days } = props;
-  const date = moment(props.date).format('MM-DD-YYYY');
-  const { events } = days.has(date) ? days.get(date).eventsData : [];
+  console.log('props', props);
+  const { events } = props.events.eventsData;
+  // const date = moment(props.date).format('MM-DD-YYYY');
+  // const { events } = days.has(date) ? days.get(date).eventsData : [];
+
   return (
     <div id="accordion">
       {events.map(event => (
@@ -52,8 +54,17 @@ const EventsList = (props) => {
 };
 
 EventsList.propTypes = {
-  date: PropTypes.string.isRequired,
-  days: PropTypes.instanceOf(Map).isRequired,
+  events: PropTypes.arrayOf(PropTypes.shape({})),
+  // date: PropTypes.string.isRequired,
+  // days: PropTypes.instanceOf(Map).isRequired,
+};
+
+EventsList.defaultProps = {
+  events: {
+    eventsData: {
+      events: [],
+    },
+  },
 };
 
 export default EventsList;

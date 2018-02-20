@@ -10,6 +10,7 @@ import FormButton from './../shared/FormButton';
 import validators from './../validators/validationForm';
 import Invite from './../InviteFriends/Invite';
 import EventsList from './EventsList';
+import CalendarUtility from './../../utility/calendarUtility';
 import eventAction from './../../actions/eventsActions/eventsActions';
 
 class NewEvent extends React.Component {
@@ -18,11 +19,13 @@ class NewEvent extends React.Component {
 
     this.state = {
       invitedFriends: [],
+      startDate: this.props.date,
     };
 
     this.onChangeInvitedFriends = this.onChangeInvitedFriends.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onClose = this.onClose.bind(this);
+    this.onChangeStartDate = this.onChangeStartDate.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +36,14 @@ class NewEvent extends React.Component {
   onChangeInvitedFriends(invitedFriends) {
     this.setState({
       invitedFriends,
+    });
+  }
+
+  onChangeStartDate(e) {
+    const date = e.target.value;
+    console.log(this.state.startDate, CalendarUtility.getDateByFormat(date));
+    this.setState({
+      startDate: CalendarUtility.getDateByFormat(date),
     });
   }
 
@@ -49,6 +60,9 @@ class NewEvent extends React.Component {
 
   render() {
     const { handleSubmit } = this.props;
+    const input = {
+      onChange: this.onChangeStartDate,
+    };
     const fields = [
       {
         component: InputField,
@@ -84,6 +98,7 @@ class NewEvent extends React.Component {
               <div className="row">
                 <div className="col-6">
                   <Field
+                    input={input}
                     component={InputField}
                     type="date"
                     name="fromDate"
@@ -113,8 +128,8 @@ class NewEvent extends React.Component {
               ))}
               <Invite onChangeInvitedFriends={this.onChangeInvitedFriends} />
               <EventsList
-                days={this.props.events}
-                date={this.props.date}
+                events={this.props.events.get(this.state.startDate)}
+                date={this.state.startDate}
               />
             </div>
             <div className="modal-footer">

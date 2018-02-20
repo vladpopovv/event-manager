@@ -11,6 +11,7 @@ export default class InputField extends React.PureComponent {
   }
 
   render() {
+    console.log(this.props);
     const {
       input,
       label,
