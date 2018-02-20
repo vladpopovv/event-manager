@@ -17,6 +17,7 @@ const EventMore = (props) => {
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
+        onClick={e => e.stopPropagation()}
       >
         + {moreCount} more
       </button>
@@ -24,8 +25,12 @@ const EventMore = (props) => {
         {events.map(event => (
           <button
             key={event.id}
-            className="dropdown-item"
-            onClick={() => onClickEventHandler(event)}
+            className="dropdown-item events__dropdown_item"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClickEventHandler(event);
+              }
+            }
           >
             <span className="events__title_dropdown">
               {event.title}

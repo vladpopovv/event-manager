@@ -71,7 +71,10 @@ const eventActions = {
       return fetch(`${deleteEventUrl}/${event.id}`, {
         method: 'DELETE',
       })
-        .then(() => {
+        .then((json) => {
+          if (!json.success) {
+            throw new Error(json.error);
+          }
           dispatch(notificationActions.addNew(
             'success',
             'Successful deletion event',
@@ -86,6 +89,23 @@ const eventActions = {
           dispatch(notificationActions.addNew('danger', 'Request error', error.message));
           return dispatch({
             type: CONSTANTS.EVENT_DELETE_ERROR,
+            payload: { error: error.message },
+          });
+        });
+    };
+  },
+  getEventsListByRange(startDate, endDate) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.EVENT_GET_LIST_RANGE_REQUESTING });
+      return fetch(`${getEventsOfRangeUrl}?from_date=${startDate}&to_date=${endDate}`)
+        .then(json => dispatch({
+          type: CONSTANTS.EVENT_GET_LIST_RANGE_SUCCESS,
+          payload: sortEvents(json.data),
+        }))
+        .catch((error) => {
+          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
+          return dispatch({
+            type: CONSTANTS.EVENT_GET_LIST_RANGE_ERROR,
             payload: { error: error.message },
           });
         });

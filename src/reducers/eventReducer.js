@@ -61,6 +61,32 @@ export default (state = initialState, { type, payload }) => {
           getting: false,
         },
       };
+    case CONSTANTS.EVENT_GET_LIST_RANGE_REQUESTING:
+      return {
+        ...state,
+        eventsList: [],
+        loading: {
+          ...state.loading,
+          gettingList: true,
+        },
+      };
+    case CONSTANTS.EVENT_GET_LIST_RANGE_SUCCESS:
+      return {
+        ...state,
+        eventsList: payload,
+        loading: {
+          ...state.loading,
+          gettingList: false,
+        },
+      };
+    case CONSTANTS.EVENTS_GET_LIST_RANGE_ERROR:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          gettingList: false,
+        },
+      };
     case CONSTANTS.EVENT_DELETE_REQUESTING:
       return {
         ...state,

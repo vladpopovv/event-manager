@@ -20,17 +20,22 @@ class NewEvent extends React.Component {
     this.state = {
       invitedFriends: [],
       startDate: this.props.date,
+      endDate: this.props.date,
     };
 
     this.onChangeInvitedFriends = this.onChangeInvitedFriends.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onClose = this.onClose.bind(this);
     this.onChangeStartDate = this.onChangeStartDate.bind(this);
+    this.onChangeEndDate = this.onChangeEndDate.bind(this);
+    this.getEventsRequest = this.getEventsRequest.bind(this);
   }
 
   componentDidMount() {
-    const date = moment(this.props.date).format('YYYY-MM-DD');
+    this.getEventsRequest();
+    const date = moment(this.state.startDate).format('YYYY-MM-DD');
     this.props.dispatch(change('addNewEvent', 'fromDate', date));
+    this.props.dispatch(change('addNewEvent', 'toDate', date));
   }
 
   onChangeInvitedFriends(invitedFriends) {
@@ -39,16 +44,32 @@ class NewEvent extends React.Component {
     });
   }
 
-  onChangeStartDate(e) {
-    const date = e.target.value;
-    console.log(this.state.startDate, CalendarUtility.getDateByFormat(date));
+  onChangeStartDate(e, newValue) {
     this.setState({
-      startDate: CalendarUtility.getDateByFormat(date),
+      startDate: newValue,
     });
+    this.getEventsRequest();
+  }
+
+  onChangeEndDate(e, newValue) {
+    this.setState({
+      endDate: CalendarUtility.getDateByFormat(newValue),
+    });
+    this.getEventsRequest();
   }
 
   onClose() {
     this.props.onHide('addNewEvent');
+  }
+
+  getEventsRequest() {
+    clearTimeout(this.debounceGetEvents);
+    this.debounceGetEvents = setTimeout(() => {
+      const { startDate, endDate } = this.state;
+      if (moment(startDate).isValid() && moment(endDate).isValid()) {
+        this.props.getEventsByRange(startDate, endDate);
+      }
+    }, 1000);
   }
 
   handleSubmit(value) {
@@ -60,9 +81,6 @@ class NewEvent extends React.Component {
 
   render() {
     const { handleSubmit } = this.props;
-    const input = {
-      onChange: this.onChangeStartDate,
-    };
     const fields = [
       {
         component: InputField,
@@ -98,7 +116,8 @@ class NewEvent extends React.Component {
               <div className="row">
                 <div className="col-6">
                   <Field
-                    input={input}
+                    value="2018-02-03"
+                    onChange={this.onChangeStartDate}
                     component={InputField}
                     type="date"
                     name="fromDate"
@@ -108,6 +127,7 @@ class NewEvent extends React.Component {
                 </div>
                 <div className="col-6">
                   <Field
+                    onChange={this.onChangeEndDate}
                     component={InputField}
                     type="date"
                     name="toDate"
@@ -128,7 +148,7 @@ class NewEvent extends React.Component {
               ))}
               <Invite onChangeInvitedFriends={this.onChangeInvitedFriends} />
               <EventsList
-                events={this.props.events.get(this.state.startDate)}
+                events={this.props.events}
                 date={this.state.startDate}
               />
             </div>
@@ -161,21 +181,24 @@ NewEvent.propTypes = {
   onHide: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   addNewEvent: PropTypes.func.isRequired,
-  events: PropTypes.instanceOf(Map),
+  getEventsByRange: PropTypes.func.isRequired,
+  events: PropTypes.arrayOf(PropTypes.shape()),
   date: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 NewEvent.defaultProps = {
-  events: new Map(),
+  events: [],
 };
 
 const mapStateToProps = state => ({
   loading: state.events.loading.adding,
+  events: state.events.eventsList,
 });
 
 const mapDispathcToProps = dispatch => ({
   addNewEvent: bindActionCreators(eventAction.addNewEvent, dispatch),
+  getEventsByRange: bindActionCreators(eventAction.getEventsListByRange, dispatch),
 });
 
 const NewEventForm = connect(mapStateToProps, mapDispathcToProps)(NewEvent);

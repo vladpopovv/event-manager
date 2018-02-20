@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import moment from 'moment';
 import CalendarUtility from './../../utility/calendarUtility';
 import EventDescription from './EventDescription';
 
 const EventsList = (props) => {
-  console.log('props', props);
-  const { events } = props.events.eventsData;
-  // const date = moment(props.date).format('MM-DD-YYYY');
-  // const { events } = days.has(date) ? days.get(date).eventsData : [];
+  const { events } = props;
 
   return (
     <div id="accordion">
       {events.map(event => (
-        <div className="card">
+        <div className="card" key={event.id}>
           <div className="card-header" id={`headingEvent${event.id}`}>
             <h5 className="mb-0">
               <button
+                type="button"
                 className="btn btn-link w-100 collapsed"
                 data-toggle="collapse"
                 data-target={`#collapseEvent${event.id}`}
@@ -55,8 +52,6 @@ const EventsList = (props) => {
 
 EventsList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({})),
-  // date: PropTypes.string.isRequired,
-  // days: PropTypes.instanceOf(Map).isRequired,
 };
 
 EventsList.defaultProps = {

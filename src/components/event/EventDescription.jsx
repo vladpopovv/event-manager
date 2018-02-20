@@ -35,7 +35,7 @@ const EventDescription = (props) => {
           Participants:
           <ul className="list-group">
             {event.participants.map(participant => (
-              <li className="list-group-item">
+              <li className="list-group-item" key={participant.id}>
                 <Link to={`/users/${participant.id}`} href={`/users/${participant.id}`}>
                   {participant.firstname} {participant.lastname}
                 </Link>
