@@ -32,7 +32,8 @@ class NewEvent extends React.Component {
   }
 
   componentDidMount() {
-    this.getEventsRequest();
+    const { startDate, endDate } = this.state;
+    this.getEventsRequest(startDate, endDate);
     const date = moment(this.state.startDate).format('YYYY-MM-DD');
     this.props.dispatch(change('addNewEvent', 'fromDate', date));
     this.props.dispatch(change('addNewEvent', 'toDate', date));
@@ -52,23 +53,22 @@ class NewEvent extends React.Component {
     this.setState({
       startDate: newValue,
     });
-    this.getEventsRequest();
+    this.getEventsRequest(newValue, this.state.endDate);
   }
 
   onChangeEndDate(e, newValue) {
     this.setState({
       endDate: CalendarUtility.getDateByFormat(newValue),
     });
-    this.getEventsRequest();
+    this.getEventsRequest(this.state.fromDate, newValue);
   }
 
   onClose() {
     this.props.onHide('addNewEvent');
   }
 
-  getEventsRequest() {
+  getEventsRequest(startDate, endDate) {
     clearTimeout(this.debounceGetEvents);
-    const { startDate, endDate } = this.state;
     this.debounceGetEvents = setTimeout(() => {
       if (moment(startDate).isValid() && moment(endDate).isValid()) {
         this.props.getEventsByRange(startDate, endDate);
