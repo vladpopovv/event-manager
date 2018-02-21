@@ -131,12 +131,14 @@ class Calendar extends React.Component {
     return (
       <div>
         <Modal show={this.state.modalAddEventIsOpen} onHide={this.closeModalAddEvent}>
-          <NewEvent
-            onHide={this.closeModalAddEvent}
-            startDate={this.state.startEventDate}
-            events={eventsDays}
-            date={this.state.startEventDate}
-          />
+          <div style={{ position: 'fixed' }} >
+            <NewEvent
+              onHide={this.closeModalAddEvent}
+              startDate={this.state.startEventDate}
+              events={eventsDays}
+              date={this.state.startEventDate}
+            />
+          </div>
         </Modal>
         <Modal show={this.state.modalEventDataIsOpen} onHide={this.closeModalEventData}>
           <EventData

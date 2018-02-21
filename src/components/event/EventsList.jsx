@@ -6,6 +6,7 @@ import Loader from './../shared/loader/Loader';
 
 const EventsList = (props) => {
   const { events } = props;
+  const isNoEvents = events.length === 0 && !props.loading;
 
   return (
     <div>
@@ -13,7 +14,7 @@ const EventsList = (props) => {
         Events for the selected period of time
         <Loader loading={props.loading} size="sm" position="inline" />
       </div>
-      {events.length === 0 &&
+      {isNoEvents &&
         <div className="invite__message">
           <span className="text-muted">
             You do not have any events
