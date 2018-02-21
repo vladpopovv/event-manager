@@ -4,6 +4,7 @@ import userReducer from './userReducer';
 import friendReducer from './friendReducer';
 import notificationReducer from './notificationReducer';
 import eventReducer from './eventReducer';
+import appSettingsReducer from './appSettingsReducer';
 
 const reducers = {
   user: userReducer,
@@ -11,6 +12,7 @@ const reducers = {
   friends: friendReducer,
   notification: notificationReducer,
   events: eventReducer,
+  app: appSettingsReducer,
 };
 
 export default combineReducers(reducers);

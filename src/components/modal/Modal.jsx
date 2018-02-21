@@ -6,6 +6,16 @@ import './modal.less';
 
 const Modal = (props) => {
   const animationTimeout = 300;
+  const hideHandler = (e) => {
+    if (!e.target.classList.contains('modal__body')) {
+      return false;
+    }
+    return props.onHide();
+  };
+
+  if (!props.show) {
+    props.callBackLeave();
+  }
   return (
     <ReactCSSTransitionGroup
       transitionName="modalAnimation"
@@ -17,14 +27,15 @@ const Modal = (props) => {
         <div>
           <div
             className="modal__background"
-            onClick={props.onHide}
+            onClick={hideHandler}
             role="button"
             tabIndex={-1}
             onKeyDown={props.onHide}
-          />
-          <div className="modal__body">
-            <div className="modal__content">
-              {props.children}
+          >
+            <div className="modal__body">
+              <div className="modal__content">
+                {props.children}
+              </div>
             </div>
           </div>
         </div>)
@@ -37,6 +48,11 @@ Modal.propTypes = {
   children: PropTypes.shape({}).isRequired,
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
+  callBackLeave: PropTypes.func,
+};
+
+Modal.defaultProps = {
+  callBackLeave: () => false,
 };
 
 export default componentWillAppendToBody(Modal);

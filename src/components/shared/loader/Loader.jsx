@@ -1,18 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './loaderStyle.less';
 
 const Loader = (props) => {
-  if (!props.loading) {
-    return null;
-  }
+  const animationTimeout = 500;
+  // if (!props.loading) {
+  //   return null;
+  // }
   return (
-    <div className={classNames('loader__wrapper', `${props.position}`)}>
-      <div className={classNames('loader__spinner', `${props.size}`)}>
-        <i className="fa fa-spinner spinner" />
-      </div>
-    </div>
+    <ReactCSSTransitionGroup
+      transitionName="loaderAnimation"
+      transitionEnterTimeout={animationTimeout}
+      transitionLeaveTimeout={animationTimeout}
+      component="div"
+    >
+      {props.loading &&
+        <div className={classNames('loader__wrapper', `${props.position}`)}>
+          <div className={classNames('loader__spinner', `${props.size}`)}>
+            <i className="fa fa-spinner spinner" />
+          </div>
+        </div>
+      }
+    </ReactCSSTransitionGroup>
   );
 };
 

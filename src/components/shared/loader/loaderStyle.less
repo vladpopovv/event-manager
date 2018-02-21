@@ -29,3 +29,21 @@
     font-size: 15px;
   }
 }
+
+.loaderAnimation-enter {
+  opacity: 0.01;
+}
+
+.loaderAnimation-enter.loaderAnimation-enter-active {
+  opacity: 1;
+  transition: all 0.5s ease-in;
+}
+
+.loaderAnimation-leave {
+  opacity: 1;
+  transition: all 0.5s ease-in;
+}
+
+.loaderAnimation-leave.modalAnimation-leave-active {
+  opacity: 0.01;
+}
