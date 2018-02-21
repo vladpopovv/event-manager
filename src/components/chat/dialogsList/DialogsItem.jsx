@@ -5,7 +5,7 @@ const DialogsItem = (props) => {
   const { friend } = props;
 
   return (
-    <div>
+    <div className="list-group-item list-group-item-action">
       {friend.firstname} {friend.lastname}
     </div>
   );

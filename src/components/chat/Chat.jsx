@@ -13,16 +13,10 @@ class Chat extends React.Component {
 
   render() {
     return (
-      <div>
-        <DialogsList friends={this.props.friends} />
-        <div>
-          Dialog
-          <div>
-            message box
-          </div>
-          <div>
-            message input
-          </div>
+      <div className="border rounded">
+        <div className="p-2">
+          Chat
+          <DialogsList friends={this.props.friends} />
         </div>
       </div>
     );
