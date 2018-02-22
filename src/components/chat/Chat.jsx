@@ -1,25 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DialogsList from './dialogsList/DialogsList';
 import Dialog from './dialog/Dialog';
+import chatActions from './../../actions/chat/chatActions';
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      chatDialog: {
-        id: 1,
-        login: 'vvasechkin@gmail.com',
-        firstname: 'Vasya',
-        lastname: 'Vasechkin',
-      },
+      chatDialog: {},
     };
 
     this.openDialogHandler = this.openDialogHandler.bind(this);
     this.closeDialogHandler = this.closeDialogHandler.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getPersonalChats();
   }
 
   openDialogHandler(friends) {
@@ -41,11 +41,11 @@ class Chat extends React.Component {
           <i className="fa fa-comments-o" />Chat
           {this.state.chatDialog.id
             ? <Dialog
-              friend={this.state.chatDialog}
+              chat={this.state.chatDialog}
               closeDialogHandler={this.closeDialogHandler}
             />
             : <DialogsList
-              friends={this.props.friends}
+              chats={this.props.chats}
               openDialogHandler={this.openDialogHandler}
             />
           }
@@ -56,12 +56,17 @@ class Chat extends React.Component {
 }
 
 Chat.propTypes = {
-  friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  getPersonalChats: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  friends: state.chat.friends, // TODO change chat to friends
+  chats: state.chat.chats,
   messages: state.chat.messages,
 });
 
-export default connect(mapStateToProps)(Chat);
+const mapDispatchToProps = dispatch => ({
+  getPersonalChats: bindActionCreators(chatActions.getPersonalChats, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

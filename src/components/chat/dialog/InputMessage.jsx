@@ -25,12 +25,11 @@ export default class InputMessage extends React.Component {
       <form className="p-2">
         <div className="input-group">
           <textarea
+            value={this.state.messageText}
             className="form-control input_message"
             onChange={this.onChangeMessageText}
             name="message"
-          >
-            {this.state.messageText}
-          </textarea>
+          />
           <button className="btn btn-dark input-group-append">
             Send
           </button>

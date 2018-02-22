@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import './dialogItemStyle.less';
 
 const DialogsItem = (props) => {
-  const { friend } = props;
-  const openDialogHandler = () => props.openDialogHandler(friend);
+  const { chat } = props;
+  const openDialogHandler = () => props.openDialogHandler(chat);
   return (
     <button onClick={openDialogHandler} className="dialog__item list-group-item-action">
-      {friend.firstname} {friend.lastname}
+      {chat.participants[0].firstname} {chat.participants[0].lastname}
     </button>
   );
 };
 
 DialogsItem.propTypes = {
-  friend: PropTypes.shape({}).isRequired,
+  chat: PropTypes.shape({}).isRequired,
   openDialogHandler: PropTypes.func.isRequired,
 };
 

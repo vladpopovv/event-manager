@@ -4,7 +4,7 @@ import DialogsItem from './DialogsItem';
 import './dialogsListStyle.less';
 
 const DialogsList = (props) => {
-  const { friends } = props;
+  const { chats } = props;
 
   return (
     <div className="card">
@@ -13,10 +13,10 @@ const DialogsList = (props) => {
       </div>
       <div className="dialog card-body p-0 d-flex">
         <div className="list-group dialogs__list">
-          {friends.map(friend => (
+          {chats.map(chat => (
             <DialogsItem
-              key={friend.id}
-              friend={friend}
+              key={chat.id}
+              chat={chat}
               openDialogHandler={props.openDialogHandler}
             />
           ))}
@@ -28,7 +28,7 @@ const DialogsList = (props) => {
 
 DialogsList.propTypes = {
   openDialogHandler: PropTypes.func.isRequired,
-  friends: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  chats: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default DialogsList;

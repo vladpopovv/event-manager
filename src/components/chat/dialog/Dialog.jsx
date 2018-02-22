@@ -5,12 +5,12 @@ import InputMessage from './InputMessage';
 import './dialogStyle.less';
 
 const Dialog = (props) => {
-  const { friend } = props;
+  const { chat } = props;
 
   return (
     <div className="card">
       <div className="card-header p-1">
-        {friend.firstname} {friend.lastname}
+        {chat.participants[0].firstname} {chat.participants[0].lastname}
         <button
           type="button"
           className="close"
@@ -31,7 +31,7 @@ const Dialog = (props) => {
 
 Dialog.propTypes = {
   closeDialogHandler: PropTypes.func.isRequired,
-  friend: PropTypes.shape({}).isRequired,
+  chat: PropTypes.shape({}).isRequired,
 };
 
 export default Dialog;
