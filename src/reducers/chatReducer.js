@@ -50,7 +50,7 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.CHAT_GET_PERSONAL_CHATS_ERROR:
       return {
         ...state,
-        chats: payload,
+        error: payload,
         loading: {
           ...state.loading,
           getChats: false,

@@ -3,4 +3,5 @@ export default {
   signInUrl: 'signin',
   signUpUrl: 'signup',
   logOutUrl: 'logout',
+  getPersonalChatsUrl: 'personalChats',
 };
