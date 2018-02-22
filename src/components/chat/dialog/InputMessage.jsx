@@ -23,12 +23,18 @@ export default class InputMessage extends React.Component {
   render() {
     return (
       <form className="p-2">
-        <textarea className="input_message" onChange={this.onChangeMessageText} name="message">
-          {this.state.messageText}
-        </textarea>
-        <button>
-          Send
-        </button>
+        <div className="input-group">
+          <textarea
+            className="form-control input_message"
+            onChange={this.onChangeMessageText}
+            name="message"
+          >
+            {this.state.messageText}
+          </textarea>
+          <button className="btn btn-dark input-group-append">
+            Send
+          </button>
+        </div>
       </form>
     );
   }

@@ -38,7 +38,7 @@ class Chat extends React.Component {
     return (
       <div className="border rounded">
         <div className="p-2">
-          Chat
+          <i className="fa fa-comments-o" />Chat
           {this.state.chatDialog.id
             ? <Dialog
               friend={this.state.chatDialog}

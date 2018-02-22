@@ -8,7 +8,6 @@ const MessagesBox = (props) => {
 
   return (
     <div className="message__box border-bottom">
-      MESSAGES
       {messages.map(message => (
         <Message message={message} />
       ))}

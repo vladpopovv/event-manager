@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './dialogItemStyle.less';
 
 const DialogsItem = (props) => {
   const { friend } = props;
   const openDialogHandler = () => props.openDialogHandler(friend);
   return (
-    <button onClick={openDialogHandler} className="list-group-item list-group-item-action">
+    <button onClick={openDialogHandler} className="dialog__item list-group-item-action">
       {friend.firstname} {friend.lastname}
     </button>
   );
