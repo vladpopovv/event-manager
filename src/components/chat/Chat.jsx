@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DialogsList from './dialogsList/DialogsList';
+import Dialog from './dialog/Dialog';
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      chatDialog: {
+        id: 1,
+        login: 'vvasechkin@gmail.com',
+        firstname: 'Vasya',
+        lastname: 'Vasechkin',
+      },
+    };
   }
 
   render() {
@@ -16,7 +24,10 @@ class Chat extends React.Component {
       <div className="border rounded">
         <div className="p-2">
           Chat
-          <DialogsList friends={this.props.friends} />
+          {this.state.chatDialog.id
+            ? <Dialog friend={this.state.chatDialog} />
+            : <DialogsList friends={this.props.friends} />
+          }
         </div>
       </div>
     );
