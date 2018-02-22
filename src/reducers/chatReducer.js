@@ -1,6 +1,10 @@
-// import CONSTANTS from './../constants/actionConstants';
+import CONSTANTS from './../constants/actionConstants';
 
 const initialState = {
+  chats: [],
+  loading: {
+    getChats: false,
+  },
   messages: [],
   friends: [
     {
@@ -24,8 +28,34 @@ const initialState = {
   ], // TODO delete
 };
 
-export default (state = initialState, { type }) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
+    case CONSTANTS.CHAT_GET_PERSONAL_CHATS_REQUESTING:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          getChats: true,
+        },
+      };
+    case CONSTANTS.CHAT_GET_PERSONAL_CHATS_SUCCESS:
+      return {
+        ...state,
+        chats: payload,
+        loading: {
+          ...state.loading,
+          getChats: false,
+        },
+      };
+    case CONSTANTS.CHAT_GET_PERSONAL_CHATS_ERROR:
+      return {
+        ...state,
+        chats: payload,
+        loading: {
+          ...state.loading,
+          getChats: false,
+        },
+      };
     default:
       return state;
   }
