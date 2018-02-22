@@ -60,7 +60,7 @@ class NewEvent extends React.Component {
     this.setState({
       endDate: CalendarUtility.getDateByFormat(newValue),
     });
-    this.getEventsRequest(this.state.fromDate, newValue);
+    this.getEventsRequest(this.state.startDate, newValue);
   }
 
   onClose() {
