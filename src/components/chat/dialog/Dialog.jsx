@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MessagesBox from './message/MessagesBox';
 import InputMessage from './InputMessage';
+import ChatUtility from './../../../utility/chatUtility';
 import './dialogStyle.less';
 
 const Dialog = (props) => {
   const { chat } = props;
-
+  const dialogName = ChatUtility.getChatName(chat);
   return (
     <div className="card">
       <div className="card-header p-1">
-        {chat.participants[0].firstname} {chat.participants[0].lastname}
+        {dialogName}
         <button
           type="button"
           className="close"
@@ -22,7 +23,7 @@ const Dialog = (props) => {
         </button>
       </div>
       <div className="dialog card-body p-0 d-flex">
-        <MessagesBox />
+        <MessagesBox messages={chat.lastMessages} />
         <InputMessage />
       </div>
     </div>
