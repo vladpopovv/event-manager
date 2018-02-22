@@ -17,6 +17,21 @@ class Chat extends React.Component {
         lastname: 'Vasechkin',
       },
     };
+
+    this.openDialogHandler = this.openDialogHandler.bind(this);
+    this.closeDialogHandler = this.closeDialogHandler.bind(this);
+  }
+
+  openDialogHandler(friends) {
+    this.setState({
+      chatDialog: friends,
+    });
+  }
+
+  closeDialogHandler() {
+    this.setState({
+      chatDialog: {},
+    });
   }
 
   render() {
@@ -25,8 +40,14 @@ class Chat extends React.Component {
         <div className="p-2">
           Chat
           {this.state.chatDialog.id
-            ? <Dialog friend={this.state.chatDialog} />
-            : <DialogsList friends={this.props.friends} />
+            ? <Dialog
+              friend={this.state.chatDialog}
+              closeDialogHandler={this.closeDialogHandler}
+            />
+            : <DialogsList
+              friends={this.props.friends}
+              openDialogHandler={this.openDialogHandler}
+            />
           }
         </div>
       </div>

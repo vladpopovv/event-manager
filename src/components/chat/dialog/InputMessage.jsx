@@ -1,4 +1,5 @@
 import React from 'react';
+import './inputMessageStyle.less';
 
 export default class InputMessage extends React.Component {
   constructor(props) {
@@ -21,8 +22,8 @@ export default class InputMessage extends React.Component {
 
   render() {
     return (
-      <form>
-        <textarea onChange={this.onChangeMessageText} name="message" id="" cols="30" rows="10">
+      <form className="p-2">
+        <textarea className="input_message" onChange={this.onChangeMessageText} name="message">
           {this.state.messageText}
         </textarea>
         <button>
