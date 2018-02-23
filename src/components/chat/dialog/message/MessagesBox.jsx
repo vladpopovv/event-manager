@@ -6,7 +6,9 @@ import './messageBoxStyle.less';
 const MessagesBox = (props) => {
   const { messages, user } = props;
   const onScrollHandler = (e) => {
-    console.log('SCROLL!!!', e.target.scrollTop);
+    if (e.target.scrollTop === 0) {
+      props.loadMessagesHandler();
+    }
   };
   return (
     <div className="message__box border-bottom" onScroll={onScrollHandler} >
@@ -20,6 +22,7 @@ const MessagesBox = (props) => {
 MessagesBox.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.shape({}).isRequired,
+  loadMessagesHandler: PropTypes.func.isRequired,
 };
 
 MessagesBox.defaultProps = {

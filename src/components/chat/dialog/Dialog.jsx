@@ -9,8 +9,13 @@ const Dialog = (props) => {
   const { chat } = props;
   const sendMessageHandler = message =>
     props.sendMessageHandler(message, chat.id, props.user);
+  const loadMessagesHandler = () => {
+    const lastMessage = props.messages[props.messages.length - 1];
+    const timeOfLastMessage = lastMessage.createdAt;
+    props.loadMessagesHandler(chat.id, timeOfLastMessage);
+  };
   const dialogName = ChatUtility.getChatName(chat);
-  console.log('MESSAGES', props.messages);
+
   return (
     <div className="card">
       <div className="card-header p-1">
@@ -26,7 +31,11 @@ const Dialog = (props) => {
         </button>
       </div>
       <div className="dialog card-body p-0 d-flex">
-        <MessagesBox messages={props.messages} user={props.user} />
+        <MessagesBox
+          messages={props.messages}
+          user={props.user}
+          loadMessagesHandler={loadMessagesHandler}
+        />
         <InputMessage sendMessageHandler={sendMessageHandler} />
       </div>
     </div>
@@ -36,6 +45,7 @@ const Dialog = (props) => {
 Dialog.propTypes = {
   closeDialogHandler: PropTypes.func.isRequired,
   sendMessageHandler: PropTypes.func.isRequired,
+  loadMessagesHandler: PropTypes.func.isRequired,
   chat: PropTypes.shape({}).isRequired,
   messages: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,

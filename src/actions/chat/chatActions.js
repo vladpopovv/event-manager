@@ -54,28 +54,22 @@ const chatActions = {
   loadMessages(chatId, date) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_LOAD_MESSAGES_REQUESTING });
-      return fetch(loadMessagesUrl, {
-        body: JSON.stringify({
-          chatId,
-          date,
-          limit: 20,
-        }),
-      })
+      return fetch(`${loadMessagesUrl}?chatId=${chatId}&date=${date}&limit=20`)
         .then(response => response.json()) // delete after merge
         .then(json => dispatch({
-          type: CONSTANTS.CHAT_SEND_MESSAGE_SUCCESS,
+          type: CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS,
           payload: {
             chatId,
-            message: json.data,
+            messages: json.data,
           },
         }))
         .catch((error) => {
           dispatch({
-            type: CONSTANTS.CHAT_SEND_MESSAGE_ERROR,
+            type: CONSTANTS.CHAT_LOAD_MESSAGES_ERROR,
             payload: error,
           });
           return dispatch(notificationActions.addNew(
-            'Warning',
+            'danger',
             'Loading error',
             'Loading error',
           ));

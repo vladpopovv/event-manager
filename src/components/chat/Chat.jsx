@@ -46,6 +46,7 @@ class Chat extends React.Component {
               closeDialogHandler={this.closeDialogHandler}
               user={this.props.user}
               sendMessageHandler={this.props.sendMessage}
+              loadMessagesHandler={this.props.loadMessages}
             />
             : <DialogsList
               chats={this.props.chats}
@@ -64,6 +65,7 @@ Chat.propTypes = {
   messages: PropTypes.shape({}).isRequired,
   getPersonalChats: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
+  loadMessages: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -75,6 +77,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getPersonalChats: bindActionCreators(chatActions.getPersonalChats, dispatch),
   sendMessage: bindActionCreators(chatActions.sendMessage, dispatch),
+  loadMessages: bindActionCreators(chatActions.loadMessages, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

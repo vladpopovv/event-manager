@@ -5,4 +5,5 @@ export default {
   logOutUrl: 'logout',
   getPersonalChatsUrl: 'personalChats',
   sendMessageUrl: 'message',
+  loadMessagesUrl: 'messages',
 };

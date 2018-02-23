@@ -83,18 +83,21 @@ export default (state = initialState, { type, payload }) => {
           loadMessages: true,
         },
       };
-    case CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS:
+    case CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS: {
+      const { messages } = state;
+      messages[payload.chatId] = messages[payload.chatId].concat(payload.messages);
+      console.log('PAYLOAD', messages[payload.chatId]);
       return {
         ...state,
         messages: {
-          ...state.messages,
-          ...state.messages[payload.chatId].push(payload.message),
+          ...messages,
         },
         loading: {
           ...state.loading,
           loadMessages: false,
         },
       };
+    }
     case CONSTANTS.CHAT_LOAD_MESSAGES_ERROR:
       return {
         ...state,
