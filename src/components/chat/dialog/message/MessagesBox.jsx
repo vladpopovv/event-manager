@@ -4,12 +4,12 @@ import Message from './Message';
 import './messageBoxStyle.less';
 
 const MessagesBox = (props) => {
-  const { messages } = props;
+  const { messages, user } = props;
 
   return (
     <div className="message__box border-bottom">
       {messages.map(message => (
-        <Message key={message.id} message={message} />
+        <Message key={message.id} message={message} isIncome={user.id !== message.from.id} />
       ))}
     </div>
   );
@@ -17,6 +17,7 @@ const MessagesBox = (props) => {
 
 MessagesBox.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({})),
+  user: PropTypes.shape({}).isRequired,
 };
 
 MessagesBox.defaultProps = {

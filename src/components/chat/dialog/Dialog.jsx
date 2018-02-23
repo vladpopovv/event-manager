@@ -23,7 +23,7 @@ const Dialog = (props) => {
         </button>
       </div>
       <div className="dialog card-body p-0 d-flex">
-        <MessagesBox messages={chat.lastMessages} />
+        <MessagesBox messages={chat.lastMessages} user={props.user} />
         <InputMessage />
       </div>
     </div>
@@ -33,6 +33,7 @@ const Dialog = (props) => {
 Dialog.propTypes = {
   closeDialogHandler: PropTypes.func.isRequired,
   chat: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({}).isRequired,
 };
 
 export default Dialog;
