@@ -1,9 +1,11 @@
 import CONSTANTS from './../../constants/actionConstants';
 import APICONSTANTS from './../../constants/apiConstants';
+import notificationActions from './../notification/notificationActions';
 
 const {
   getPersonalChatsUrl,
   sendMessageUrl,
+  loadMessagesUrl,
 } = APICONSTANTS;
 
 const chatActions = {
@@ -23,7 +25,6 @@ const chatActions = {
     };
   },
   sendMessage(message, chatId, from) {
-    console.log('chatId', chatId);
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_SEND_MESSAGE_REQUESTING });
       return fetch(sendMessageUrl, {
@@ -48,6 +49,37 @@ const chatActions = {
           type: CONSTANTS.CHAT_SEND_MESSAGE_ERROR,
           payload: error,
         }));
+    };
+  },
+  loadMessages(chatId, date) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.CHAT_LOAD_MESSAGES_REQUESTING });
+      return fetch(loadMessagesUrl, {
+        body: JSON.stringify({
+          chatId,
+          date,
+          limit: 20,
+        }),
+      })
+        .then(response => response.json()) // delete after merge
+        .then(json => dispatch({
+          type: CONSTANTS.CHAT_SEND_MESSAGE_SUCCESS,
+          payload: {
+            chatId,
+            message: json.data,
+          },
+        }))
+        .catch((error) => {
+          dispatch({
+            type: CONSTANTS.CHAT_SEND_MESSAGE_ERROR,
+            payload: error,
+          });
+          return dispatch(notificationActions.addNew(
+            'Warning',
+            'Loading error',
+            'Loading error',
+          ));
+        });
     };
   },
 };

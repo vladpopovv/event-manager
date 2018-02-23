@@ -48,7 +48,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: {
           ...state.loading,
-          sendMessage: false,
+          sendMessage: true,
         },
       };
     case CONSTANTS.CHAT_SEND_MESSAGE_SUCCESS: {
@@ -73,6 +73,35 @@ export default (state = initialState, { type, payload }) => {
         loading: {
           ...state.loading,
           sendMessage: false,
+        },
+      };
+    case CONSTANTS.CHAT_LOAD_MESSAGES_REQUESTING:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          loadMessages: true,
+        },
+      };
+    case CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS:
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          ...state.messages[payload.chatId].push(payload.message),
+        },
+        loading: {
+          ...state.loading,
+          loadMessages: false,
+        },
+      };
+    case CONSTANTS.CHAT_LOAD_MESSAGES_ERROR:
+      return {
+        ...state,
+        error: payload,
+        loading: {
+          ...state.loading,
+          loadMessages: false,
         },
       };
     default:
