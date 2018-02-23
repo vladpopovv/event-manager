@@ -3,6 +3,7 @@ import APICONSTANTS from './../../constants/apiConstants';
 
 const {
   getPersonalChatsUrl,
+  sendMessageUrl,
 } = APICONSTANTS;
 
 const chatActions = {
@@ -17,6 +18,33 @@ const chatActions = {
         }))
         .catch(error => dispatch({
           type: CONSTANTS.CHAT_GET_PERSONAL_CHATS_ERROR,
+          payload: error,
+        }));
+    };
+  },
+  sendMessage(message, chatId, from) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.CHAT_SEND_MESSAGE_REQUESTING });
+      return fetch(sendMessageUrl, {
+        method: 'POST',
+        body: {
+          message,
+          chatId,
+        },
+      })
+        .then(response => response.json()) // delete after merge
+        .then(json => dispatch({
+          type: CONSTANTS.CHAT_SEND_MESSAGE_SUCCESS,
+          payload: {
+            chatId,
+            message: {
+              ...json.data,
+              from,
+            },
+          },
+        }))
+        .catch(error => dispatch({
+          type: CONSTANTS.CHAT_SEND_CHATS_ERROR,
           payload: error,
         }));
     };

@@ -43,6 +43,32 @@ export default (state = initialState, { type, payload }) => {
           getChats: false,
         },
       };
+    case CONSTANTS.CHAT_SEND_MESSAGE_REQUESTING:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          sendMessage: false,
+        },
+      };
+    case CONSTANTS.CHAT_SEND_MESSAGE_SUCCESS:
+      return {
+        ...state,
+        message: state[payload.chatId].concat(payload.message),
+        loading: {
+          ...state.loading,
+          sendMessage: false,
+        },
+      };
+    case CONSTANTS.CHAT_SEND_MESSAGE_ERROR:
+      return {
+        ...state,
+        error: payload,
+        loading: {
+          ...state.loading,
+          sendMessage: false,
+        },
+      };
     default:
       return state;
   }
