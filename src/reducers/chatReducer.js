@@ -5,27 +5,7 @@ const initialState = {
   loading: {
     getChats: false,
   },
-  messages: [],
-  friends: [
-    {
-      id: 1,
-      login: 'vvasechkin@gmail.com',
-      firstname: 'Vasya',
-      lastname: 'Vasechkin',
-    },
-    {
-      id: 47,
-      login: 'lvigtor@gmail.com',
-      firstname: 'Виктор',
-      lastname: 'Лавров',
-    },
-    {
-      id: 78,
-      login: 'xs@xs.com',
-      firstname: 'Xs',
-      lastname: 'Xs',
-    },
-  ], // TODO delete
+  messages: {},
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -38,15 +18,22 @@ export default (state = initialState, { type, payload }) => {
           getChats: true,
         },
       };
-    case CONSTANTS.CHAT_GET_PERSONAL_CHATS_SUCCESS:
+    case CONSTANTS.CHAT_GET_PERSONAL_CHATS_SUCCESS: {
+      const { messages } = state;
+      payload.forEach((chat) => {
+        const oldMessages = state.messages[chat.id] ? state.messages[chat.id] : [];
+        messages[chat.id] = oldMessages.concat(chat.lastMessages);
+      });
       return {
         ...state,
         chats: payload,
+        messages,
         loading: {
           ...state.loading,
           getChats: false,
         },
       };
+    }
     case CONSTANTS.CHAT_GET_PERSONAL_CHATS_ERROR:
       return {
         ...state,

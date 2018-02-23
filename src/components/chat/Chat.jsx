@@ -34,13 +34,15 @@ class Chat extends React.Component {
     });
   }
   render() {
+    const { chatDialog } = this.state;
     return (
       <div className="border rounded">
         <div className="p-2">
           <i className="fa fa-comments-o" />Chat
-          {this.state.chatDialog.id
+          {chatDialog.id
             ? <Dialog
-              chat={this.state.chatDialog}
+              chat={chatDialog}
+              messages={this.props.messages[chatDialog.id]}
               closeDialogHandler={this.closeDialogHandler}
               user={this.props.user}
             />
@@ -58,6 +60,7 @@ class Chat extends React.Component {
 Chat.propTypes = {
   chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,
+  messages: PropTypes.shape({}).isRequired,
   getPersonalChats: PropTypes.func.isRequired,
 };
 
