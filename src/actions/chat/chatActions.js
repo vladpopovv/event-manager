@@ -23,14 +23,15 @@ const chatActions = {
     };
   },
   sendMessage(message, chatId, from) {
+    console.log('chatId', chatId);
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_SEND_MESSAGE_REQUESTING });
       return fetch(sendMessageUrl, {
         method: 'POST',
-        body: {
+        body: JSON.stringify({
           message,
           chatId,
-        },
+        }),
       })
         .then(response => response.json()) // delete after merge
         .then(json => dispatch({
@@ -44,7 +45,7 @@ const chatActions = {
           },
         }))
         .catch(error => dispatch({
-          type: CONSTANTS.CHAT_SEND_CHATS_ERROR,
+          type: CONSTANTS.CHAT_SEND_MESSAGE_ERROR,
           payload: error,
         }));
     };

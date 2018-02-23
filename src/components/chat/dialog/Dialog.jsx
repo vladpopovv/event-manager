@@ -7,7 +7,10 @@ import './dialogStyle.less';
 
 const Dialog = (props) => {
   const { chat } = props;
+  const sendMessageHandler = message =>
+    props.sendMessageHandler(message, chat.id, props.user);
   const dialogName = ChatUtility.getChatName(chat);
+  console.log('MESSAGES', props.messages);
   return (
     <div className="card">
       <div className="card-header p-1">
@@ -24,7 +27,7 @@ const Dialog = (props) => {
       </div>
       <div className="dialog card-body p-0 d-flex">
         <MessagesBox messages={props.messages} user={props.user} />
-        <InputMessage />
+        <InputMessage sendMessageHandler={sendMessageHandler} />
       </div>
     </div>
   );
@@ -32,6 +35,7 @@ const Dialog = (props) => {
 
 Dialog.propTypes = {
   closeDialogHandler: PropTypes.func.isRequired,
+  sendMessageHandler: PropTypes.func.isRequired,
   chat: PropTypes.shape({}).isRequired,
   messages: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,

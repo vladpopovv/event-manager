@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './inputMessageStyle.less';
 
 export default class InputMessage extends React.Component {
@@ -10,6 +11,7 @@ export default class InputMessage extends React.Component {
     };
 
     this.onChangeMessageText = this.onChangeMessageText.bind(this);
+    this.onSubmitMessage = this.onSubmitMessage.bind(this);
   }
 
   onChangeMessageText(e) {
@@ -17,6 +19,14 @@ export default class InputMessage extends React.Component {
 
     this.setState({
       messageText,
+    });
+  }
+
+  onSubmitMessage(e) {
+    e.preventDefault();
+    this.props.sendMessageHandler(this.state.messageText);
+    this.setState({
+      messageText: '',
     });
   }
 
@@ -30,7 +40,10 @@ export default class InputMessage extends React.Component {
             onChange={this.onChangeMessageText}
             name="message"
           />
-          <button className="btn btn-dark input-group-append">
+          <button
+            className="btn btn-dark input-group-append"
+            onClick={this.onSubmitMessage}
+          >
             Send
           </button>
         </div>
@@ -38,3 +51,7 @@ export default class InputMessage extends React.Component {
     );
   }
 }
+
+InputMessage.propTypes = {
+  sendMessageHandler: PropTypes.func.isRequired,
+};
