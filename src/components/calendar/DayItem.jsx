@@ -13,13 +13,12 @@ const DayItem = (props) => {
   });
   const { events } = props.dayData.eventsData;
   const onClickDay = () => props.onClickDay(props.dayData.day);
-  // const onClickFirstEvent = () => props.onClickEventHandler(events[0]);
   const hasEvents = events && events.length !== 0;
   const isSingleEventDay = events.length === 1;
   const eventsListClasses = classNames('events-list', {
     'single-event': isSingleEventDay,
   });
-  const day = moment(props.dayData.day).date();
+  const day = moment(props.dayData.day).format('DD');
   const firstEvents = events.slice(0, 2);
   const lastEvents = events.slice(2);
   const isMore = !!lastEvents.length;

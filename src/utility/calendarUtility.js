@@ -40,6 +40,7 @@ const CalendarUtility = {
 
     return mapDays;
   },
+
   getMonthByWeek(mapDays) {
     const monthByWeek = new Map();
     let weekCounter = 0;
@@ -93,11 +94,11 @@ const CalendarUtility = {
   getEventsByRange(daysByEventRange, eventsDays, event) {
     let currentEvent = event;
     const eventsByRange = {};
-    const firstDayOfEvent = moment(event.fromDate).format('MM-DD-YYYY');
-    const lastDayOfEvent = moment(event.toDate).format('MM-DD-YYYY');
+    const firstDayOfEvent = moment(event.fromDate).format(formatDate);
+    const lastDayOfEvent = moment(event.toDate).format(formatDate);
     daysByEventRange.forEach((day) => {
       currentEvent = event;
-      const date = moment(day).format('MM-DD-YYYY');
+      const date = moment(day).format(formatDate);
       const events = eventsDays[date] ? eventsDays[date].events : [];
 
       if (date === firstDayOfEvent) {

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import eventsActions from './../../actions/eventsActions/eventsActions';
+import modalActions from './../../actions/modalActions/modalActions';
 import NewEvent from './../event/NewEvent';
-import Modal from './../modal/Modal';
 import DayItem from './DayItem';
 import CalendarUtility from './../../utility/calendarUtility';
 import EventData from './../event/EventData';
@@ -19,19 +19,13 @@ class Calendar extends React.Component {
     this.state = {
       month: date.get('month'),
       year: date.get('year'),
-      modalAddEventIsOpen: false,
-      modalEventDataIsOpen: false,
-      eventData: {},
-      startEventDate: CalendarUtility.getDateByFormat(date),
     };
 
     this.onClickPrev = this.onClickPrev.bind(this);
     this.onClickNext = this.onClickNext.bind(this);
     this.onClickToday = this.onClickToday.bind(this);
     this.openModalEventData = this.openModalEventData.bind(this);
-    this.closeModalEventData = this.closeModalEventData.bind(this);
     this.openModalAddEvent = this.openModalAddEvent.bind(this);
-    this.closeModalAddEvent = this.closeModalAddEvent.bind(this);
     this.getEvents = this.getEvents.bind(this);
   }
 
@@ -85,30 +79,22 @@ class Calendar extends React.Component {
 
   openModalAddEvent(date) {
     const startDate = CalendarUtility.getDateByFormat(date);
-    this.setState({
-      modalAddEventIsOpen: true,
-      startEventDate: startDate,
-    });
-  }
-
-  closeModalAddEvent() {
-    this.setState({
-      modalAddEventIsOpen: false,
-    });
+    const dayOfMonth = CalendarUtility.getMonth(this.state.year, this.state.month);
+    const eventsDays = CalendarUtility.getEventsDays(this.props.events, dayOfMonth);
+    this.props.addModal(<NewEvent
+      onHide={this.props.deleteModal}
+      startDate={startDate}
+      events={eventsDays}
+      date={startDate}
+    />);
   }
 
   openModalEventData(event) {
-    this.setState({
-      modalEventDataIsOpen: true,
-      eventData: event,
-    });
-  }
-
-  closeModalEventData() {
-    this.setState({
-      modalEventDataIsOpen: false,
-      eventData: {},
-    });
+    this.props.addModal(<EventData
+      onHide={this.props.deleteModal}
+      event={event}
+      deleteEventHandler={this.props.deleteEvents}
+    />);
   }
 
   render() {
@@ -130,23 +116,6 @@ class Calendar extends React.Component {
 
     return (
       <div>
-        <Modal show={this.state.modalAddEventIsOpen} onHide={this.closeModalAddEvent}>
-          <div>
-            <NewEvent
-              onHide={this.closeModalAddEvent}
-              startDate={this.state.startEventDate}
-              events={eventsDays}
-              date={this.state.startEventDate}
-            />
-          </div>
-        </Modal>
-        <Modal show={this.state.modalEventDataIsOpen} onHide={this.closeModalEventData}>
-          <EventData
-            onHide={this.closeModalEventData}
-            event={this.state.eventData}
-            deleteEventHandler={this.props.deleteEvents}
-          />
-        </Modal>
         <div className="calendar">
           <Loader loading={this.props.loading} />
           <div className="calendar__top d-flex justify-content-between align-content-center p-2">
@@ -192,7 +161,9 @@ Calendar.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({})),
   loading: PropTypes.bool,
   getEventsOfRange: PropTypes.func.isRequired,
+  addModal: PropTypes.func.isRequired,
   deleteEvents: PropTypes.func.isRequired,
+  deleteModal: PropTypes.func.isRequired,
 };
 
 Calendar.defaultProps = {
@@ -208,6 +179,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getEventsOfRange: bindActionCreators(eventsActions.getEventsOfRange, dispatch),
   deleteEvents: bindActionCreators(eventsActions.deleteEvents, dispatch),
+  addModal: bindActionCreators(modalActions.addNew, dispatch),
+  deleteModal: bindActionCreators(modalActions.delete, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

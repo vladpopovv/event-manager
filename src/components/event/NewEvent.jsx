@@ -64,7 +64,7 @@ class NewEvent extends React.Component {
   }
 
   onClose() {
-    this.props.onHide('addNewEvent');
+    this.props.onHide();
   }
 
   getEventsRequest(startDate, endDate) {
@@ -110,7 +110,7 @@ class NewEvent extends React.Component {
               className="close"
               data-dismiss="modal"
               aria-label="Close"
-              onClick={this.props.onHide}
+              onClick={this.onClose}
             >
               <span aria-hidden="true">&times;</span>
             </button>

@@ -9,6 +9,7 @@ import SignUpPage from './components/signup/SignUpPage';
 import Layout from './components/layout/Layout';
 import NotFound from './components/shared/NotFound';
 import NotificationWrapper from './components/notification/NotificationWrapper';
+// import Modal from './components/modal/Modal';
 import fetchInterceptor from './actions/authorization/fetchInterceptor';
 import './style/main.less';
 
@@ -35,3 +36,10 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('notifications'),
 );
+
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <Modal />
+//   </Provider>,
+//   document.getElementById('modals'),
+// );

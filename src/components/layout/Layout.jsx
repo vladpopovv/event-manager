@@ -5,12 +5,14 @@ import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import authActions from './../../actions/authorization/authActions';
+import modalActions from './../../actions/modalActions/modalActions';
 import Header from './../header/Header';
 import Footer from './../footer/Footer';
 import HomePage from './../home/HomePage';
 import Loader from './../shared/loader/Loader';
 import FriendsPage from './../friends/FriendsPage';
 import NotFound from './../shared/NotFound';
+import Modal from './../modal/Modal';
 import './layoutStyle.less';
 
 class Layout extends React.Component {
@@ -25,14 +27,19 @@ class Layout extends React.Component {
     }
 
     return (
-      <div className={classNames(this.props.appClasses)}>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/friends" component={FriendsPage} />
-          <Route component={NotFound} />
-        </Switch>
-        <Footer />
+      <div>
+        <Modal onHide={this.props.deleteModal} show={this.props.modals.length !== 0}>
+          {this.props.modals[0]}
+        </Modal>
+        <div className={classNames(this.props.appClasses)}>
+          <Header />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/friends" component={FriendsPage} />
+            <Route component={NotFound} />
+          </Switch>
+          <Footer />
+        </div>
       </div>
     );
   }
@@ -44,6 +51,8 @@ Layout.propTypes = {
     firstname: PropTypes.string,
   }),
   appClasses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  modals: PropTypes.arrayOf(PropTypes.element).isRequired,
+  deleteModal: PropTypes.func.isRequired,
 };
 
 Layout.defaultProps = {
@@ -55,10 +64,12 @@ Layout.defaultProps = {
 const mapStateToProps = state => ({
   userData: state.user.data,
   appClasses: state.app.classes,
+  modals: state.modal.modals,
 });
 
 const mapDispatchToProps = dispatch => ({
   getUserData: bindActionCreators(authActions.getUserDataRequest, dispatch),
+  deleteModal: bindActionCreators(modalActions.delete, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);
