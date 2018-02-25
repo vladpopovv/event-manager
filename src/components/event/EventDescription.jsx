@@ -6,6 +6,7 @@ import CalendarUtility from './../../utility/calendarUtility';
 
 const EventDescription = (props) => {
   const { event } = props;
+  const participants = event.participants ? event.participants : [];
   const fromDate = CalendarUtility.getDateByFormat(event.fromDate);
   const toDate = CalendarUtility.getDateByFormat(event.toDate);
   return (
@@ -34,7 +35,7 @@ const EventDescription = (props) => {
         <div>
           Participants:
           <ul className="list-group">
-            {event.participants.map(participant => (
+            {participants.map(participant => (
               <li className="list-group-item" key={participant.id}>
                 <Link to={`/users/${participant.id}`} href={`/users/${participant.id}`}>
                   {participant.firstname} {participant.lastname}

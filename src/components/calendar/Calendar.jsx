@@ -98,7 +98,9 @@ class Calendar extends React.Component {
   }
 
   render() {
-    const currentMonth = moment().month(this.state.month).format('MMMM');
+    const date = moment().month(this.state.month).year(this.state.year);
+    const currentMonth = date.format('MMMM');
+    const btnTodayIsDisabled = moment().isSame(date, 'month');
     const currentYear = this.state.year;
 
     const weekDaysName = moment.weekdaysShort();
@@ -114,6 +116,7 @@ class Calendar extends React.Component {
       />);
     });
 
+
     return (
       <div>
         <div className="calendar">
@@ -124,18 +127,30 @@ class Calendar extends React.Component {
                 Add event
               </button>
             </div>
-            <span className="calendar__caption">
-              {currentMonth} {currentYear}
-            </span>
+            <div className="calendar__caption">
+              <span>
+                {currentMonth} {currentYear}
+              </span>
+            </div>
             <div>
+              <button
+                onClick={this.onClickToday}
+                className="btn btn-sm btn-primary mr-2"
+                disabled={btnTodayIsDisabled}
+              >
+                Today
+              </button>
               <div className="btn-group">
-                <button className="btn btn-sm btn-primary" onClick={this.onClickPrev}>
+                <button
+                  className="btn btn-sm btn-primary"
+                  onClick={this.onClickPrev}
+                >
                   <i className="fa fa-chevron-left" />
                 </button>
-                <button onClick={this.onClickToday} className="btn btn-sm btn-primary">
-                  Today
-                </button>
-                <button className="btn btn-sm btn-primary" onClick={this.onClickNext}>
+                <button
+                  className="btn btn-sm btn-primary"
+                  onClick={this.onClickNext}
+                >
                   <i className="fa fa-chevron-right" />
                 </button>
               </div>

@@ -6,6 +6,9 @@ import './eventStyle.less';
 const EventItem = (props) => {
   const { event } = props;
   const colorClasses = [
+    'btn-danger',
+    'btn-info',
+    'btn-success',
     'red',
     'blue',
     'yellow',

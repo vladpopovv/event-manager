@@ -73,7 +73,7 @@ const eventActions = {
       })
         .then((json) => {
           if (!json.success) {
-            throw new Error(json.error);
+            throw new Error(json.error.message);
           }
           dispatch(notificationActions.addNew(
             'success',
@@ -86,10 +86,11 @@ const eventActions = {
           });
         })
         .catch((error) => {
-          dispatch(notificationActions.addNew('danger', 'Request error', error.message));
+          console.log(error);
+          dispatch(notificationActions.addNew('danger', 'Error removing', error.message));
           return dispatch({
             type: CONSTANTS.EVENT_DELETE_ERROR,
-            payload: { error: error.message },
+            payload: error.message,
           });
         });
     };

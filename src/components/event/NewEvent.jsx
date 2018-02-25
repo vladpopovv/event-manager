@@ -155,6 +155,7 @@ class NewEvent extends React.Component {
                 events={this.props.events}
                 date={this.state.startDate}
                 loading={this.props.loadingEvents}
+                deleteEventHandler={this.props.deleteEvent}
               />
             </div>
             <div className="modal-footer">
@@ -186,6 +187,7 @@ NewEvent.propTypes = {
   onHide: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   addNewEvent: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
   getEventsByRange: PropTypes.func.isRequired,
   clearEventList: PropTypes.func.isRequired,
   events: PropTypes.arrayOf(PropTypes.shape()),
@@ -207,6 +209,7 @@ const mapStateToProps = state => ({
 
 const mapDispathcToProps = dispatch => ({
   addNewEvent: bindActionCreators(eventAction.addNewEvent, dispatch),
+  deleteEvent: bindActionCreators(eventAction.deleteEvents, dispatch),
   getEventsByRange: bindActionCreators(eventAction.getEventsListByRange, dispatch),
   clearEventList: bindActionCreators(eventAction.clearEventList, dispatch),
 });
