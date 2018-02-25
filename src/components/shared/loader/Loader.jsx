@@ -18,7 +18,7 @@ const Loader = (props) => {
     >
       {props.loading &&
         <div className={classNames('loader__wrapper', `${props.position}`)}>
-          <div className={classNames('loader__spinner', `${props.size}`)}>
+          <div className={classNames('loader__spinner', 'text-primary', `${props.size}`)}>
             <i className="fa fa-spinner spinner" />
           </div>
         </div>

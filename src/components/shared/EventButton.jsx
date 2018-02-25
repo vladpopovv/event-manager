@@ -7,7 +7,7 @@ const EventButton = (props) => {
   const iconClass = classNames('fa', props.icon);
   return (
     <button
-      className="event__btn"
+      className="btn btn-sm btn-primary"
       onClick={props.clickHandler}
       type={props.type}
     >

@@ -120,29 +120,29 @@ class Calendar extends React.Component {
           <Loader loading={this.props.loading} />
           <div className="calendar__top d-flex justify-content-between align-content-center p-2">
             <div>
-              <button onClick={this.openModalAddEvent} className="calendar__btn mr-2">
+              <button onClick={this.openModalAddEvent} className="btn btn-sm btn-primary mr-2">
                 Add event
-              </button>
-              <button onClick={this.onClickToday} className="calendar__btn mr-2">
-                Today
               </button>
             </div>
             <span className="calendar__caption">
               {currentMonth} {currentYear}
             </span>
             <div>
-              <div className="calendar__control">
-                <button className="calendar__btn" onClick={this.onClickPrev}>
-                  prev month
+              <div className="btn-group">
+                <button className="btn btn-sm btn-primary" onClick={this.onClickPrev}>
+                  <i className="fa fa-chevron-left" />
                 </button>
-                <button className="calendar__btn" onClick={this.onClickNext}>
-                  next month
+                <button onClick={this.onClickToday} className="btn btn-sm btn-primary">
+                  Today
+                </button>
+                <button className="btn btn-sm btn-primary" onClick={this.onClickNext}>
+                  <i className="fa fa-chevron-right" />
                 </button>
               </div>
             </div>
           </div>
           <div className="calendar__table">
-            <div className="calendar__header">
+            <div className="calendar__header bg-primary">
               {weekDaysName.map(weekDay => (
                 <div key={weekDay} className="calendar-header__item">{weekDay}</div>
               ))}
