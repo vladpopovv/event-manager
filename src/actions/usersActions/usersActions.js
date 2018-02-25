@@ -10,7 +10,7 @@ export default {
       fetch(`${getUserDataUrl}/${userId}`)
         .then(response => response.json())
         .then((json) => {
-          if (json.data.id) {
+          if (!json.data.id) {
             throw new Error('User is not found');
           }
 
