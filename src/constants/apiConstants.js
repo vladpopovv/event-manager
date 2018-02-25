@@ -6,4 +6,5 @@ export default {
   getPersonalChatsUrl: 'personalChats',
   sendMessageUrl: 'message',
   loadMessagesUrl: 'messages',
+  getUserDataUrl: 'users',
 };
