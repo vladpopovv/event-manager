@@ -53,12 +53,11 @@ export default (state = initialState, { type, payload }) => {
       };
     case CONSTANTS.CHAT_SEND_MESSAGE_SUCCESS: {
       const { messages } = state;
-
+      messages[payload.chatId] = Array.of(payload.message).concat(messages[payload.chatId]);
       return {
         ...state,
         messages: {
-          ...state.messages,
-          ...messages[payload.chatId].unshift(payload.message),
+          ...messages,
         },
         loading: {
           ...state.loading,
@@ -86,7 +85,6 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS: {
       const { messages } = state;
       messages[payload.chatId] = messages[payload.chatId].concat(payload.messages);
-      console.log('PAYLOAD', messages[payload.chatId]);
       return {
         ...state,
         messages: {
