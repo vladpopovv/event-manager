@@ -8,16 +8,18 @@ const EventItem = (props) => {
   const colorClasses = [
     'btn-danger',
     'btn-info',
-    'btn-success',
-    'red',
-    'blue',
-    'yellow',
-    'green',
-    'teal',
-    'orange',
-    'pink',
+    'btn-warning',
+    'btn-primary',
+    'btn-secondary',
+    // 'red',
+    // 'blue',
+    // 'yellow',
+    // 'green',
+    // 'teal',
+    // 'orange',
+    // 'pink',
   ];
-  const color = colorClasses[(event.id * 5) % 6];
+  const color = colorClasses[(event.id * 1) % 5];
   const onClickEventHandler = (e) => {
     e.stopPropagation();
     props.onClickEventHandler(event);

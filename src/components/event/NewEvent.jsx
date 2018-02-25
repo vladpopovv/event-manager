@@ -29,6 +29,7 @@ class NewEvent extends React.Component {
     this.onChangeStartDate = this.onChangeStartDate.bind(this);
     this.onChangeEndDate = this.onChangeEndDate.bind(this);
     this.getEventsRequest = this.getEventsRequest.bind(this);
+    this.removeEventHandler = this.removeEventHandler.bind(this);
   }
 
   componentDidMount() {
@@ -67,7 +68,7 @@ class NewEvent extends React.Component {
     this.props.onHide();
   }
 
-  getEventsRequest(startDate, endDate) {
+  getEventsRequest(startDate = this.state.startDate, endDate = this.state.endDate) {
     clearTimeout(this.debounceGetEvents);
     this.debounceGetEvents = setTimeout(() => {
       if (moment(startDate).isValid() && moment(endDate).isValid()) {
@@ -81,6 +82,11 @@ class NewEvent extends React.Component {
       ...value,
       participants: this.state.invitedFriends,
     }).then(() => this.onClose());
+  }
+
+  removeEventHandler(event) {
+    this.props.deleteEvent(event)
+      .then(() => this.getEventsRequest());
   }
 
   render() {
@@ -155,7 +161,7 @@ class NewEvent extends React.Component {
                 events={this.props.events}
                 date={this.state.startDate}
                 loading={this.props.loadingEvents}
-                deleteEventHandler={this.props.deleteEvent}
+                deleteEventHandler={this.removeEventHandler}
               />
             </div>
             <div className="modal-footer">
@@ -218,7 +224,4 @@ const NewEventForm = connect(mapStateToProps, mapDispathcToProps)(NewEvent);
 
 export default reduxForm({
   form: 'addNewEvent',
-  // initialValues: {
-  //   title: 'Test',
-  // },
 })(NewEventForm);

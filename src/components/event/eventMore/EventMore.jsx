@@ -13,7 +13,7 @@ const EventMore = (props) => {
     <div className="btn-group">
       <button
         type="button"
-        className="event__item event__show-more bg-warning dropdown-toggle"
+        className="event__item event__show-more btn-success dropdown-toggle"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
