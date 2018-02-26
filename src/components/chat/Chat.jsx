@@ -6,6 +6,7 @@ import Dialogs from './dialogs/Dialogs';
 import Dialog from './dialog/Dialog';
 import ChatUtility from './../../utility/chatUtility';
 import chatActions from './../../actions/chat/chatActions';
+import friendsActions from './../../actions/friends/friendsActions';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
+    this.props.getFriends();
     this.props.getPersonalChats();
   }
 
@@ -55,6 +57,7 @@ class Chat extends React.Component {
               loadMessagesHandler={this.props.loadMessages}
             />
             : <Dialogs
+              friends={this.props.friends}
               chats={chats}
               openDialogHandler={this.openDialogHandler}
             />
@@ -67,18 +70,21 @@ class Chat extends React.Component {
 
 Chat.propTypes = {
   chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,
   messages: PropTypes.shape({}).isRequired,
   getPersonalChats: PropTypes.func.isRequired,
   clearChat: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
   loadMessages: PropTypes.func.isRequired,
+  getFriends: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   chats: state.chat.chats,
   messages: state.chat.messages,
   user: state.user.data,
+  friends: state.friends.friends,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -86,6 +92,7 @@ const mapDispatchToProps = dispatch => ({
   sendMessage: bindActionCreators(chatActions.sendMessage, dispatch),
   loadMessages: bindActionCreators(chatActions.loadMessages, dispatch),
   clearChat: bindActionCreators(chatActions.clearChat, dispatch),
+  getFriends: bindActionCreators(friendsActions.getFriends, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);
