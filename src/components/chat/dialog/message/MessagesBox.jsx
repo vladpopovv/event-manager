@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Message from './Message';
+import MessageNotification from './MessageNotification';
 import ChatUtility from './../../../../utility/chatUtility';
 import './messageBoxStyle.less';
 
@@ -16,9 +17,9 @@ const MessagesBox = (props) => {
   return (
     <div className="message__box border-bottom" onScroll={onScrollHandler} >
       {messages.map(message => (
-        message.id
+        message.message
         ? <Message key={message.id} message={message} isIncome={user.id !== message.from.id} />
-        : <span key={message.id}>{message.info}</span>
+        : <MessageNotification key={message.info} text={message.info} />
       ))}
     </div>
   );
