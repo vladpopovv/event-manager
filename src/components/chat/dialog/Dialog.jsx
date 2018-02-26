@@ -8,13 +8,18 @@ import './dialogStyle.less';
 
 const Dialog = (props) => {
   const { chat } = props;
+
   const sendMessageHandler = message =>
     props.sendMessageHandler(message, chat.id, props.user);
+
   const loadMessagesHandler = () => {
     const lastMessage = props.messages[props.messages.length - 1];
     const timeOfLastMessage = lastMessage.createdAt;
     props.loadMessagesHandler(chat.id, timeOfLastMessage);
   };
+
+  const onClickClose = () => props.closeDialogHandler(chat);
+
   const dialogName = ChatUtility.getChatName(chat);
 
   return (
@@ -31,7 +36,7 @@ const Dialog = (props) => {
           className="close"
           data-dismiss="modal"
           aria-label="Close"
-          onClick={props.closeDialogHandler}
+          onClick={onClickClose}
         >
           <span aria-hidden="true">&times;</span>
         </button>

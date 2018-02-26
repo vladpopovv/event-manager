@@ -48,6 +48,20 @@ const chatActions = {
     };
   },
 
+  openChat(chat) {
+    return dispatch => dispatch({
+      type: CONSTANTS.CHAT_OPEN,
+      payload: chat,
+    });
+  },
+
+  closeChat(chat) {
+    return dispatch => dispatch({
+      type: CONSTANTS.CHAT_CLOSE,
+      payload: chat,
+    });
+  },
+
   sendMessage(message, chatId, from) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_SEND_MESSAGE_REQUESTING });
