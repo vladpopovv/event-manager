@@ -2,6 +2,7 @@ import CONSTANTS from './../constants/actionConstants';
 
 const initialState = {
   chats: [],
+  currentChat: {},
   loading: {
     getChats: false,
   },
@@ -84,7 +85,8 @@ export default (state = initialState, { type, payload }) => {
       };
     case CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS: {
       const { messages } = state;
-      messages[payload.chatId] = messages[payload.chatId].concat(payload.messages);
+      const currentMessages = messages[payload.chatId] ? messages[payload.chatId] : [];
+      messages[payload.chatId] = currentMessages.concat(payload.messages);
       return {
         ...state,
         messages: {
@@ -119,14 +121,21 @@ export default (state = initialState, { type, payload }) => {
           createChat: true,
         },
       };
-    case CONSTANTS.CHAT_CREATE_SUCCESS:
+    case CONSTANTS.CHAT_CREATE_SUCCESS: {
+      const { chats } = state;
+      const indexChat = chats.findIndex(chat => chat.id === payload.id);
+      const index = indexChat >= 0 ? indexChat : chats.length;
+      chats[index] = payload;
       return {
         ...state,
+        chats,
+        currentChat: payload,
         loading: {
           ...state.loading,
           createChat: false,
         },
       };
+    }
     case CONSTANTS.CHAT_CREATE_ERROR:
       return {
         ...state,
