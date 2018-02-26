@@ -58,8 +58,12 @@ Dialog.propTypes = {
   sendMessageHandler: PropTypes.func.isRequired,
   loadMessagesHandler: PropTypes.func.isRequired,
   chat: PropTypes.shape({}).isRequired,
-  messages: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  messages: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.shape({}).isRequired,
+};
+
+Dialog.defaultProps = {
+  messages: [],
 };
 
 export default Dialog;
