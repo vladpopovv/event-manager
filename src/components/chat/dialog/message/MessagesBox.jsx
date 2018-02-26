@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Message from './Message';
+import ChatUtility from './../../../../utility/chatUtility';
 import './messageBoxStyle.less';
 
 const MessagesBox = (props) => {
-  const { messages, user } = props;
+  const { user } = props;
+  const messages = ChatUtility.setDateBetweenDays(props.messages);
+
   const onScrollHandler = (e) => {
     if (e.target.scrollTop === 0) {
       props.loadMessagesHandler();
@@ -13,7 +16,9 @@ const MessagesBox = (props) => {
   return (
     <div className="message__box border-bottom" onScroll={onScrollHandler} >
       {messages.map(message => (
-        <Message key={message.id} message={message} isIncome={user.id !== message.from.id} />
+        message.id
+        ? <Message key={message.id} message={message} isIncome={user.id !== message.from.id} />
+        : <span key={message.id}>{message.info}</span>
       ))}
     </div>
   );
