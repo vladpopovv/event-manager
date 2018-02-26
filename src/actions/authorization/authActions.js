@@ -13,6 +13,9 @@ function getOptionsRequest(data) {
   return {
     method: 'POST',
     body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   };
 }
 
@@ -26,12 +29,6 @@ const authActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.SIGN_IN_REQUESTING });
       return fetchRequest(data, signInUrl)
-        .then((response) => {
-          if (!response.ok && response.statusText === 'Unauthorized') {
-            throw new Error('Invalid login or password.');
-          }
-          return response.json();
-        })
         .then((json) => {
           dispatch(notificationActions.addNew(
             'success',
@@ -39,7 +36,6 @@ const authActions = {
             'You have successfully login.',
           ));
           authToken.setToken(json.data.token);
-          localStorage.setItem('userData', JSON.stringify(json.data));
           return dispatch({
             type: CONSTANTS.SIGN_IN_SUCCESS,
             payload: json,
@@ -51,11 +47,24 @@ const authActions = {
         }));
     };
   },
+  getUserDataRequest() {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.USER_GET_DATA_REQUESTING });
+      return fetch('whoami')
+        .then(json => dispatch({
+          type: CONSTANTS.USER_GET_DATA_SUCCESS,
+          payload: json.data,
+        }))
+        .catch(error => dispatch({
+          type: CONSTANTS.USER_GET_DATA_ERROR,
+          payload: error,
+        }));
+    };
+  },
   signUpRequest(data) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.SIGN_UP_REQUESTING });
       return fetchRequest(data, signUpUrl)
-        .then(response => response.json())
         .then((json) => {
           if (json.error) {
             throw new Error(json.error);
@@ -87,10 +96,9 @@ const authActions = {
     authToken.clearToken();
     return (dispatch) => {
       dispatch({
-        type: CONSTANTS.LOG_OUT_SUCCESS,
+        type: CONSTANTS.LOG_OUT_REQUESTING,
       });
       fetch(logOutUrl, options)
-        .then(response => response.json())
         .then(json => dispatch({
           type: CONSTANTS.LOG_OUT_SUCCESS,
           payload: json,

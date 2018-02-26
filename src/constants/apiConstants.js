@@ -7,4 +7,10 @@ export default {
   sendMessageUrl: 'message',
   loadMessagesUrl: 'messages',
   getUserDataUrl: 'users',
+  getFriendsUrl: 'friends',
+  searchUsersUrl: 'users/search',
+  addToFriendsUrl: 'sendFriendRequests',
+  sendRequestToFriendsUrl: 'sendFriendRequests',
+  getFriendRequetsUrl: 'friends/requests/income',
+  deleteFriendsUrl: 'deleteFriends',
 };

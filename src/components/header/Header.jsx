@@ -13,7 +13,7 @@ const Header = (props) => {
     >
       <Link href="/" to="/" className="navbar-brand">Event manager</Link>
       <ul className="navbar-nav mr-auto">
-        <li className="nav-item active">
+        <li className="nav-item">
           <Link to="/" href="/" className="nav-link">Home</Link>
         </li>
         <li className="nav-item">

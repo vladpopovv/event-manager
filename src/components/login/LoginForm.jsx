@@ -22,7 +22,6 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    console.error(this.props);
     const {
       handleSubmit,
       loading,
