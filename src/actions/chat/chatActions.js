@@ -13,7 +13,6 @@ const chatActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_GET_PERSONAL_CHATS_REQUESTING });
       return fetch(getPersonalChatsUrl)
-        .then(response => response.json()) // delete after merge
         .then(json => dispatch({
           type: CONSTANTS.CHAT_GET_PERSONAL_CHATS_SUCCESS,
           payload: json.data,
@@ -34,7 +33,6 @@ const chatActions = {
           chatId,
         }),
       })
-        .then(response => response.json()) // delete after merge
         .then(json => dispatch({
           type: CONSTANTS.CHAT_SEND_MESSAGE_SUCCESS,
           payload: {
@@ -55,7 +53,6 @@ const chatActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_LOAD_MESSAGES_REQUESTING });
       return fetch(`${loadMessagesUrl}?chatId=${chatId}&date=${date}&limit=20`)
-        .then(response => response.json()) // delete after merge
         .then(json => dispatch({
           type: CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS,
           payload: {

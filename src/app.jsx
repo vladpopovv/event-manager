@@ -6,8 +6,6 @@ import createStore from './store/createStore';
 import Authorization from './components/authorization/Authorization';
 import LoginPage from './components/login/LoginPage';
 import SignUpPage from './components/signup/SignUpPage';
-import HomePage from './components/home/HomePage';
-import UserPage from './components/userPage/UserPage';
 import Layout from './components/layout/Layout';
 import NotFound from './components/shared/NotFound';
 import NotificationWrapper from './components/notification/NotificationWrapper';
@@ -21,8 +19,6 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Authorization(HomePage)} />
-        <Route exact path="/users/:id(\d+)" component={Authorization(UserPage)} />
         <Route path="/login" component={Authorization(LoginPage, false, '/')} />
         <Route path="/signup" component={Authorization(SignUpPage, false, '/')} />
         <Route path="/" component={Authorization(Layout)} />
