@@ -6,8 +6,8 @@ import ChatUtility from './../../../../utility/chatUtility';
 import './messageBoxStyle.less';
 
 const MessagesBox = (props) => {
-  const { user } = props;
-  const messages = ChatUtility.setDateBetweenDays(props.messages);
+  const { user, chat } = props;
+  const messages = ChatUtility.setDateBetweenDays(props.messages, chat.isFullDialog);
 
   const onScrollHandler = (e) => {
     if (e.target.scrollTop === 0) {
@@ -28,6 +28,7 @@ const MessagesBox = (props) => {
 MessagesBox.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.shape({}).isRequired,
+  chat: PropTypes.shape({}).isRequired,
   loadMessagesHandler: PropTypes.func.isRequired,
 };
 

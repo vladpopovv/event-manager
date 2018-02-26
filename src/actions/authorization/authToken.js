@@ -6,7 +6,6 @@ const authToken = {
     return localStorage.getItem('authorizationToken');
   },
   clearToken() {
-    // debugger;// eslint-disable-line
     localStorage.clear();
   },
   hasToken() {

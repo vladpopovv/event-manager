@@ -15,6 +15,12 @@ const Dialog = (props) => {
   const loadMessagesHandler = () => {
     const lastMessage = props.messages[props.messages.length - 1];
     const timeOfLastMessage = lastMessage.createdAt;
+
+    // debugger; //eslint-disable-line
+    if (chat.isFullDialog) {
+      return;
+    }
+
     props.loadMessagesHandler(chat.id, timeOfLastMessage);
   };
 
@@ -44,6 +50,7 @@ const Dialog = (props) => {
       <div className="dialog card-body p-0 d-flex">
         <MessagesBox
           messages={props.messages}
+          chat={chat}
           user={props.user}
           loadMessagesHandler={loadMessagesHandler}
         />

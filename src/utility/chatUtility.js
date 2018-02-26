@@ -23,16 +23,24 @@ const ChatUtility = {
     return moment(date).format('LT');
   },
 
-  setDateBetweenDays(messages) {
+  setDateBetweenDays(messages, isFullDialog) {
     const messageWithDays = [];
     messages.forEach((message, i) => {
       if (i > 0 && !moment(message.createdAt).isSame(messages[i - 1].createdAt, 'day')) {
         messageWithDays.push({
-          info: moment(message.createdAt).format('DD MMMM YYYY'),
+          info: moment(messages[i - 1].createdAt).format('DD MMMM YYYY'),
         });
       }
       messageWithDays.push(message);
     });
+    if (isFullDialog) {
+      messageWithDays.push({
+        info: moment(messages[messages.length - 1].createdAt).format('DD MMMM YYYY'),
+      });
+      messageWithDays.push({
+        info: 'All messages are shown.',
+      });
+    }
     return messageWithDays;
   },
 };

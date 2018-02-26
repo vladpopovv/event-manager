@@ -87,8 +87,18 @@ export default (state = initialState, { type, payload }) => {
       const { messages } = state;
       const currentMessages = messages[payload.chatId] ? messages[payload.chatId] : [];
       messages[payload.chatId] = currentMessages.concat(payload.messages);
+
       return {
         ...state,
+        currentChats: state.currentChats.map((chat) => {
+          if (chat.id === payload.chatId) {
+            return {
+              ...chat,
+              isFullDialog: payload.messages.length === 0,
+            };
+          }
+          return chat;
+        }),
         messages: {
           ...messages,
         },
