@@ -9,11 +9,11 @@ const Header = (props) => {
   const { userData } = props;
   return (
     <div
-      className="navbar navbar-expand-md navbar-dark fixed-top bg-dark "
+      className="navbar navbar-expand-md navbar-dark bg-dark "
     >
       <Link href="/" to="/" className="navbar-brand">Event manager</Link>
       <ul className="navbar-nav mr-auto">
-        <li className="nav-item active">
+        <li className="nav-item">
           <Link to="/" href="/" className="nav-link">Home</Link>
         </li>
         <li className="nav-item">
