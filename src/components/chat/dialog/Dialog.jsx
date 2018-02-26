@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import MessagesBox from './message/MessagesBox';
 import InputMessage from './InputMessage';
 import ChatUtility from './../../../utility/chatUtility';
@@ -19,7 +20,12 @@ const Dialog = (props) => {
   return (
     <div className="card">
       <div className="card-header p-1">
-        {dialogName}
+        <Link
+          to={`users/${chat.participants[0].id}`}
+          href={`users/${chat.participants[0].id}`}
+        >
+          {dialogName}
+        </Link>
         <button
           type="button"
           className="close"

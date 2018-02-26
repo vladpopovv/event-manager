@@ -23,6 +23,7 @@ const chatActions = {
         }));
     };
   },
+
   sendMessage(message, chatId, from) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_SEND_MESSAGE_REQUESTING });
@@ -49,6 +50,7 @@ const chatActions = {
         }));
     };
   },
+
   loadMessages(chatId, date) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_LOAD_MESSAGES_REQUESTING });
@@ -72,6 +74,12 @@ const chatActions = {
           ));
         });
     };
+  },
+
+  clearChat() {
+    return dispatch => dispatch({
+      type: CONSTANTS.CHAT_CLEAR,
+    });
   },
 };
 

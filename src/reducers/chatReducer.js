@@ -105,6 +105,12 @@ export default (state = initialState, { type, payload }) => {
           loadMessages: false,
         },
       };
+    case CONSTANTS.CHAT_CLEAR:
+      return {
+        ...state,
+        chats: [],
+        messages: {},
+      };
     default:
       return state;
   }

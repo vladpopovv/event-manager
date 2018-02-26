@@ -22,6 +22,10 @@ class Chat extends React.Component {
     this.props.getPersonalChats();
   }
 
+  componentWillUnmount() {
+    this.props.clearChat();
+  }
+
   openDialogHandler(friends) {
     this.setState({
       chatDialog: friends,
@@ -64,6 +68,7 @@ Chat.propTypes = {
   user: PropTypes.shape({}).isRequired,
   messages: PropTypes.shape({}).isRequired,
   getPersonalChats: PropTypes.func.isRequired,
+  clearChat: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
   loadMessages: PropTypes.func.isRequired,
 };
@@ -78,6 +83,7 @@ const mapDispatchToProps = dispatch => ({
   getPersonalChats: bindActionCreators(chatActions.getPersonalChats, dispatch),
   sendMessage: bindActionCreators(chatActions.sendMessage, dispatch),
   loadMessages: bindActionCreators(chatActions.loadMessages, dispatch),
+  clearChat: bindActionCreators(chatActions.clearChat, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);
