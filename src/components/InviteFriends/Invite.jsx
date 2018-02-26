@@ -51,7 +51,7 @@ class Invites extends React.Component {
     const invitedFriendsID = [];
     invitedFriends.forEach(friendItem => invitedFriendsID.push(friendItem.id));
 
-    this.props.onChangeInvitedFriends(invitedFriendsID);
+    this.props.onChangeInvitedFriends(invitedFriends);
 
     this.setState({
       invitedFriends,
@@ -69,7 +69,7 @@ class Invites extends React.Component {
     const invitedFriendsID = [];
     invitedFriends.forEach(friendItem => invitedFriendsID.push(friendItem.id));
 
-    this.props.onChangeInvitedFriends(invitedFriendsID);
+    this.props.onChangeInvitedFriends(invitedFriends);
 
     this.setState({
       invitedFriends,

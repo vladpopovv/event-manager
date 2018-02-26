@@ -80,8 +80,7 @@ class NewEvent extends React.Component {
   handleSubmit(value) {
     this.props.addNewEvent({
       ...value,
-      participants: this.state.invitedFriends,
-    }).then(() => this.onClose());
+    }, this.state.invitedFriends).then(() => this.onClose());
   }
 
   removeEventHandler(event) {

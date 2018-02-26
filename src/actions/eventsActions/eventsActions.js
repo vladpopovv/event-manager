@@ -19,12 +19,15 @@ const {
 } = APICONSTANTS;
 
 const eventActions = {
-  addNewEvent(eventData) {
+  addNewEvent(eventData, participants) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.EVENT_ADD_REQUESTING });
       return fetch(addNewEventUrl, {
         method: 'POST',
-        body: JSON.stringify(eventData),
+        body: JSON.stringify({
+          ...eventData,
+          participants: participants.map(participant => participant.id),
+        }),
       })
         .then((json) => {
           dispatch(notificationActions.addNew(
@@ -34,7 +37,10 @@ const eventActions = {
           ));
           return dispatch({
             type: CONSTANTS.EVENT_ADD_SUCCESS,
-            payload: json.data,
+            payload: {
+              ...json.data,
+              participants,
+            },
           });
         })
         .catch((error) => {
