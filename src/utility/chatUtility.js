@@ -11,6 +11,14 @@ const ChatUtility = {
     return participantsFullName.join(', ');
   },
 
+  setNameToChats(chats) {
+    const chatsWithName = chats.map(chat => ({
+      ...chat,
+      name: ChatUtility.getChatName(chat),
+    }));
+    return chatsWithName;
+  },
+
   getTimeMessage(date) {
     return moment(date).format('LT');
   },

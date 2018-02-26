@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import DialogsList from './dialogsList/DialogsList';
+import Dialogs from './dialogs/Dialogs';
 import Dialog from './dialog/Dialog';
+import ChatUtility from './../../utility/chatUtility';
 import chatActions from './../../actions/chat/chatActions';
 
 class Chat extends React.Component {
@@ -39,6 +40,7 @@ class Chat extends React.Component {
   }
   render() {
     const { chatDialog } = this.state;
+    const chats = ChatUtility.setNameToChats(this.props.chats);
     return (
       <div className="border rounded">
         <div className="p-2">
@@ -52,8 +54,8 @@ class Chat extends React.Component {
               sendMessageHandler={this.props.sendMessage}
               loadMessagesHandler={this.props.loadMessages}
             />
-            : <DialogsList
-              chats={this.props.chats}
+            : <Dialogs
+              chats={chats}
               openDialogHandler={this.openDialogHandler}
             />
           }

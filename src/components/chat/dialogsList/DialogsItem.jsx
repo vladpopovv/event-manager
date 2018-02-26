@@ -7,7 +7,7 @@ const DialogsItem = (props) => {
   const openDialogHandler = () => props.openDialogHandler(chat);
   return (
     <button onClick={openDialogHandler} className="dialog__item list-group-item-action">
-      {chat.participants[0].firstname} {chat.participants[0].lastname}
+      {chat.name}
     </button>
   );
 };
