@@ -5,6 +5,7 @@ const initialState = {
   currentChats: [],
   loading: {
     getChats: false,
+    loadMessages: [],
   },
   messages: {},
 };
@@ -80,7 +81,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: {
           ...state.loading,
-          loadMessages: true,
+          loadMessages: state.loading.loadMessages.concat(payload),
         },
       };
     case CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS: {
@@ -104,7 +105,7 @@ export default (state = initialState, { type, payload }) => {
         },
         loading: {
           ...state.loading,
-          loadMessages: false,
+          loadMessages: state.loading.loadMessages.filter(chatId => chatId !== payload.chatId),
         },
       };
     }
@@ -114,7 +115,7 @@ export default (state = initialState, { type, payload }) => {
         error: payload,
         loading: {
           ...state.loading,
-          loadMessages: false,
+          loadMessages: state.loading.loadMessages.filter(chatId => chatId !== payload.chatId),
         },
       };
     case CONSTANTS.CHAT_CLEAR:

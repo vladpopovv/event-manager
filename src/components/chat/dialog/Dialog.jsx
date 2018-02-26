@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MessagesBox from './message/MessagesBox';
 import InputMessage from './InputMessage';
+import Loader from './message/loader/Loader';
 import ChatUtility from './../../../utility/chatUtility';
 import './dialogStyle.less';
 
@@ -17,7 +18,7 @@ const Dialog = (props) => {
     const timeOfLastMessage = lastMessage.createdAt;
 
     // debugger; //eslint-disable-line
-    if (chat.isFullDialog) {
+    if (chat.isFullDialog || props.loading) {
       return;
     }
 
@@ -47,20 +48,24 @@ const Dialog = (props) => {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div className="dialog card-body p-0 d-flex">
-        <MessagesBox
-          messages={props.messages}
-          chat={chat}
-          user={props.user}
-          loadMessagesHandler={loadMessagesHandler}
-        />
-        <InputMessage sendMessageHandler={sendMessageHandler} />
+      <div className="messages__wrapper">
+        <Loader loading={props.loading} />
+        <div className="dialog card-body p-0 d-flex">
+          <MessagesBox
+            messages={props.messages}
+            chat={chat}
+            user={props.user}
+            loadMessagesHandler={loadMessagesHandler}
+          />
+          <InputMessage sendMessageHandler={sendMessageHandler} />
+        </div>
       </div>
     </div>
   );
 };
 
 Dialog.propTypes = {
+  loading: PropTypes.bool.isRequired,
   closeDialogHandler: PropTypes.func.isRequired,
   sendMessageHandler: PropTypes.func.isRequired,
   loadMessagesHandler: PropTypes.func.isRequired,

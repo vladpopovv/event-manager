@@ -91,7 +91,10 @@ const chatActions = {
 
   loadMessages(chatId, date = '') {
     return (dispatch) => {
-      dispatch({ type: CONSTANTS.CHAT_LOAD_MESSAGES_REQUESTING });
+      dispatch({
+        type: CONSTANTS.CHAT_LOAD_MESSAGES_REQUESTING,
+        payload: chatId,
+      });
       return fetch(`${loadMessagesUrl}?chatId=${chatId}&date=${date}&limit=20`)
         .then(json => dispatch({
           type: CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS,

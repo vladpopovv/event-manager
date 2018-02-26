@@ -27,7 +27,7 @@ class Chat extends React.Component {
   }
 
   render() {
-    const { currentChats } = this.props;
+    const { currentChats, loading } = this.props;
     const chats = ChatUtility.setNameToChats(this.props.chats);
     return (
       <div className="border rounded">
@@ -35,6 +35,7 @@ class Chat extends React.Component {
           <i className="fa fa-comments-o" />Chat
           {currentChats.length > 0
             ? <Dialog
+              loading={loading.loadMessages.indexOf(currentChats[0].id) !== -1}
               chat={currentChats[0]}
               messages={this.props.messages[currentChats[0].id]}
               closeDialogHandler={this.props.closeChat}
@@ -61,6 +62,7 @@ Chat.propTypes = {
   user: PropTypes.shape({}).isRequired,
   currentChats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   messages: PropTypes.shape({}).isRequired,
+  loading: PropTypes.shape({}).isRequired,
   getPersonalChats: PropTypes.func.isRequired,
   clearChat: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
@@ -77,6 +79,7 @@ const mapStateToProps = state => ({
   messages: state.chat.messages,
   user: state.user.data,
   friends: state.friends.friends,
+  loading: state.chat.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

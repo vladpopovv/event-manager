@@ -1,0 +1,29 @@
+.loader__wrapper {
+  position: absolute;
+  top: 10px;
+
+  z-index: 100;
+  width: 100%;
+
+  text-align: center;
+}
+
+.loader__bgr {
+  display: inline-block;
+
+  border: 1px solid #ced4da;
+  background-color: #ffffff;
+  border-radius: 50px;
+
+  font-size: 21px;
+}
+
+@keyframes loader {
+  0% {transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+
+.spinner {
+  padding: 10px;
+  animation: loader 1.5s infinite ease;
+}
