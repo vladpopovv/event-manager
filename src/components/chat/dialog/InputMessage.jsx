@@ -12,14 +12,21 @@ export default class InputMessage extends React.Component {
 
     this.onChangeMessageText = this.onChangeMessageText.bind(this);
     this.onSubmitMessage = this.onSubmitMessage.bind(this);
+    this.onPressKey = this.onPressKey.bind(this);
   }
 
   onChangeMessageText(e) {
-    const messageText = e.target.value;
+    const messageText = e.target.value.trim();
 
     this.setState({
       messageText,
     });
+  }
+
+  onPressKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      this.onSubmitMessage(e);
+    }
   }
 
   onSubmitMessage(e) {
@@ -39,8 +46,10 @@ export default class InputMessage extends React.Component {
             className="form-control input_message"
             onChange={this.onChangeMessageText}
             name="message"
+            onKeyPress={this.onPressKey}
           />
           <button
+            disabled={!this.state.messageText}
             className="btn btn-dark input-group-append"
             onClick={this.onSubmitMessage}
           >

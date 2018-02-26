@@ -17,7 +17,7 @@ const MessagesBox = (props) => {
   return (
     <div className="message__box border-bottom" onScroll={onScrollHandler} >
       {messages.map(message => (
-        message.message
+        message.id
         ? <Message key={message.id} message={message} isIncome={user.id !== message.from.id} />
         : <MessageNotification key={message.info} text={message.info} />
       ))}

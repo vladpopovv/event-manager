@@ -143,7 +143,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         chats,
         messages: {
-          ...messages[payload.id],
+          ...messages,
         },
         currentChats: Array.of(payload).concat(state.currentChats),
         loading: {

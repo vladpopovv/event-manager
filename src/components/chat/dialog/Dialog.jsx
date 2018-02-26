@@ -10,14 +10,15 @@ import './dialogStyle.less';
 const Dialog = (props) => {
   const { chat } = props;
 
-  const sendMessageHandler = message =>
+  const sendMessageHandler = (message) => {
+    if (!message) return;
     props.sendMessageHandler(message, chat.id, props.user);
+  };
 
   const loadMessagesHandler = () => {
     const lastMessage = props.messages[props.messages.length - 1];
     const timeOfLastMessage = lastMessage.createdAt;
 
-    // debugger; //eslint-disable-line
     if (chat.isFullDialog || props.loading) {
       return;
     }
