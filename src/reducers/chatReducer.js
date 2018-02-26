@@ -111,6 +111,31 @@ export default (state = initialState, { type, payload }) => {
         chats: [],
         messages: {},
       };
+    case CONSTANTS.CHAT_CREATE_REQUESTING:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          createChat: true,
+        },
+      };
+    case CONSTANTS.CHAT_CREATE_SUCCESS:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          createChat: false,
+        },
+      };
+    case CONSTANTS.CHAT_CREATE_ERROR:
+      return {
+        ...state,
+        error: payload,
+        loading: {
+          ...state.loading,
+          createChat: false,
+        },
+      };
     default:
       return state;
   }

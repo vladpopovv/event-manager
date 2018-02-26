@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 const FriendChatItem = (props) => {
   const { friend } = props;
+  console.log('func', props.openDialogHandler);
   const openDialogHandler = () => props.openDialogHandler(friend);
   return (
     <button onClick={openDialogHandler} className="dialog__item list-group-item-action">

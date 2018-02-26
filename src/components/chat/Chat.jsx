@@ -60,6 +60,7 @@ class Chat extends React.Component {
               friends={this.props.friends}
               chats={chats}
               openDialogHandler={this.openDialogHandler}
+              createDialogHandler={this.props.createChat}
             />
           }
         </div>
@@ -78,6 +79,7 @@ Chat.propTypes = {
   sendMessage: PropTypes.func.isRequired,
   loadMessages: PropTypes.func.isRequired,
   getFriends: PropTypes.func.isRequired,
+  createChat: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -93,6 +95,7 @@ const mapDispatchToProps = dispatch => ({
   loadMessages: bindActionCreators(chatActions.loadMessages, dispatch),
   clearChat: bindActionCreators(chatActions.clearChat, dispatch),
   getFriends: bindActionCreators(friendsActions.getFriends, dispatch),
+  createChat: bindActionCreators(chatActions.createChat, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

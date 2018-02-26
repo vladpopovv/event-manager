@@ -6,6 +6,7 @@ const {
   getPersonalChatsUrl,
   sendMessageUrl,
   loadMessagesUrl,
+  createChatUrl,
 } = APICONSTANTS;
 
 const chatActions = {
@@ -19,6 +20,29 @@ const chatActions = {
         }))
         .catch(error => dispatch({
           type: CONSTANTS.CHAT_GET_PERSONAL_CHATS_ERROR,
+          payload: error,
+        }));
+    };
+  },
+
+  createChat(user) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.CHAT_CREATE_REQUESTING });
+      return fetch(`${createChatUrl}/${user.id}`, {
+        method: 'PUT',
+      })
+        .then((json) => {
+          dispatch(chatActions.loadMessages(json.data.id));
+          dispatch({
+            type: CONSTANTS.CHAT_CREATE_SUCCESS,
+            payload: {
+              ...json.data,
+              participants: [user],
+            },
+          });
+        })
+        .catch(error => dispatch({
+          type: CONSTANTS.CHAT_CREATE_ERROR,
           payload: error,
         }));
     };
@@ -51,7 +75,7 @@ const chatActions = {
     };
   },
 
-  loadMessages(chatId, date) {
+  loadMessages(chatId, date = '') {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_LOAD_MESSAGES_REQUESTING });
       return fetch(`${loadMessagesUrl}?chatId=${chatId}&date=${date}&limit=20`)

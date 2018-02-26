@@ -4,6 +4,7 @@ export default {
   signUpUrl: 'signup',
   logOutUrl: 'logout',
   getPersonalChatsUrl: 'personalChats',
+  createChatUrl: 'personalChat',
   sendMessageUrl: 'message',
   loadMessagesUrl: 'messages',
   getUserDataUrl: 'users',
