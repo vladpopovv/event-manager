@@ -55,6 +55,13 @@ const chatActions = {
     });
   },
 
+  openChatById(chatId) {
+    return dispatch => dispatch({
+      type: CONSTANTS.CHAT_OPEN_BY_ID,
+      payload: +chatId,
+    });
+  },
+
   closeChat(chat) {
     return dispatch => dispatch({
       type: CONSTANTS.CHAT_CLOSE,

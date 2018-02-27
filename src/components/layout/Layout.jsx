@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import authActions from './../../actions/authorization/authActions';
 import UserPage from './../userPage/UserPage';
+import ChatPage from './../chat/ChatPage';
 import Header from './../header/Header';
 import HomePage from './../home/HomePage';
 import FriendsPage from './../friends/FriendsPage';
@@ -25,6 +26,7 @@ class Layout extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/users/:id(\d+)" component={UserPage} />
+          <Route exact path="/chats/:id?" component={ChatPage} />
           <Route path="/friends" component={FriendsPage} />
           <Route component={NotFound} />
         </Switch>

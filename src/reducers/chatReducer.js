@@ -161,6 +161,14 @@ export default (state = initialState, { type, payload }) => {
           createChat: false,
         },
       };
+    case CONSTANTS.CHAT_OPEN_BY_ID: {
+      const chatById = state.chats.find(chat => chat.id === payload);
+      console.log('chatById', chatById);
+      return {
+        ...state,
+        currentChats: Array.of(chatById).concat(state.currentChats),
+      };
+    }
     case CONSTANTS.CHAT_OPEN:
       return {
         ...state,

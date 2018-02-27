@@ -7,12 +7,6 @@ import chatActions from './../../actions/chat/chatActions';
 import UserData from './userData/UserData';
 
 class UserPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   componentDidMount() {
     this.props.getUserDataById(this.props.match.params.id);
   }

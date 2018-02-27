@@ -38,7 +38,7 @@ const ChatUtility = {
         info: moment(messages[messages.length - 1].createdAt).format('DD MMMM YYYY'),
       });
       messageWithDays.push({
-        info: 'All messages are shown.',
+        info: 'It is begining conversation.',
       });
     }
     return messageWithDays;

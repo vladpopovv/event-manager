@@ -12,18 +12,37 @@ class Chat extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
-    // this.changeTextMessage = this.changeTextMessage.bind(this)
+    this.openDialogHandler = this.openDialogHandler.bind(this);
+    this.closeDialogHandler = this.closeDialogHandler.bind(this);
   }
 
   componentDidMount() {
     this.props.getFriends();
-    this.props.getPersonalChats();
+    this.props.getPersonalChats()
+      .then(() => {
+        if (this.props.chatId) {
+          console.log('GET CHAT ID', this.props);
+          this.props.openChatById(this.props.chatId);
+        }
+      });
   }
 
   componentWillUnmount() {
     this.props.clearChat();
+  }
+
+  openDialogHandler(chat) {
+    if (this.props.redirectToFunc) {
+      this.props.redirectToFunc(`/chats/${chat.id}`);
+    }
+    return this.props.openChat(chat);
+  }
+
+  closeDialogHandler(chat) {
+    if (this.props.redirectToFunc) {
+      this.props.redirectToFunc('/chats');
+    }
+    return this.props.closeChat(chat);
   }
 
   render() {
@@ -39,7 +58,7 @@ class Chat extends React.Component {
               loading={loading.loadMessages.indexOf(currentChat.id) !== -1}
               chat={currentChat}
               messages={this.props.messages[currentChat.id]}
-              closeDialogHandler={this.props.closeChat}
+              closeDialogHandler={this.closeDialogHandler}
               user={this.props.user}
               sendMessageHandler={this.props.sendMessage}
               loadMessagesHandler={this.props.loadMessages}
@@ -47,7 +66,7 @@ class Chat extends React.Component {
             : <Dialogs
               friends={this.props.friends}
               chats={chats}
-              openDialogHandler={this.props.openChat}
+              openDialogHandler={this.openDialogHandler}
               createDialogHandler={this.props.createChat}
             />
           }
@@ -58,7 +77,9 @@ class Chat extends React.Component {
 }
 
 Chat.propTypes = {
+  chatType: PropTypes.string,
   chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  chatId: PropTypes.string,
   friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,
   currentChats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -71,7 +92,15 @@ Chat.propTypes = {
   getFriends: PropTypes.func.isRequired,
   createChat: PropTypes.func.isRequired,
   openChat: PropTypes.func.isRequired,
+  openChatById: PropTypes.func.isRequired,
   closeChat: PropTypes.func.isRequired,
+  redirectToFunc: PropTypes.func,
+};
+
+Chat.defaultProps = {
+  chatId: '',
+  chatType: 'small',
+  redirectToFunc: undefined,
 };
 
 const mapStateToProps = state => ({
@@ -91,6 +120,7 @@ const mapDispatchToProps = dispatch => ({
   getFriends: bindActionCreators(friendsActions.getFriends, dispatch),
   createChat: bindActionCreators(chatActions.createChat, dispatch),
   openChat: bindActionCreators(chatActions.openChat, dispatch),
+  openChatById: bindActionCreators(chatActions.openChatById, dispatch),
   closeChat: bindActionCreators(chatActions.closeChat, dispatch),
 });
 
