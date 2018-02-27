@@ -57,7 +57,7 @@ class Dialogs extends React.Component {
     const friends = this.filterFriends(this.state.searchText);
     const { friendsIsOpen, dialogsIsOpen } = this.state;
     return (
-      <div>
+      <div className="chat__dialogs">
         <SearchBox changeSearchTextHandler={this.changeSearchTextHandler} />
         <div className="py-2">
           <div>

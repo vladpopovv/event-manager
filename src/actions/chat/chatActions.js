@@ -10,14 +10,19 @@ const {
 } = APICONSTANTS;
 
 const chatActions = {
-  getPersonalChats() {
+  getPersonalChats(currentChatId) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_GET_PERSONAL_CHATS_REQUESTING });
       return fetch(getPersonalChatsUrl)
-        .then(json => dispatch({
-          type: CONSTANTS.CHAT_GET_PERSONAL_CHATS_SUCCESS,
-          payload: json.data,
-        }))
+        .then((json) => {
+          dispatch({
+            type: CONSTANTS.CHAT_GET_PERSONAL_CHATS_SUCCESS,
+            payload: json.data,
+          });
+          if (currentChatId) {
+            dispatch(chatActions.openChatById(currentChatId));
+          }
+        })
         .catch(error => dispatch({
           type: CONSTANTS.CHAT_GET_PERSONAL_CHATS_ERROR,
           payload: error,

@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import Dialogs from './dialogs/Dialogs';
 import Dialog from './dialog/dialog/Dialog';
 import ChatUtility from './../../utility/chatUtility';
 import chatActions from './../../actions/chat/chatActions';
 import friendsActions from './../../actions/friends/friendsActions';
+import './chatStyle.less';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -18,13 +20,7 @@ class Chat extends React.Component {
 
   componentDidMount() {
     this.props.getFriends();
-    this.props.getPersonalChats()
-      .then(() => {
-        if (this.props.chatId) {
-          console.log('GET CHAT ID', this.props);
-          this.props.openChatById(this.props.chatId);
-        }
-      });
+    this.props.getPersonalChats(this.props.chatId);
   }
 
   componentWillUnmount() {
@@ -46,30 +42,35 @@ class Chat extends React.Component {
   }
 
   render() {
-    const { currentChats, loading } = this.props;
+    const { loading } = this.props;
+    const currentChats = ChatUtility.setNameToChats(this.props.currentChats);
     const chats = ChatUtility.setNameToChats(this.props.chats);
-    const currentChat = currentChats[0];
+    const currentChat = currentChats[0] ? currentChats[0] : {};
+    const currentMessages = currentChats[0] ? this.props.messages[currentChat.id] : [];
+    const currentChatLoading = currentChats[0]
+      ? loading.loadMessages.indexOf(currentChat.id) !== -1
+      : false;
     return (
       <div className="border rounded">
         <div className="p-2">
           <i className="fa fa-comments-o" />Chat
-          {currentChats.length > 0
-            ? <Dialog
-              loading={loading.loadMessages.indexOf(currentChat.id) !== -1}
-              chat={currentChat}
-              messages={this.props.messages[currentChat.id]}
-              closeDialogHandler={this.closeDialogHandler}
-              user={this.props.user}
-              sendMessageHandler={this.props.sendMessage}
-              loadMessagesHandler={this.props.loadMessages}
-            />
-            : <Dialogs
+          <div className={classNames('chat__wrapper', this.props.chatType)}>
+            <Dialogs
               friends={this.props.friends}
               chats={chats}
               openDialogHandler={this.openDialogHandler}
               createDialogHandler={this.props.createChat}
             />
-          }
+            <Dialog
+              loading={currentChatLoading}
+              chat={currentChat}
+              messages={currentMessages}
+              closeDialogHandler={this.closeDialogHandler}
+              user={this.props.user}
+              sendMessageHandler={this.props.sendMessage}
+              loadMessagesHandler={this.props.loadMessages}
+            />
+          </div>
         </div>
       </div>
     );
@@ -92,7 +93,6 @@ Chat.propTypes = {
   getFriends: PropTypes.func.isRequired,
   createChat: PropTypes.func.isRequired,
   openChat: PropTypes.func.isRequired,
-  openChatById: PropTypes.func.isRequired,
   closeChat: PropTypes.func.isRequired,
   redirectToFunc: PropTypes.func,
 };
@@ -120,7 +120,6 @@ const mapDispatchToProps = dispatch => ({
   getFriends: bindActionCreators(friendsActions.getFriends, dispatch),
   createChat: bindActionCreators(chatActions.createChat, dispatch),
   openChat: bindActionCreators(chatActions.openChat, dispatch),
-  openChatById: bindActionCreators(chatActions.openChatById, dispatch),
   closeChat: bindActionCreators(chatActions.closeChat, dispatch),
 });
 

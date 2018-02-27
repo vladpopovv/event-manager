@@ -7,7 +7,7 @@ const ChatPage = (props) => {
   const chatId = props.match.params.id;
   return (
     <div>
-      <Chat chatId={chatId} redirectToFunc={redirectToFunc} />
+      <Chat chatId={chatId} redirectToFunc={redirectToFunc} chatType="full" />
     </div>
   );
 };

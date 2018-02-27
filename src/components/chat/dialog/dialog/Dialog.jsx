@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import MessagesBox from './../message/messageBox/MessagesBox';
 import InputMessage from './../inputMessage/InputMessage';
 import Loader from './../message/loader/Loader';
-import ChatUtility from './../../../../utility/chatUtility';
 import './dialogStyle.less';
 
 class Dialog extends React.Component {
@@ -51,16 +50,23 @@ class Dialog extends React.Component {
 
   render() {
     const { chat } = this.props;
-    const dialogName = ChatUtility.getChatName(chat);
+
+    if (!chat.id) {
+      return (
+        <div className="chat__conversation">
+          <span>Please select dialog</span>
+        </div>
+      );
+    }
 
     return (
-      <div className="card">
+      <div className="card chat__conversation">
         <div className="card-header p-1">
           <Link
             to={`users/${chat.participants[0].id}`}
             href={`users/${chat.participants[0].id}`}
           >
-            {dialogName}
+            {chat.name}
           </Link>
           <button
             type="button"
@@ -98,13 +104,14 @@ Dialog.propTypes = {
   closeDialogHandler: PropTypes.func.isRequired,
   sendMessageHandler: PropTypes.func.isRequired,
   loadMessagesHandler: PropTypes.func.isRequired,
-  chat: PropTypes.shape({}).isRequired,
+  chat: PropTypes.shape({}),
   messages: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.shape({}).isRequired,
 };
 
 Dialog.defaultProps = {
   messages: [],
+  chat: {},
   // textMessage: '',
 };
 
