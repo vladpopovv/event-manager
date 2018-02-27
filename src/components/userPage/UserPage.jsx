@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import usersActions from './../../actions/usersActions/usersActions';
+import chatActions from './../../actions/chat/chatActions';
+import UserData from './userData/UserData';
 
 class UserPage extends React.Component {
   constructor(props) {
@@ -21,9 +23,12 @@ class UserPage extends React.Component {
       return <h1>Loading... </h1>;
     }
     return (
-      <div>
-        User Page # {this.props.match.params.id}
-        <div>{user.firstname} {user.lastname}</div>
+      <div className="container">
+        <div className="row">
+          <div className="col-6">
+            <UserData user={user} sendMessageHandler={this.props.createChat} />
+          </div>
+        </div>
       </div>
     );
   }
@@ -37,6 +42,7 @@ UserPage.propTypes = {
     }),
   }).isRequired,
   getUserDataById: PropTypes.func.isRequired,
+  createChat: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -45,6 +51,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getUserDataById: bindActionCreators(usersActions.getUserDataById, dispatch),
+  createChat: bindActionCreators(chatActions.createChat, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

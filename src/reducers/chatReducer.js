@@ -23,8 +23,8 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.CHAT_GET_PERSONAL_CHATS_SUCCESS: {
       const { messages } = state;
       payload.forEach((chat) => {
-        const oldMessages = state.messages[chat.id] ? state.messages[chat.id] : [];
-        messages[chat.id] = oldMessages.concat(chat.lastMessages);
+        // const oldMessages = state.messages[chat.id] ? state.messages[chat.id] : [];
+        messages[chat.id] = chat.lastMessages;
       });
       return {
         ...state,
