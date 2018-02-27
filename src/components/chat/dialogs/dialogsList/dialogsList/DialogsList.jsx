@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DialogsItem from './DialogsItem';
+import DialogsItem from './../dialogItem/DialogsItem';
 import './dialogsListStyle.less';
 
 const DialogsList = (props) => {

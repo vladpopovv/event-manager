@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import MessagesBox from './message/MessagesBox';
-import InputMessage from './InputMessage';
-import Loader from './message/loader/Loader';
-import ChatUtility from './../../../utility/chatUtility';
+import MessagesBox from './../message/messageBox/MessagesBox';
+import InputMessage from './../inputMessage/InputMessage';
+import Loader from './../message/loader/Loader';
+import ChatUtility from './../../../../utility/chatUtility';
 import './dialogStyle.less';
 
 const Dialog = (props) => {

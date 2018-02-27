@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Message from './Message';
-import MessageNotification from './MessageNotification';
-import ChatUtility from './../../../../utility/chatUtility';
+import Message from './../message/Message';
+import MessageNotification from './../MessageNotification';
+import ChatUtility from './../../../../../utility/chatUtility';
 import './messageBoxStyle.less';
 
 const MessagesBox = (props) => {

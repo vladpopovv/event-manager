@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Dialogs from './dialogs/Dialogs';
-import Dialog from './dialog/Dialog';
+import Dialog from './dialog/dialog/Dialog';
 import ChatUtility from './../../utility/chatUtility';
 import chatActions from './../../actions/chat/chatActions';
 import friendsActions from './../../actions/friends/friendsActions';

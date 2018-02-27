@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DialogsList from './../dialogsList/DialogsList';
+import DialogsList from './dialogsList/dialogsList/DialogsList';
 import FriendsChatList from './../friendsChatList/FriendsChatList';
 import SearchBox from './../../shared/SearchBox';
 
