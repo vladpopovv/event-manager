@@ -6,8 +6,12 @@ const ChatPage = (props) => {
   const redirectToFunc = url => props.history.push(url);
   const chatId = props.match.params.id;
   return (
-    <div>
-      <Chat chatId={chatId} redirectToFunc={redirectToFunc} chatType="full" />
+    <div className="container">
+      <div className="row py-3">
+        <div className="col-8">
+          <Chat chatId={chatId} redirectToFunc={redirectToFunc} chatType="full" />
+        </div>
+      </div>
     </div>
   );
 };

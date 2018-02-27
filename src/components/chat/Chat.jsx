@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Dialogs from './dialogs/Dialogs';
-import Dialog from './dialog/dialog/Dialog';
+import Conversation from './conversation/Conversation/index';
 import ChatUtility from './../../utility/chatUtility';
 import chatActions from './../../actions/chat/chatActions';
 import friendsActions from './../../actions/friends/friendsActions';
@@ -61,7 +61,7 @@ class Chat extends React.Component {
               openDialogHandler={this.openDialogHandler}
               createDialogHandler={this.props.createChat}
             />
-            <Dialog
+            <Conversation
               loading={currentChatLoading}
               chat={currentChat}
               messages={currentMessages}

@@ -29,16 +29,19 @@ const ChatUtility = {
       if (i > 0 && !moment(message.createdAt).isSame(messages[i - 1].createdAt, 'day')) {
         messageWithDays.push({
           info: moment(messages[i - 1].createdAt).format('DD MMMM YYYY'),
+          createdAt: messages[i - 1].createdAt,
         });
       }
       messageWithDays.push(message);
     });
-    if (isFullDialog && messages.length > 0) {
+    if ((isFullDialog && messages.length > 0) || (messages.length < 10 && messages.length > 0)) {
       messageWithDays.push({
         info: moment(messages[messages.length - 1].createdAt).format('DD MMMM YYYY'),
+        createdAt: messages[messages.length - 1].createdAt,
       });
       messageWithDays.push({
         info: 'It is begining conversation.',
+        createdAt: messages[messages.length - 1].createdAt,
       });
     }
     return messageWithDays;

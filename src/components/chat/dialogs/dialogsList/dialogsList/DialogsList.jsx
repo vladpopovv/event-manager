@@ -7,7 +7,7 @@ const DialogsList = (props) => {
   const { chats } = props;
   return (
     <div className="dialog card-body p-0 d-flex">
-      <div className="list-group dialogs__list">
+      <div className="list-group dialogs__list border-bottom border-left border-right">
         {chats.map(chat => (
           <DialogsItem
             key={chat.id}

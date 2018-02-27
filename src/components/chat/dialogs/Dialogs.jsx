@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import DialogsList from './dialogsList/dialogsList/DialogsList';
 import FriendsChatList from './../friendsChatList/FriendsChatList';
 import SearchBox from './../../shared/SearchBox';
+import './dialogsStyle.less';
 
 class Dialogs extends React.Component {
   constructor(props) {
@@ -57,16 +59,26 @@ class Dialogs extends React.Component {
     const friends = this.filterFriends(this.state.searchText);
     const { friendsIsOpen, dialogsIsOpen } = this.state;
     return (
-      <div className="chat__dialogs">
+      <div className="chat__dialogs p-1">
         <SearchBox changeSearchTextHandler={this.changeSearchTextHandler} />
-        <div className="py-2">
-          <div>
-            <button className="btn btn-sm mr-1" onClick={this.onClickOpenDialogs}>
-              Dialogs
-            </button>
-            <button className="btn btn-sm" onClick={this.onClickOpenFriends}>
-              Friends
-            </button>
+        <div className="pt-2">
+          <div className="nav nav-tabs">
+            <div className="nav-item">
+              <button
+                className={classNames('dialogs__tab nav-link p-1', { active: dialogsIsOpen })}
+                onClick={this.onClickOpenDialogs}
+              >
+                Dialogs
+              </button>
+            </div>
+            <div className="nav-item">
+              <button
+                className={classNames('dialogs__tab nav-link p-1', { active: friendsIsOpen })}
+                onClick={this.onClickOpenFriends}
+              >
+                Friends
+              </button>
+            </div>
           </div>
           <div>
             {dialogsIsOpen &&

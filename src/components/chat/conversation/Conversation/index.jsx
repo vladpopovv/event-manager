@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import MessagesBox from './../message/messageBox/MessagesBox';
 import InputMessage from './../inputMessage/InputMessage';
 import Loader from './../message/loader/Loader';
-import './dialogStyle.less';
+import './ConversationStyle.less';
 
-class Dialog extends React.Component {
+class Conversation extends React.Component {
   constructor(props) {
     super(props);
 
@@ -60,38 +60,40 @@ class Dialog extends React.Component {
     }
 
     return (
-      <div className="card chat__conversation">
-        <div className="card-header p-1">
-          <Link
-            to={`users/${chat.participants[0].id}`}
-            href={`users/${chat.participants[0].id}`}
-          >
-            {chat.name}
-          </Link>
-          <button
-            type="button"
-            className="close"
-            data-dismiss="modal"
-            aria-label="Close"
-            onClick={this.onClickClose}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div className="messages__wrapper">
-          <Loader loading={this.props.loading} />
-          <div className="dialog card-body p-0 d-flex">
-            <MessagesBox
-              messages={this.props.messages}
-              chat={chat}
-              user={this.props.user}
-              loadMessagesHandler={this.loadMessagesHandler}
-            />
-            <InputMessage
-              textMessage={this.state.textMessage}
-              sendMessageHandler={this.sendMessageHandler}
-              changeMessageHandler={this.changeMessageHandler}
-            />
+      <div className="chat__conversation p-1">
+        <div className="card">
+          <div className="card-header p-1">
+            <Link
+              to={`users/${chat.participants[0].id}`}
+              href={`users/${chat.participants[0].id}`}
+            >
+              {chat.name}
+            </Link>
+            <button
+              type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              onClick={this.onClickClose}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="messages__wrapper">
+            <Loader loading={this.props.loading} />
+            <div className="conversation card-body p-0 d-flex">
+              <MessagesBox
+                messages={this.props.messages}
+                chat={chat}
+                user={this.props.user}
+                loadMessagesHandler={this.loadMessagesHandler}
+              />
+              <InputMessage
+                textMessage={this.state.textMessage}
+                sendMessageHandler={this.sendMessageHandler}
+                changeMessageHandler={this.changeMessageHandler}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -99,7 +101,7 @@ class Dialog extends React.Component {
   }
 }
 
-Dialog.propTypes = {
+Conversation.propTypes = {
   loading: PropTypes.bool.isRequired,
   closeDialogHandler: PropTypes.func.isRequired,
   sendMessageHandler: PropTypes.func.isRequired,
@@ -109,10 +111,10 @@ Dialog.propTypes = {
   user: PropTypes.shape({}).isRequired,
 };
 
-Dialog.defaultProps = {
+Conversation.defaultProps = {
   messages: [],
   chat: {},
   // textMessage: '',
 };
 
-export default Dialog;
+export default Conversation;
