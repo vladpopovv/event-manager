@@ -2,65 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './inputMessageStyle.less';
 
-export default class InputMessage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      messageText: '',
-    };
-
-    this.onChangeMessageText = this.onChangeMessageText.bind(this);
-    this.onSubmitMessage = this.onSubmitMessage.bind(this);
-    this.onPressKey = this.onPressKey.bind(this);
-  }
-
-  onChangeMessageText(e) {
-    const messageText = e.target.value.trim();
-
-    this.setState({
-      messageText,
-    });
-  }
-
-  onPressKey(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      this.onSubmitMessage(e);
-    }
-  }
-
-  onSubmitMessage(e) {
+const InputMessage = (props) => {
+  const onSubmitMessage = (e) => {
     e.preventDefault();
-    this.props.sendMessageHandler(this.state.messageText);
-    this.setState({
-      messageText: '',
-    });
-  }
+    props.sendMessageHandler();
+  };
 
-  render() {
-    return (
-      <form className="p-2">
-        <div className="input-group">
-          <textarea
-            value={this.state.messageText}
-            className="form-control input_message"
-            onChange={this.onChangeMessageText}
-            name="message"
-            onKeyPress={this.onPressKey}
-          />
-          <button
-            disabled={!this.state.messageText}
-            className="btn btn-dark input-group-append"
-            onClick={this.onSubmitMessage}
-          >
-            Send
-          </button>
-        </div>
-      </form>
-    );
-  }
-}
+  const onPressKey = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      onSubmitMessage(e);
+    }
+  };
+
+  const changeMessageHandler = e => props.changeMessageHandler(e.target.value);
+  return (
+    <form className="p-2">
+      <div className="input-group">
+        <textarea
+          className="form-control input_message"
+          onChange={changeMessageHandler}
+          name="message"
+          onKeyPress={onPressKey}
+          value={props.textMessage}
+        />
+        <button
+          className="btn btn-dark input-group-append"
+          type="button"
+          onClick={props.sendMessageHandler}
+        >
+          Send
+        </button>
+      </div>
+    </form>
+  );
+};
 
 InputMessage.propTypes = {
+  textMessage: PropTypes.string.isRequired,
   sendMessageHandler: PropTypes.func.isRequired,
+  changeMessageHandler: PropTypes.func.isRequired,
 };
+
+export default InputMessage;

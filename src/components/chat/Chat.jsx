@@ -13,8 +13,8 @@ class Chat extends React.Component {
     super(props);
 
     this.state = {
-      // chatDialog: {},
     };
+    // this.changeTextMessage = this.changeTextMessage.bind(this)
   }
 
   componentDidMount() {
@@ -29,15 +29,16 @@ class Chat extends React.Component {
   render() {
     const { currentChats, loading } = this.props;
     const chats = ChatUtility.setNameToChats(this.props.chats);
+    const currentChat = currentChats[0];
     return (
       <div className="border rounded">
         <div className="p-2">
           <i className="fa fa-comments-o" />Chat
           {currentChats.length > 0
             ? <Dialog
-              loading={loading.loadMessages.indexOf(currentChats[0].id) !== -1}
-              chat={currentChats[0]}
-              messages={this.props.messages[currentChats[0].id]}
+              loading={loading.loadMessages.indexOf(currentChat.id) !== -1}
+              chat={currentChat}
+              messages={this.props.messages[currentChat.id]}
               closeDialogHandler={this.props.closeChat}
               user={this.props.user}
               sendMessageHandler={this.props.sendMessage}

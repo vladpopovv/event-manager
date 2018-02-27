@@ -135,7 +135,7 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.CHAT_CREATE_SUCCESS: {
       const { chats } = state;
       const indexChat = chats.findIndex(chat => chat.id === payload.id);
-      const index = indexChat >= 0 ? indexChat : chats.length;
+      const index = indexChat >= 0 ? indexChat : chats.length - 1;
       const { messages } = state;
       chats[index] = payload;
       messages[payload.id] = [];

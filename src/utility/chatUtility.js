@@ -33,7 +33,7 @@ const ChatUtility = {
       }
       messageWithDays.push(message);
     });
-    if (isFullDialog) {
+    if (isFullDialog && messages.length > 0) {
       messageWithDays.push({
         info: moment(messages[messages.length - 1].createdAt).format('DD MMMM YYYY'),
       });
