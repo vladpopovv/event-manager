@@ -58,6 +58,11 @@ class Dialogs extends React.Component {
     const chats = this.filterChats(this.state.searchText);
     const friends = this.filterFriends(this.state.searchText);
     const { friendsIsOpen, dialogsIsOpen } = this.state;
+
+    if (this.props.isHidden && this.props.chatType === 'compressed') {
+      return null;
+    }
+
     return (
       <div className="chat__dialogs p-1">
         <SearchBox changeSearchTextHandler={this.changeSearchTextHandler} />
@@ -101,10 +106,16 @@ class Dialogs extends React.Component {
 }
 
 Dialogs.propTypes = {
+  chatType: PropTypes.string,
+  isHidden: PropTypes.bool.isRequired,
   friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   openDialogHandler: PropTypes.func.isRequired,
   createDialogHandler: PropTypes.func.isRequired,
+};
+
+Dialogs.defaultProps = {
+  chatType: 'compressed',
 };
 
 export default Dialogs;

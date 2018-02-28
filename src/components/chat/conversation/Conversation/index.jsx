@@ -54,6 +54,10 @@ class Conversation extends React.Component {
   render() {
     const { chat } = this.props;
 
+    if (this.props.isHidden && this.props.chatType === 'compressed') {
+      return null;
+    }
+
     if (!chat.id) {
       return (
         <div className="chat__conversation">
@@ -112,12 +116,14 @@ Conversation.propTypes = {
   chat: PropTypes.shape({}),
   messages: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.shape({}).isRequired,
+  chatType: PropTypes.string,
+  isHidden: PropTypes.bool.isRequired,
 };
 
 Conversation.defaultProps = {
   messages: [],
   chat: {},
-  // textMessage: '',
+  chatType: 'compressed',
 };
 
 export default Conversation;

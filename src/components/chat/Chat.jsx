@@ -45,23 +45,29 @@ class Chat extends React.Component {
     const { loading } = this.props;
     const currentChats = ChatUtility.setNameToChats(this.props.currentChats);
     const chats = ChatUtility.setNameToChats(this.props.chats);
-    const currentChat = currentChats[0] ? currentChats[0] : {};
-    const currentMessages = currentChats[0] ? this.props.messages[currentChat.id] : [];
-    const currentChatLoading = currentChats[0]
+    const hasActiveConversation = !!currentChats[0];
+    const currentChat = hasActiveConversation ? currentChats[0] : {};
+    const currentMessages = hasActiveConversation ? this.props.messages[currentChat.id] : [];
+    const currentChatLoading = hasActiveConversation
       ? loading.loadMessages.indexOf(currentChat.id) !== -1
       : false;
+
     return (
       <div className="border rounded">
         <div className="p-2">
           <i className="fa fa-comments-o" />Chat
-          <div className={classNames('chat__wrapper', this.props.chatType)}>
+          <div className={classNames('chat__wrapper', this.props.chatType)} >
             <Dialogs
+              chatType={this.props.chatType}
+              isHidden={hasActiveConversation}
               friends={this.props.friends}
               chats={chats}
               openDialogHandler={this.openDialogHandler}
               createDialogHandler={this.props.createChat}
             />
             <Conversation
+              chatType={this.props.chatType}
+              isHidden={!hasActiveConversation}
               loading={currentChatLoading}
               chat={currentChat}
               messages={currentMessages}
@@ -99,7 +105,7 @@ Chat.propTypes = {
 
 Chat.defaultProps = {
   chatId: '',
-  chatType: 'small',
+  chatType: 'compressed',
   redirectToFunc: undefined,
 };
 

@@ -19,6 +19,9 @@ const Header = (props) => {
         <li className="nav-item">
           <Link to="/friends" href="/friends" className="nav-link">Friends</Link>
         </li>
+        <li className="nav-item">
+          <Link to="/chats" href="/chats" className="nav-link">Chats</Link>
+        </li>
       </ul>
       <div className="">
         <span className="text-light mr-2">Hello, {userData.firstname} {userData.lastname}</span>
