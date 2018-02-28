@@ -4,7 +4,7 @@ import Chat from './Chat';
 
 const ChatPage = (props) => {
   const redirectToFunc = url => props.history.push(url);
-  const chatId = props.match.params.id;
+  const chatId = +props.match.params.id;
   return (
     <div className="container">
       <div className="row py-3 justify-content-center">

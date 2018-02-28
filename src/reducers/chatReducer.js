@@ -2,7 +2,7 @@ import CONSTANTS from './../constants/actionConstants';
 
 const initialState = {
   chats: [],
-  currentChats: [],
+  currentChat: 0,
   loading: {
     getChats: false,
     loadMessages: [],
@@ -23,7 +23,6 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.CHAT_GET_PERSONAL_CHATS_SUCCESS: {
       const { messages } = state;
       payload.forEach((chat) => {
-        // const oldMessages = state.messages[chat.id] ? state.messages[chat.id] : [];
         messages[chat.id] = chat.lastMessages;
       });
       return {
@@ -91,15 +90,10 @@ export default (state = initialState, { type, payload }) => {
 
       return {
         ...state,
-        currentChats: state.currentChats.map((chat) => {
-          if (chat.id === payload.chatId) {
-            return {
-              ...chat,
-              isFullDialog: payload.messages.length === 0,
-            };
-          }
-          return chat;
-        }),
+        // currentChat: {
+        //   ...state.currentChat,
+        //   isFullDialog: payload.messages.length === 0,
+        // },
         messages: {
           ...messages,
         },
@@ -145,7 +139,7 @@ export default (state = initialState, { type, payload }) => {
         messages: {
           ...messages,
         },
-        currentChats: Array.of(payload).concat(state.currentChats),
+        // currentChat: payload.id,
         loading: {
           ...state.loading,
           createChat: false,
@@ -162,22 +156,21 @@ export default (state = initialState, { type, payload }) => {
         },
       };
     case CONSTANTS.CHAT_OPEN_BY_ID: {
-      const chatById = state.chats.find(chat => chat.id === payload);
-      console.log('chatById', chatById);
+      // const chatById = state.chats.find(chat => chat.id === payload);
       return {
         ...state,
-        currentChats: Array.of(chatById).concat(state.currentChats),
+        currentChat: +payload,
       };
     }
     case CONSTANTS.CHAT_OPEN:
       return {
         ...state,
-        currentChats: Array.of(payload).concat(state.currentChats),
+        currentChat: +payload,
       };
     case CONSTANTS.CHAT_CLOSE:
       return {
         ...state,
-        currentChats: state.currentChats.filter(chat => chat.id !== payload.id),
+        currentChat: 0,
       };
     default:
       return state;

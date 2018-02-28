@@ -30,7 +30,7 @@ const chatActions = {
     };
   },
 
-  createChat(user) {
+  createChat(user, pushUrlHandler) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_CREATE_REQUESTING });
       return fetch(`${createChatUrl}/${user.id}`, {
@@ -45,6 +45,12 @@ const chatActions = {
               participants: [user],
             },
           });
+          // debugger; //eslint-disable-line
+          dispatch(chatActions.openChat(json.data.id));
+
+          if (pushUrlHandler) {
+            pushUrlHandler(`/chats/${json.data.id}`);
+          }
         })
         .catch(error => dispatch({
           type: CONSTANTS.CHAT_CREATE_ERROR,

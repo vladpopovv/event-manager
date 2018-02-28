@@ -16,6 +16,7 @@ class Chat extends React.Component {
 
     this.openDialogHandler = this.openDialogHandler.bind(this);
     this.closeDialogHandler = this.closeDialogHandler.bind(this);
+    this.createDialogHandler = this.createDialogHandler.bind(this);
   }
 
   componentDidMount() {
@@ -23,38 +24,65 @@ class Chat extends React.Component {
     this.props.getPersonalChats(this.props.chatId);
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('Next props', nextProps.chatId, this.props.currentChat);
+    if (this.props.currentChat !== nextProps.chatId && this.props.redirectToFunc) {
+      console.log('nextProps', nextProps);
+      this.props.openChat(nextProps.chatId);
+      // return this.props.redirectToFunc(`/chats/${nextProps.chatId}`);
+    }
+
+    // if (this.props.currentChat !== this.props.chatId && this.props.redirectToFunc) {
+    //   return this.props.redirectToFunc(`/chats/${this.props.currentChat}`);
+    // }
+
+    return true;
+  }
+
+  // componentWillUpdate() {
+  //   if (this.props.currentChat !== this.props.chatId && this.props.redirectToFunc) {
+  //     this.props.redirectToFunc(`/chats/${this.props.currentChat}`);
+  //   }
+  // }
+
   componentWillUnmount() {
     this.props.clearChat();
   }
 
-  openDialogHandler(chat) {
-    if (this.props.redirectToFunc) {
-      this.props.redirectToFunc(`/chats/${chat.id}`);
-    }
-    return this.props.openChat(chat);
+  createDialogHandler(user) {
+    this.props.createChat(user, this.props.redirectToFunc);
   }
 
-  closeDialogHandler(chat) {
+  openDialogHandler(chat) {
+    if (this.props.redirectToFunc) {
+      return this.props.redirectToFunc(`/chats/${chat.id}`);
+    }
+    return this.props.openChat(chat.id);
+  }
+
+  closeDialogHandler() {
     if (this.props.redirectToFunc) {
       this.props.redirectToFunc('/chats');
     }
-    return this.props.closeChat(chat);
+    return this.props.closeChat();
   }
 
   render() {
     const { loading } = this.props;
-    const currentChats = ChatUtility.setNameToChats(this.props.currentChats);
     const chats = ChatUtility.setNameToChats(this.props.chats);
-    const hasActiveConversation = !!currentChats[0];
-    const currentChat = hasActiveConversation ? currentChats[0] : {};
+    let currentChat = chats.find(chat => chat.id === this.props.currentChat)
+      ? chats.find(chat => chat.id === this.props.currentChat)
+      : {};
+    console.log('currentCHat', chats.find(chat => chat.id === this.props.currentChat));
+    // debugger; //eslint-disable-line
+    if (!currentChat.id) {
+      currentChat = {};
+    }
+    const hasActiveConversation = !!currentChat.id;
     const currentMessages = hasActiveConversation ? this.props.messages[currentChat.id] : [];
     const currentChatLoading = hasActiveConversation
       ? loading.loadMessages.indexOf(currentChat.id) !== -1
       : false;
-
-    // if (hasActiveConversation) {
-    //   this.props.redirectToFunc(`/chats/${currentChat.id}`);
-    // }
 
     return (
       <div className="border rounded">
@@ -67,7 +95,7 @@ class Chat extends React.Component {
               friends={this.props.friends}
               chats={chats}
               openDialogHandler={this.openDialogHandler}
-              createDialogHandler={this.props.createChat}
+              createDialogHandler={this.createDialogHandler}
             />
             <Conversation
               redirectHandler={this.props.redirectToFunc}
@@ -94,7 +122,7 @@ Chat.propTypes = {
   chatId: PropTypes.string,
   friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,
-  currentChats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  currentChat: PropTypes.number.isRequired,
   messages: PropTypes.shape({}).isRequired,
   loading: PropTypes.shape({}).isRequired,
   getPersonalChats: PropTypes.func.isRequired,
@@ -116,7 +144,7 @@ Chat.defaultProps = {
 
 const mapStateToProps = state => ({
   chats: state.chat.chats,
-  currentChats: state.chat.currentChats,
+  currentChat: state.chat.currentChat,
   messages: state.chat.messages,
   user: state.user.data,
   friends: state.friends.friends,
