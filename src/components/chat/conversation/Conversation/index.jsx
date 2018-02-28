@@ -27,6 +27,9 @@ class Conversation extends React.Component {
 
   sendMessageHandler() {
     const { chat } = this.props;
+    this.setState({
+      textMessage: '',
+    });
     this.props.sendMessageHandler(this.state.textMessage, chat.id, this.props.user);
   }
 

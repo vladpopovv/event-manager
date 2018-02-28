@@ -9,7 +9,7 @@ const InputMessage = (props) => {
   };
 
   const onPressKey = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && props.textMessage.trim()) {
       onSubmitMessage(e);
     }
   };
@@ -28,6 +28,7 @@ const InputMessage = (props) => {
         <button
           className="btn btn-dark input-group-append"
           type="button"
+          disabled={!props.textMessage.trim()}
           onClick={props.sendMessageHandler}
         >
           Send
