@@ -25,25 +25,10 @@ class Chat extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('Next props', nextProps.chatId, this.props.currentChat);
     if (this.props.currentChat !== nextProps.chatId && this.props.redirectToFunc) {
-      console.log('nextProps', nextProps);
       this.props.openChat(nextProps.chatId);
-      // return this.props.redirectToFunc(`/chats/${nextProps.chatId}`);
     }
-
-    // if (this.props.currentChat !== this.props.chatId && this.props.redirectToFunc) {
-    //   return this.props.redirectToFunc(`/chats/${this.props.currentChat}`);
-    // }
-
-    return true;
   }
-
-  // componentWillUpdate() {
-  //   if (this.props.currentChat !== this.props.chatId && this.props.redirectToFunc) {
-  //     this.props.redirectToFunc(`/chats/${this.props.currentChat}`);
-  //   }
-  // }
 
   componentWillUnmount() {
     this.props.clearChat();
@@ -70,19 +55,13 @@ class Chat extends React.Component {
   render() {
     const { loading } = this.props;
     const chats = ChatUtility.setNameToChats(this.props.chats);
-    let currentChat = chats.find(chat => chat.id === this.props.currentChat)
-      ? chats.find(chat => chat.id === this.props.currentChat)
-      : {};
-    console.log('currentCHat', chats.find(chat => chat.id === this.props.currentChat));
-    // debugger; //eslint-disable-line
-    if (!currentChat.id) {
-      currentChat = {};
-    }
+    const currentChat = ChatUtility.getChatById(this.props.currentChat, chats);
     const hasActiveConversation = !!currentChat.id;
     const currentMessages = hasActiveConversation ? this.props.messages[currentChat.id] : [];
     const currentChatLoading = hasActiveConversation
       ? loading.loadMessages.indexOf(currentChat.id) !== -1
       : false;
+    const chatIsNotFound = currentChat.isNotFound && chats.length !== 0;
 
     return (
       <div className="border rounded">
@@ -100,6 +79,7 @@ class Chat extends React.Component {
             <Conversation
               redirectHandler={this.props.redirectToFunc}
               chatType={this.props.chatType}
+              isNotFound={chatIsNotFound}
               isHidden={!hasActiveConversation}
               loading={currentChatLoading}
               chat={currentChat}
@@ -119,7 +99,7 @@ class Chat extends React.Component {
 Chat.propTypes = {
   chatType: PropTypes.string,
   chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  chatId: PropTypes.string,
+  chatId: PropTypes.number,
   friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,
   currentChat: PropTypes.number.isRequired,

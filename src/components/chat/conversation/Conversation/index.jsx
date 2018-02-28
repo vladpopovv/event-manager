@@ -62,7 +62,12 @@ class Conversation extends React.Component {
       return (
         <div className="chat__conversation p-1">
           <div className="chat__notification border rounded bg-light">
-            <span className="text-muted">Please select dialog</span>
+            <span className="text-muted">
+              {this.props.isNotFound
+                ? 'Chat is not found'
+                : 'Please select dialog'
+              }
+            </span>
           </div>
         </div>
       );
@@ -112,6 +117,7 @@ class Conversation extends React.Component {
 
 Conversation.propTypes = {
   loading: PropTypes.bool.isRequired,
+  isNotFound: PropTypes.bool,
   closeDialogHandler: PropTypes.func.isRequired,
   sendMessageHandler: PropTypes.func.isRequired,
   loadMessagesHandler: PropTypes.func.isRequired,
@@ -127,6 +133,7 @@ Conversation.propTypes = {
 Conversation.defaultProps = {
   messages: [],
   chat: {},
+  isNotFound: false,
   chatType: 'compressed',
 };
 

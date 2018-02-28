@@ -14,7 +14,7 @@ const Loader = (props) => {
             'fa',
             {
               'fa-spinner': props.loading,
-              spinner: props.loading,
+              message__spinner: props.loading,
             },
           )}
         />

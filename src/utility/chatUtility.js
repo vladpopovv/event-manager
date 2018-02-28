@@ -11,6 +11,22 @@ const ChatUtility = {
     return participantsFullName.join(', ');
   },
 
+  getChatById(chatId, chats) {
+    if (!chatId) {
+      return {};
+    }
+
+    let foundedChat = chats.find(chat => chat.id === chatId);
+    // foundedChat = !foundedChat ? foundedChat : { isNotFound: true };
+    if (!foundedChat) {
+      foundedChat = {
+        isNotFound: true,
+      };
+    }
+
+    return foundedChat;
+  },
+
   setNameToChats(chats) {
     const chatsWithName = chats.map(chat => ({
       ...chat,
