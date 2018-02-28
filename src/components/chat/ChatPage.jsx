@@ -7,8 +7,8 @@ const ChatPage = (props) => {
   const chatId = props.match.params.id;
   return (
     <div className="container">
-      <div className="row py-3">
-        <div className="col-8">
+      <div className="row py-3 justify-content-center">
+        <div className="col-10">
           <Chat chatId={chatId} redirectToFunc={redirectToFunc} chatType="full" />
         </div>
       </div>

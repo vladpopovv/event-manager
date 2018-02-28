@@ -20,6 +20,13 @@ class Conversation extends React.Component {
     this.loadMessagesHandler = this.loadMessagesHandler.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { chat } = this.props;
+    if (chat.id !== nextProps.chat.id && this.props.redirectHandler) {
+      this.props.redirectHandler(`/chats/${nextProps.chat.id}`);
+    }
+  }
+
   onClickClose() {
     const { chat } = this.props;
     this.props.closeDialogHandler(chat);
@@ -115,7 +122,10 @@ Conversation.propTypes = {
   closeDialogHandler: PropTypes.func.isRequired,
   sendMessageHandler: PropTypes.func.isRequired,
   loadMessagesHandler: PropTypes.func.isRequired,
-  chat: PropTypes.shape({}),
+  redirectHandler: PropTypes.func,
+  chat: PropTypes.shape({
+    id: PropTypes.number,
+  }),
   messages: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.shape({}).isRequired,
   chatType: PropTypes.string,
@@ -126,6 +136,7 @@ Conversation.defaultProps = {
   messages: [],
   chat: {},
   chatType: 'compressed',
+  redirectHandler: undefined,
 };
 
 export default Conversation;

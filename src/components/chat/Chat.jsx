@@ -52,6 +52,10 @@ class Chat extends React.Component {
       ? loading.loadMessages.indexOf(currentChat.id) !== -1
       : false;
 
+    // if (hasActiveConversation) {
+    //   this.props.redirectToFunc(`/chats/${currentChat.id}`);
+    // }
+
     return (
       <div className="border rounded">
         <div className="p-2">
@@ -66,6 +70,7 @@ class Chat extends React.Component {
               createDialogHandler={this.props.createChat}
             />
             <Conversation
+              redirectHandler={this.props.redirectToFunc}
               chatType={this.props.chatType}
               isHidden={!hasActiveConversation}
               loading={currentChatLoading}
