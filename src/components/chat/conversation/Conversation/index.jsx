@@ -60,8 +60,10 @@ class Conversation extends React.Component {
 
     if (!chat.id) {
       return (
-        <div className="chat__conversation">
-          <span>Please select dialog</span>
+        <div className="chat__conversation p-1">
+          <div className="chat__notification border rounded bg-light">
+            <span className="text-muted">Please select dialog</span>
+          </div>
         </div>
       );
     }
