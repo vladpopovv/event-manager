@@ -87,7 +87,8 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS: {
       const { messages } = state;
       const currentMessages = messages[payload.chatId] ? messages[payload.chatId] : [];
-      messages[payload.chatId] = currentMessages.concat(payload.messages);
+      messages[payload.chatId] =
+        ChatUtility.getUniqueMessages(currentMessages.concat(payload.messages));
 
       return {
         ...state,

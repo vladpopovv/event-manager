@@ -104,8 +104,8 @@ class Conversation extends React.Component {
         <div className="card">
           <div className="card-header p-1">
             <Link
-              to={`users/${chat.participants[0].id}`}
-              href={`users/${chat.participants[0].id}`}
+              to={`/users/${chat.participants[0].id}`}
+              href={`/users/${chat.participants[0].id}`}
             >
               {chat.name}
             </Link>

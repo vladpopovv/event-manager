@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const UserData = (props) => {
   const { user } = props;
-  const sendMessageHandler = () => props.sendMessageHandler(user);
+  // const sendMessageHandler = () => props.sendMessageHandler(user);
 
   return (
     <div className="card">
@@ -12,13 +13,13 @@ const UserData = (props) => {
         <div>Firstname: {user.firstname}</div>
         <div>Lastname: {user.lastname}</div>
         <div>Email: {user.login}</div>
-        <button
-          type="button"
+        <Link
           className="btn btn-primary"
-          onClick={sendMessageHandler}
+          href={`/chats?userId=${user.id}`}
+          to={`/chats?userId=${user.id}`}
         >
           Send message
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -26,7 +27,7 @@ const UserData = (props) => {
 
 UserData.propTypes = {
   user: PropTypes.shape({}).isRequired,
-  sendMessageHandler: PropTypes.func.isRequired,
+  // sendMessageHandler: PropTypes.func.isRequired,
 };
 
 export default UserData;

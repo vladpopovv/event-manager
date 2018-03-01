@@ -56,11 +56,13 @@ const ChatUtility = {
       });
     }
 
+    const lastMessage = messages[messages.length - 1];
+
     messages.forEach((message, i) => {
       if (i > 0 && !moment(message.createdAt).isSame(messages[i - 1].createdAt, 'day')) {
         messageWithDays.push({
           info: moment(messages[i - 1].createdAt).format('DD MMMM YYYY'),
-          createdAt: messages[i - 1].createdAt,
+          // createdAt: messages[i - 1].createdAt,
         });
       }
       messageWithDays.push(message);
@@ -68,12 +70,12 @@ const ChatUtility = {
 
     if ((isFullDialog && messages.length > 0) || (messages.length < 10 && messages.length > 0)) {
       messageWithDays.push({
-        info: moment(messages[messages.length - 1].createdAt).format('DD MMMM YYYY'),
-        createdAt: messages[messages.length - 1].createdAt,
+        info: moment(lastMessage.createdAt).format('DD MMMM YYYY'),
+        // createdAt: lastMessage.createdAt,
       });
       messageWithDays.push({
         info: 'It is begining conversation.',
-        createdAt: messages[messages.length - 1].createdAt,
+        // createdAt: lastMessage.createdAt,
       });
     }
     return messageWithDays;

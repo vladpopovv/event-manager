@@ -25,6 +25,14 @@ class Chat extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.userId && !this.isRequesting) {
+      const user = this.props.friends.find(friend => friend.id === this.props.userId);
+      if (user) {
+        this.isRequesting = true;
+        this.props.createChat(user, this.props.redirectToFunc);
+      }
+    }
+
     if (this.props.currentChat !== nextProps.chatId && nextProps.chatId) {
       this.props.openChat(nextProps.chatId);
     }
@@ -101,6 +109,7 @@ Chat.propTypes = {
   chatType: PropTypes.string,
   chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   chatId: PropTypes.number,
+  userId: PropTypes.number,
   friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,
   currentChat: PropTypes.number.isRequired,
@@ -120,6 +129,7 @@ Chat.propTypes = {
 
 Chat.defaultProps = {
   chatId: 0,
+  userId: 0,
   chatType: 'compressed',
   redirectToFunc: undefined,
 };
