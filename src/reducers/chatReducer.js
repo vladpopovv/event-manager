@@ -1,4 +1,5 @@
 import CONSTANTS from './../constants/actionConstants';
+import ChatUtility from './../utility/chatUtility';
 
 const initialState = {
   chats: [],
@@ -104,6 +105,44 @@ export default (state = initialState, { type, payload }) => {
       };
     }
     case CONSTANTS.CHAT_LOAD_MESSAGES_ERROR:
+      return {
+        ...state,
+        error: payload,
+        loading: {
+          ...state.loading,
+          loadMessages: state.loading.loadMessages.filter(chatId => chatId !== payload.chatId),
+        },
+      };
+    case CONSTANTS.CHAT_UPDATE_ALL_MESSAGES_REQUESTING:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          loadMessages: state.loading.loadMessages.concat(payload),
+        },
+      };
+    case CONSTANTS.CHAT_UPDATE_ALL_MESSAGES_SUCCESS: {
+      const { messages } = state;
+      const currentMessages = messages[payload.chatId] ? messages[payload.chatId] : [];
+      messages[payload.chatId] =
+        ChatUtility.getUniqueMessages(currentMessages.concat(payload.messages));
+
+      return {
+        ...state,
+        // currentChat: {
+        //   ...state.currentChat,
+        //   isFullDialog: payload.messages.length === 0,
+        // },
+        messages: {
+          ...messages,
+        },
+        loading: {
+          ...state.loading,
+          loadMessages: state.loading.loadMessages.filter(chatId => chatId !== payload.chatId),
+        },
+      };
+    }
+    case CONSTANTS.CHAT_UPDATE_ALL_MESSAGES_ERROR:
       return {
         ...state,
         error: payload,

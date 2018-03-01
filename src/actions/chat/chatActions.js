@@ -129,7 +129,32 @@ const chatActions = {
           return dispatch(notificationActions.addNew(
             'danger',
             'Loading error',
+            'Loading messages error',
+          ));
+        });
+    };
+  },
+
+  updateMessages(chatId) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.CHAT_UPDATE_ALL_MESSAGES_REQUESTING });
+      return fetch(`${loadMessagesUrl}?chatId=${chatId}&limit=20`)
+        .then(json => dispatch({
+          type: CONSTANTS.CHAT_UPDATE_ALL_MESSAGES_SUCCESS,
+          payload: {
+            chatId,
+            messages: json.data,
+          },
+        }))
+        .catch((error) => {
+          dispatch({
+            type: CONSTANTS.CHAT_UPDATE_ALL_MESSAGES_ERROR,
+            payload: error,
+          });
+          return dispatch(notificationActions.addNew(
+            'danger',
             'Loading error',
+            'Chat loading error',
           ));
         });
     };

@@ -11,6 +11,14 @@ const ChatUtility = {
     return participantsFullName.join(', ');
   },
 
+  getUniqueMessages(messages) {
+    const messagesObject = {};
+    messages.forEach((message) => {
+      messagesObject[message.id] = message;
+    });
+    return Object.values(messagesObject).reverse();
+  },
+
   getChatById(chatId, chats) {
     if (!chatId) {
       return {};
@@ -50,6 +58,7 @@ const ChatUtility = {
       }
       messageWithDays.push(message);
     });
+
     if ((isFullDialog && messages.length > 0) || (messages.length < 10 && messages.length > 0)) {
       messageWithDays.push({
         info: moment(messages[messages.length - 1].createdAt).format('DD MMMM YYYY'),

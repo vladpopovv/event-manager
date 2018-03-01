@@ -25,7 +25,7 @@ class Chat extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.currentChat !== nextProps.chatId && this.props.redirectToFunc) {
+    if (this.props.currentChat !== nextProps.chatId && nextProps.chatId) {
       this.props.openChat(nextProps.chatId);
     }
   }
@@ -88,6 +88,7 @@ class Chat extends React.Component {
               user={this.props.user}
               sendMessageHandler={this.props.sendMessage}
               loadMessagesHandler={this.props.loadMessages}
+              updateMessagesHandler={this.props.updateMessages}
             />
           </div>
         </div>
@@ -113,11 +114,12 @@ Chat.propTypes = {
   createChat: PropTypes.func.isRequired,
   openChat: PropTypes.func.isRequired,
   closeChat: PropTypes.func.isRequired,
+  updateMessages: PropTypes.func.isRequired,
   redirectToFunc: PropTypes.func,
 };
 
 Chat.defaultProps = {
-  chatId: '',
+  chatId: 0,
   chatType: 'compressed',
   redirectToFunc: undefined,
 };
@@ -132,6 +134,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateMessages: bindActionCreators(chatActions.updateMessages, dispatch),
   getPersonalChats: bindActionCreators(chatActions.getPersonalChats, dispatch),
   sendMessage: bindActionCreators(chatActions.sendMessage, dispatch),
   loadMessages: bindActionCreators(chatActions.loadMessages, dispatch),

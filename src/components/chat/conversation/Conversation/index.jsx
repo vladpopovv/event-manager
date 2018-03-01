@@ -20,6 +20,20 @@ class Conversation extends React.Component {
     this.loadMessagesHandler = this.loadMessagesHandler.bind(this);
   }
 
+  componentDidMount() {
+    this.intervalLoadMessages = setInterval(() => {
+      console.log('Load', this.props.chat.id);
+      if (this.props.chat.id) {
+        // debugger; //eslint-disable-line
+        this.props.updateMessagesHandler(this.props.chat.id);
+      }
+    }, 2000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalLoadMessages);
+  }
+
   onClickClose() {
     const { chat } = this.props;
     this.props.closeDialogHandler(chat);
@@ -119,6 +133,7 @@ Conversation.propTypes = {
   loading: PropTypes.bool.isRequired,
   isNotFound: PropTypes.bool,
   closeDialogHandler: PropTypes.func.isRequired,
+  updateMessagesHandler: PropTypes.func.isRequired,
   sendMessageHandler: PropTypes.func.isRequired,
   loadMessagesHandler: PropTypes.func.isRequired,
   chat: PropTypes.shape({
