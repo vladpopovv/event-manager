@@ -85,17 +85,20 @@ export default (state = initialState, { type, payload }) => {
         },
       };
     case CONSTANTS.CHAT_LOAD_MESSAGES_SUCCESS: {
-      const { messages } = state;
+      const { messages, chats } = state;
+      // const chatsArray = state.chats;
+      const indexChat = chats.findIndex(chat => chat.id === payload.chatId);
+      const currentChat = chats[indexChat];
+      chats[indexChat] = {
+        ...currentChat,
+        isFullDialog: payload.messages.length === 0,
+      };
       const currentMessages = messages[payload.chatId] ? messages[payload.chatId] : [];
       messages[payload.chatId] =
         ChatUtility.getUniqueMessages(currentMessages.concat(payload.messages));
-
       return {
         ...state,
-        // currentChat: {
-        //   ...state.currentChat,
-        //   isFullDialog: payload.messages.length === 0,
-        // },
+        chats,
         messages: {
           ...messages,
         },

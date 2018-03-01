@@ -22,20 +22,11 @@ class Conversation extends React.Component {
 
   componentDidMount() {
     this.intervalLoadMessages = setInterval(() => {
-      console.log('Load', this.props.chat.id);
       if (this.props.chat.id) {
-        // debugger; //eslint-disable-line
         this.props.updateMessagesHandler(this.props.chat.id);
       }
     }, 2000);
   }
-
-  // componentWillReceiveProps() {
-  //   const { messagesBox } = this;
-  //   messagesBox.scrollTop = messagesBox.scrollHeight;
-  //   // if (nextProps.chat.id && nextProps.chat.id !== this.chat.id) {
-  //   // }
-  // }
 
   componentWillUnmount() {
     clearInterval(this.intervalLoadMessages);
