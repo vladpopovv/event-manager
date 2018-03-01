@@ -15,7 +15,11 @@ const MessagesBox = (props) => {
     }
   };
   return (
-    <div className="message__box border-bottom" onScroll={onScrollHandler} >
+    <div
+      ref={props.messagesBoxRef}
+      className="message__box border-bottom"
+      onScroll={onScrollHandler}
+    >
       {messages.map(message => (
         message.id
         ? <Message key={message.id} message={message} isIncome={user.id !== message.from.id} />
@@ -26,6 +30,7 @@ const MessagesBox = (props) => {
 };
 
 MessagesBox.propTypes = {
+  messagesBoxRef: PropTypes.shape({}).isRequired,
   messages: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.shape({}).isRequired,
   chat: PropTypes.shape({}).isRequired,

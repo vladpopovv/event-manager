@@ -30,9 +30,17 @@ class Conversation extends React.Component {
     }, 2000);
   }
 
+  // componentWillReceiveProps() {
+  //   const { messagesBox } = this;
+  //   messagesBox.scrollTop = messagesBox.scrollHeight;
+  //   // if (nextProps.chat.id && nextProps.chat.id !== this.chat.id) {
+  //   // }
+  // }
+
   componentWillUnmount() {
     clearInterval(this.intervalLoadMessages);
   }
+
 
   onClickClose() {
     const { chat } = this.props;
@@ -41,10 +49,12 @@ class Conversation extends React.Component {
 
   sendMessageHandler() {
     const { chat } = this.props;
+    const { messagesBox } = this;
     this.setState({
       textMessage: '',
     });
-    this.props.sendMessageHandler(this.state.textMessage, chat.id, this.props.user);
+    this.props.sendMessageHandler(this.state.textMessage, chat.id, this.props.user)
+      .then(() => { messagesBox.scrollTop = messagesBox.scrollHeight; });
   }
 
   changeMessageHandler(message) {
@@ -111,6 +121,7 @@ class Conversation extends React.Component {
             <Loader loading={this.props.loading} />
             <div className="conversation card-body p-0 d-flex">
               <MessagesBox
+                messagesBoxRef={(el) => { this.messagesBox = el; }}
                 messages={this.props.messages}
                 chat={chat}
                 user={this.props.user}
