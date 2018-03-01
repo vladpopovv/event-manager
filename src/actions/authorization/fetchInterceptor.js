@@ -24,16 +24,12 @@ const fetchInterceptor = store => (
 
     response: response => response.json()
       .then((json) => {
-        if (!json.success) {
+        if (!json.success && json.error === 'You are not authorized: invalid token') {
           store.dispatch(authActions.logOutRequest());
           throw new Error(json.error);
         }
         return json;
       }),
-    // if (response.status === 401 && authToken.hasToken()) {
-    //   authActions.logOutRequest();
-    // }
-    // return response;
 
     responseError: () => {
       throw new Error('Sorry, a query error. Check your connection');

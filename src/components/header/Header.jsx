@@ -8,31 +8,43 @@ import authActions from './../../actions/authorization/authActions';
 const Header = (props) => {
   const { userData } = props;
   return (
-    <div
-      className="navbar navbar-expand-md navbar-dark bg-dark "
-    >
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <Link href="/" to="/" className="navbar-brand">Event manager</Link>
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
-          <Link to="/" href="/" className="nav-link">Home</Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/friends" href="/friends" className="nav-link">Friends</Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/chats" href="/chats" className="nav-link">Chats</Link>
-        </li>
-      </ul>
-      <div className="">
-        <span className="text-light mr-2">Hello, {userData.firstname} {userData.lastname}</span>
-        <button
-          className="btn btn-sm btn-outline-warning"
-          onClick={props.logOutRequest}
-        >
-          Log out
-        </button>
+      <button
+        className="navbar-toggler collapsed"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarColor01"
+        aria-controls="navbarColor01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon" />
+      </button>
+
+      <div className="navbar-collapse collapse" id="navbarColor01">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to="/" href="/" className="nav-link">Home</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/friends" href="/friends" className="nav-link">Friends</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/chats" href="/chats" className="nav-link">Chats</Link>
+          </li>
+        </ul>
+        <div className="">
+          <span className="text-light mr-2">Hello, {userData.firstname} {userData.lastname}</span>
+          <button
+            className="btn btn-sm btn-secondary"
+            onClick={props.logOutRequest}
+          >
+            Log out
+          </button>
+        </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

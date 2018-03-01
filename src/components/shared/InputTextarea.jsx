@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import InputGroup from './InputGroup';
 
-export default class InputField extends React.PureComponent {
+export default class InputTextarea extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -11,7 +11,6 @@ export default class InputField extends React.PureComponent {
   }
 
   render() {
-    console.log('this.props', this.props);
     const {
       input,
       label,
@@ -31,12 +30,13 @@ export default class InputField extends React.PureComponent {
         >
           {label}
           <div className="input-group">
-            <input
+            <textarea
               {...input}
               id={`${form}-${input.name}`}
               placeholder={label}
               type={type}
               className={fieldClasses}
+              rows="3"
             />
           </div>
         </label>
@@ -45,7 +45,7 @@ export default class InputField extends React.PureComponent {
   }
 }
 
-InputField.propTypes = {
+InputTextarea.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string,
   input: PropTypes.shape({}),
@@ -55,7 +55,7 @@ InputField.propTypes = {
   }),
 };
 
-InputField.defaultProps = {
+InputTextarea.defaultProps = {
   type: 'text',
   meta: {
     error: '',

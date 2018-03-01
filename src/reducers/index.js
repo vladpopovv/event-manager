@@ -5,6 +5,9 @@ import usersReducer from './usersReducer';
 import chatReducer from './chatReducer';
 import friendReducer from './friendReducer';
 import notificationReducer from './notificationReducer';
+import eventReducer from './eventReducer';
+import appSettingsReducer from './appSettingsReducer';
+import modalReducer from './modalReducer';
 
 const reducers = {
   user: userReducer,
@@ -13,6 +16,9 @@ const reducers = {
   chat: chatReducer,
   friends: friendReducer,
   notification: notificationReducer,
+  events: eventReducer,
+  app: appSettingsReducer,
+  modal: modalReducer,
 };
 
 export default combineReducers(reducers);
