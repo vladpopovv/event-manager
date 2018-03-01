@@ -33,6 +33,10 @@ class Chat extends React.Component {
       }
     }
 
+    if (!nextProps.chatId && this.props.currentChat && this.props.redirectToFunc) {
+      this.props.closeChat();
+    }
+
     if (this.props.currentChat !== nextProps.chatId && nextProps.chatId) {
       this.props.openChat(nextProps.chatId);
     }

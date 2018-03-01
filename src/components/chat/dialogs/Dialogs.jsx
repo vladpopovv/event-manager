@@ -65,7 +65,10 @@ class Dialogs extends React.Component {
 
     return (
       <div className="chat__dialogs p-1">
-        <SearchBox changeSearchTextHandler={this.changeSearchTextHandler} />
+        <SearchBox
+          changeSearchTextHandler={this.changeSearchTextHandler}
+          placeholder="Please enter firstname or lastname"
+        />
         <div className="pt-2">
           <div className="nav nav-tabs">
             <div className="nav-item">

@@ -11,6 +11,8 @@ const Message = (props) => {
   const time = ChatUtility.getTimeMessage(message.createdAt);
   const messageClasses = classNames('message', 'alert', 'alert-dark', 'p-1', 'm-1', 'd-inline-block', {
     income: props.isIncome,
+    'mr-4': props.isIncome,
+    'ml-4': !props.isIncome,
   });
   return (
     <div className="">

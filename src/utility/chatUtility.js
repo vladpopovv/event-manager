@@ -53,6 +53,7 @@ const ChatUtility = {
     if (!messages.length) {
       return messageWithDays.concat({
         info: 'Send the first message to start the dialog.',
+        createdAt: moment().format(),
       });
     }
 

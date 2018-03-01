@@ -30,7 +30,7 @@ const MessagesBox = (props) => {
 };
 
 MessagesBox.propTypes = {
-  messagesBoxRef: PropTypes.shape({}).isRequired,
+  messagesBoxRef: PropTypes.func.isRequired,
   messages: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.shape({}).isRequired,
   chat: PropTypes.shape({}).isRequired,

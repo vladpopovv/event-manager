@@ -13,7 +13,6 @@ const InputMessage = (props) => {
       onSubmitMessage(e);
     }
   };
-
   const changeMessageHandler = e => props.changeMessageHandler(e.target.value);
   return (
     <form className="p-2">

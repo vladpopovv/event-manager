@@ -81,6 +81,7 @@ const chatActions = {
   },
 
   sendMessage(message, chatId, from) {
+    console.log('message, chatId, from', message, chatId, from);
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_SEND_MESSAGE_REQUESTING });
       return fetch(sendMessageUrl, {

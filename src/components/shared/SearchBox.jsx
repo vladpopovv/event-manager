@@ -10,6 +10,7 @@ const SearchBox = (props) => {
   return (
     <div>
       <input
+        placeholder={props.placeholder}
         className="form-control form-control-sm"
         type="text"
         onChange={onChangeSearchText}
@@ -20,6 +21,11 @@ const SearchBox = (props) => {
 
 SearchBox.propTypes = {
   changeSearchTextHandler: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+};
+
+SearchBox.defaultProps = {
+  placeholder: 'Please enter something...',
 };
 
 export default SearchBox;

@@ -28,6 +28,27 @@ class Conversation extends React.Component {
     }, 2000);
   }
 
+  componentDidUpdate(prevProps) {
+    const { chat } = this.props;
+    const { messagesBox } = this;
+
+    if (messagesBox && chat.id !== prevProps.chat.id) {
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+
+    // if (messagesBox && messages.length) {
+    //   const prevFirstMessage = prevProps.messages[0];
+    //   const currentFirstMessage = messages[0];
+    //   const hasNewMessage = prevFirstMessage.id !== currentFirstMessage.id;
+    //   const messagesBoxIsDown =
+    //   ((messagesBox.scrollTop + messagesBox.clientHeight) / messagesBox.scrollHeight) * 100 > 95;
+    //   if (hasNewMessage && messagesBoxIsDown) {
+    //     messagesBox.scrollTop = messagesBox.scrollHeight;
+    //   }
+    // }
+  }
+
   componentWillUnmount() {
     clearInterval(this.intervalLoadMessages);
   }
