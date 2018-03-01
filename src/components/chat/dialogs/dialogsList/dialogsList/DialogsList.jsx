@@ -10,6 +10,7 @@ const DialogsList = (props) => {
       <div className="list-group dialogs__list border-bottom border-left border-right">
         {chats.map(chat => (
           <DialogsItem
+            disabled={props.currentChat === chat.id}
             key={chat.id}
             chat={chat}
             openDialogHandler={props.openDialogHandler}
@@ -22,6 +23,7 @@ const DialogsList = (props) => {
 
 DialogsList.propTypes = {
   openDialogHandler: PropTypes.func.isRequired,
+  currentChat: PropTypes.number.isRequired,
   chats: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 

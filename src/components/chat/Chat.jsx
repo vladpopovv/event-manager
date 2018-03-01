@@ -80,6 +80,7 @@ class Chat extends React.Component {
               chatType={this.props.chatType}
               isHidden={hasActiveConversation}
               friends={this.props.friends}
+              currentChat={this.props.currentChat}
               chats={chats}
               openDialogHandler={this.openDialogHandler}
               createDialogHandler={this.createDialogHandler}

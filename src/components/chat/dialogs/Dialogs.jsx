@@ -90,6 +90,7 @@ class Dialogs extends React.Component {
               <DialogsList
                 chats={chats}
                 openDialogHandler={this.props.openDialogHandler}
+                currentChat={this.props.currentChat}
               />
             }
             {friendsIsOpen &&
@@ -112,6 +113,7 @@ Dialogs.propTypes = {
   chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   openDialogHandler: PropTypes.func.isRequired,
   createDialogHandler: PropTypes.func.isRequired,
+  currentChat: PropTypes.number.isRequired,
 };
 
 Dialogs.defaultProps = {
