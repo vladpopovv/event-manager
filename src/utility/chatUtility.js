@@ -49,6 +49,13 @@ const ChatUtility = {
 
   setDateBetweenDays(messages, isFullDialog) {
     const messageWithDays = [];
+
+    if (!messages.length) {
+      return messageWithDays.concat({
+        info: 'Send the first message to start the dialog.',
+      });
+    }
+
     messages.forEach((message, i) => {
       if (i > 0 && !moment(message.createdAt).isSame(messages[i - 1].createdAt, 'day')) {
         messageWithDays.push({

@@ -86,11 +86,13 @@ class Conversation extends React.Component {
       return (
         <div className="chat__conversation p-1">
           <div className="chat__notification border rounded bg-light">
-            <span className="text-muted">
-              {this.props.isNotFound
-                ? 'Chat is not found'
-                : 'Please select dialog'
-              }
+            {this.props.isNotFound &&
+              <span className="chat__notification-text text-muted">
+                Sorry, the chat was not found.
+              </span>
+            }
+            <span className="chat__notification-text text-muted">
+              Please select a chat room to start a conversation
             </span>
           </div>
         </div>

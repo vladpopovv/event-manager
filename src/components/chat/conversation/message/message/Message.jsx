@@ -16,7 +16,7 @@ const Message = (props) => {
     <div className="">
       <div className={messageClasses}>
         <div className="message__top">
-          <Link className="message__author mr-1" to={`users/${user.id}`} href={`users/${user.id}`}>
+          <Link className="message__author mr-1" to={`/users/${user.id}`} href={`/users/${user.id}`}>
             {user.firstname}
           </Link>
           <span className="text-muted">{time}</span>
