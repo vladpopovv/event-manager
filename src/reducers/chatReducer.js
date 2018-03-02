@@ -133,10 +133,7 @@ export default (state = initialState, { type, payload }) => {
 
       return {
         ...state,
-        // currentChat: {
-        //   ...state.currentChat,
-        //   isFullDialog: payload.messages.length === 0,
-        // },
+
         messages: {
           ...messages,
         },
@@ -158,8 +155,9 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.CHAT_CLEAR:
       return {
         ...state,
-        // chats: [],
-        // messages: {},
+        currentChat: 0,
+        chats: [],
+        messages: {},
       };
     case CONSTANTS.CHAT_CREATE_REQUESTING:
       return {

@@ -20,31 +20,29 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    const { friends, chats } = this.props;
-    console.log(chats.length);
-    if (!chats.length) {
-      this.props.getPersonalChats(this.props.chatId);
-    }
-
-    if (!friends.length) {
-      this.props.getFriends();
-    }
+    this.props.getPersonalChats(this.props.chatId);
+    this.props.getFriends();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.userId && !this.isRequesting) {
-      const user = this.props.friends.find(friend => friend.id === this.props.userId);
+    if (nextProps.userId !== this.props.userId && this.isRequesting) {
+      this.isRequesting = false;
+    }
+
+    if (nextProps.userId && !this.isRequesting) {
+      const user = nextProps.friends.find(friend => friend.id === nextProps.userId);
       if (user) {
         this.isRequesting = true;
-        this.props.createChat(user, this.props.redirectToFunc);
+        this.props.createChat(user, this.props.redirectToFunc)
+          .then(() => { this.isRequesting = false; });
       }
     }
 
     if (!nextProps.chatId && this.props.currentChat && this.props.redirectToFunc) {
       this.props.closeChat();
     }
-    // debugger; //eslint-disable-line
-    if (nextProps.chatId) {
+
+    if (nextProps.chatId !== this.props.chatId) {
       this.props.openChat(nextProps.chatId);
     }
   }

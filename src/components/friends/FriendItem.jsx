@@ -6,7 +6,6 @@ import FriendsItemContainer from './../containers/FriendsItemContainer';
 
 const FriendItem = (props) => {
   const onDeleteFriends = () => props.deleteHandler(props.friend);
-  const onClickChat = () => console.log('Click chat');
   const userLink = `/users/${props.friend.id}`;
 
   return (
@@ -20,11 +19,13 @@ const FriendItem = (props) => {
       </Link>
       <div>
         <div className="btn-group" role="group">
-          <ControlButton
-            buttonType="outline-success"
-            icon="comments-o"
-            onClickHandler={onClickChat}
-          />
+          <Link
+            className="btn btn-primary"
+            to={`/chats?userId=${props.friend.id}`}
+            href={`/chats?userId=${props.friend.id}`}
+          >
+            <i className="fa fa-comments-o" />
+          </Link>
           <ControlButton
             buttonType="outline-danger"
             icon="trash"
