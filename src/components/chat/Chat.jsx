@@ -20,8 +20,15 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getFriends();
-    this.props.getPersonalChats(this.props.chatId);
+    const { friends, chats } = this.props;
+    console.log(chats.length);
+    if (!chats.length) {
+      this.props.getPersonalChats(this.props.chatId);
+    }
+
+    if (!friends.length) {
+      this.props.getFriends();
+    }
   }
 
   componentWillReceiveProps(nextProps) {

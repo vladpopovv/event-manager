@@ -123,7 +123,7 @@ class Conversation extends React.Component {
             </Link>
             <button
               type="button"
-              className="close"
+              className="close text-dark"
               data-dismiss="modal"
               aria-label="Close"
               onClick={this.onClickClose}

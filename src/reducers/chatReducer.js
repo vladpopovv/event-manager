@@ -158,8 +158,8 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.CHAT_CLEAR:
       return {
         ...state,
-        chats: [],
-        messages: {},
+        // chats: [],
+        // messages: {},
       };
     case CONSTANTS.CHAT_CREATE_REQUESTING:
       return {

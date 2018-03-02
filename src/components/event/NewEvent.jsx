@@ -112,7 +112,7 @@ class NewEvent extends React.Component {
             <h5 className="modal-title">Create new event</h5>
             <button
               type="button"
-              className="close"
+              className="close text-dark"
               data-dismiss="modal"
               aria-label="Close"
               onClick={this.onClose}

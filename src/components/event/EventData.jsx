@@ -16,7 +16,7 @@ const EventData = (props) => {
           <h5 className="modal-title">{event.title}</h5>
           <button
             type="button"
-            className="close"
+            className="close text-dark"
             data-dismiss="modal"
             aria-label="Close"
             onClick={props.onHide}

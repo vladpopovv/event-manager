@@ -7,7 +7,7 @@ import FriendsItemContainer from './../containers/FriendsItemContainer';
 const FriendItem = (props) => {
   const onDeleteFriends = () => props.deleteHandler(props.friend);
   const onClickChat = () => console.log('Click chat');
-  const userLink = `/user/${props.friend.id}`;
+  const userLink = `/users/${props.friend.id}`;
 
   return (
     <FriendsItemContainer>
