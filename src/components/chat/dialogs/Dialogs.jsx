@@ -69,7 +69,7 @@ class Dialogs extends React.Component {
           changeSearchTextHandler={this.changeSearchTextHandler}
           placeholder="Please enter firstname or lastname"
         />
-        <div className="pt-2">
+        <div className="dialogs__container pt-2">
           <div className="nav nav-tabs">
             <div className="nav-item">
               <button
@@ -88,7 +88,7 @@ class Dialogs extends React.Component {
               </button>
             </div>
           </div>
-          <div>
+          <div className="dialogs-list__wrapper border-bottom border-left border-right">
             {dialogsIsOpen &&
               <DialogsList
                 chats={chats}
@@ -116,7 +116,10 @@ Dialogs.propTypes = {
   chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   openDialogHandler: PropTypes.func.isRequired,
   createDialogHandler: PropTypes.func.isRequired,
-  currentChat: PropTypes.number.isRequired,
+  currentChat: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 Dialogs.defaultProps = {

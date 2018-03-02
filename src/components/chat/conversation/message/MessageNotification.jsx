@@ -5,7 +5,7 @@ const MessageNotification = (props) => {
   const { text } = props;
   return (
     <div className="text-center">
-      <span className="alert alert-info p-1 m-1 d-inline-block">{text}</span>
+      <span className="alert alert-success p-1 m-1 d-inline-block">{text}</span>
     </div>
   );
 };

@@ -1,8 +1,14 @@
+.chat__conversation {
+  display: inline-flex;
+  height: 100%;
+  flex-direction: column;
+}
+
 .conversation {
   display: flex;
   flex-direction: column;
 
-  height: 400px;
+
 }
 
 .chat__notification {
@@ -10,16 +16,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  height: 435px;
+  height: 100%;
 }
 
 .chat__notification-text {
-  display: block;
+  display: inline-block;
 
   text-align: center;
 }
 
 .messages__wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
 }

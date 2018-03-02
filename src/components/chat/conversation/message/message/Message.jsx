@@ -9,10 +9,10 @@ const Message = (props) => {
   const { message } = props;
   const user = message.from;
   const time = ChatUtility.getTimeMessage(message.createdAt);
-  const messageClasses = classNames('message', 'alert', 'alert-dark', 'p-1', 'm-1', 'd-inline-block', {
+  const messageClasses = classNames('message', 'alert', 'alert-light', 'py-1', 'my-1', 'px-2', 'mx-2', 'd-inline-block', {
     income: props.isIncome,
-    'mr-4': props.isIncome,
-    'ml-4': !props.isIncome,
+    'mr-5': props.isIncome,
+    'ml-5': !props.isIncome,
   });
   return (
     <div className="">

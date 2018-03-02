@@ -59,10 +59,10 @@ const chatActions = {
     };
   },
 
-  openChat(chat) {
+  openChat(chatId) {
     return dispatch => dispatch({
       type: CONSTANTS.CHAT_OPEN,
-      payload: chat,
+      payload: chatId,
     });
   },
 

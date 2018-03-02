@@ -24,8 +24,9 @@ const ChatUtility = {
       return {};
     }
 
-    let foundedChat = chats.find(chat => chat.id === chatId);
+    let foundedChat = chats.find(chat => chat.id === +chatId);
     // foundedChat = !foundedChat ? foundedChat : { isNotFound: true };
+    // debugger; //eslint-disable-line
     if (!foundedChat) {
       foundedChat = {
         isNotFound: true,

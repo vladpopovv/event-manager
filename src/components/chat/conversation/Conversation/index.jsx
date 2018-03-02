@@ -77,12 +77,12 @@ class Conversation extends React.Component {
 
   loadMessagesHandler() {
     const { chat, messages } = this.props;
+    if (chat.isFullDialog || this.props.loading || !messages.length) {
+      return;
+    }
     const lastMessage = messages[messages.length - 1];
     const timeOfLastMessage = lastMessage.createdAt;
 
-    if (chat.isFullDialog || this.props.loading) {
-      return;
-    }
 
     this.props.loadMessagesHandler(chat.id, timeOfLastMessage);
   }
@@ -113,7 +113,7 @@ class Conversation extends React.Component {
 
     return (
       <div className="chat__conversation p-1">
-        <div className="card">
+        <div className="card d-flex h-100">
           <div className="card-header p-1">
             <Link
               to={`/users/${chat.participants[0].id}`}
@@ -133,7 +133,7 @@ class Conversation extends React.Component {
           </div>
           <div className="messages__wrapper">
             <Loader loading={this.props.loading} />
-            <div className="conversation card-body p-0 d-flex">
+            <div className="conversation h-100 card-body p-0 d-flex">
               <MessagesBox
                 messagesBoxRef={(el) => { this.messagesBox = el; }}
                 messages={this.props.messages}

@@ -36,8 +36,8 @@ class Chat extends React.Component {
     if (!nextProps.chatId && this.props.currentChat && this.props.redirectToFunc) {
       this.props.closeChat();
     }
-
-    if (this.props.currentChat !== nextProps.chatId && nextProps.chatId) {
+    // debugger; //eslint-disable-line
+    if (nextProps.chatId) {
       this.props.openChat(nextProps.chatId);
     }
   }
@@ -74,7 +74,6 @@ class Chat extends React.Component {
       ? loading.loadMessages.indexOf(currentChat.id) !== -1
       : false;
     const chatIsNotFound = currentChat.isNotFound && chats.length !== 0;
-
     return (
       <div className="border rounded">
         <div className="p-2">
@@ -113,11 +112,17 @@ class Chat extends React.Component {
 Chat.propTypes = {
   chatType: PropTypes.string,
   chats: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  chatId: PropTypes.number,
+  chatId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   userId: PropTypes.number,
   friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,
-  currentChat: PropTypes.number.isRequired,
+  currentChat: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   messages: PropTypes.shape({}).isRequired,
   loading: PropTypes.shape({}).isRequired,
   getPersonalChats: PropTypes.func.isRequired,

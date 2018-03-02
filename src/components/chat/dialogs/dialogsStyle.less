@@ -1,3 +1,10 @@
+.chat__dialogs {
+  height: 100%;
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+}
+
 .dialogs__tab {
   border: none;
   background-color: transparent;
@@ -9,4 +16,15 @@
     outline: none;
     // box-shadow: none;
   }
+}
+
+.dialogs-list__wrapper {
+  flex-grow: 2;
+  overflow: auto;
+}
+
+.dialogs__container {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
 }

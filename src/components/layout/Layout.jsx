@@ -35,13 +35,15 @@ class Layout extends React.Component {
         </Modal>
         <div className={classNames(this.props.appClasses)}>
           <Header />
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/users/:id(\d+)" component={UserPage} />
-            <Route exact path="/chats/:id?" component={ChatPage} />
-            <Route path="/friends" component={FriendsPage} />
-            <Route component={NotFound} />
-          </Switch>
+          <div className="content">
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/users/:id(\d+)" component={UserPage} />
+              <Route exact path="/chats/:id?" component={ChatPage} />
+              <Route path="/friends" component={FriendsPage} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
           <Footer />
         </div>
       </div>

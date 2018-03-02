@@ -5,12 +5,13 @@ import './dialogsListStyle.less';
 
 const DialogsList = (props) => {
   const { chats } = props;
+  console.log('props.currentChat', props.currentChat, chats);
   return (
     <div className="dialog card-body p-0 d-flex">
-      <div className="list-group dialogs__list border-bottom border-left border-right">
+      <div className="list-group dialogs__list">
         {chats.map(chat => (
           <DialogsItem
-            disabled={props.currentChat === chat.id}
+            disabled={+props.currentChat === chat.id}
             key={chat.id}
             chat={chat}
             openDialogHandler={props.openDialogHandler}
@@ -23,7 +24,10 @@ const DialogsList = (props) => {
 
 DialogsList.propTypes = {
   openDialogHandler: PropTypes.func.isRequired,
-  currentChat: PropTypes.number.isRequired,
+  currentChat: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   chats: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 

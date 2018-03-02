@@ -202,13 +202,13 @@ export default (state = initialState, { type, payload }) => {
       // const chatById = state.chats.find(chat => chat.id === payload);
       return {
         ...state,
-        currentChat: +payload,
+        currentChat: payload,
       };
     }
     case CONSTANTS.CHAT_OPEN:
       return {
         ...state,
-        currentChat: +payload,
+        currentChat: payload,
       };
     case CONSTANTS.CHAT_CLOSE:
       return {
