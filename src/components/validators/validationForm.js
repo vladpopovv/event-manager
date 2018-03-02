@@ -13,6 +13,8 @@ const validators = {
 
   minLength5: value => (validators.minLength(5, value)),
 
+  minLength6: value => (validators.minLength(6, value)),
+
   passwordEquality: (value, allValues) =>
     (value !== allValues.password
       ? 'Passwords do not match'

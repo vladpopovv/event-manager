@@ -6,6 +6,7 @@ import usersActions from './../../actions/usersActions/usersActions';
 import chatActions from './../../actions/chat/chatActions';
 import UserData from './userData/UserData';
 import Chat from './../chat/Chat';
+import Loader from './../shared/loader/Loader';
 import friendsActions from './../../actions/friends/friendsActions';
 
 class UserPage extends React.Component {
@@ -19,7 +20,6 @@ class UserPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { user } = this.props;
-    console.log(user.id, nextProps.match.params.id);
     if (user.id !== +nextProps.match.params.id) {
       this.props.getUserDataById(nextProps.match.params.id);
     }
@@ -27,20 +27,21 @@ class UserPage extends React.Component {
 
   render() {
     const { user } = this.props;
-    if (!user.id) {
-      return <h1>Loading... </h1>;
-    }
+
     return (
       <div className="container">
         <div className="row justify-content-center py-4">
           <div className="col-8">
-            <UserData
-              user={user}
-              friends={this.props.friends}
-              addToFriendsHandler={this.props.addToFriends}
-              deleteFriendsHandler={this.props.deleteFriends}
-              createDialogHandler={this.props.createChat}
-            />
+            {!user.id
+              ? <Loader loading={!user.id} />
+              : <UserData
+                user={user}
+                friends={this.props.friends}
+                addToFriendsHandler={this.props.addToFriends}
+                deleteFriendsHandler={this.props.deleteFriends}
+                createDialogHandler={this.props.createChat}
+              />
+            }
           </div>
           <div className="col-4">
             <Chat />

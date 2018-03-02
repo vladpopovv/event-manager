@@ -25,8 +25,14 @@ const fetchInterceptor = store => (
     response: response => response.json()
       .then((json) => {
         if (!json.success && json.error === 'You are not authorized: invalid token') {
-          store.dispatch(authActions.logOutRequest());
+          if (authToken.hasToken()) {
+            store.dispatch(authActions.logOutRequest());
+          }
+
           throw new Error(json.error);
+        }
+        if (!json.success && json.error === 'Invalid credentials') {
+          throw new Error('Incorrect login or password');
         }
         return json;
       }),

@@ -47,13 +47,25 @@ const UserData = (props) => {
 };
 
 UserData.propTypes = {
-  user: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({
+    firstname: PropTypes.string,
+    lastname: PropTypes.string,
+    login: PropTypes.string,
+  }),
   friends: PropTypes.arrayOf(PropTypes.shape({
     some: PropTypes.func,
   })).isRequired,
   deleteFriendsHandler: PropTypes.func.isRequired,
   createDialogHandler: PropTypes.func.isRequired,
   addToFriendsHandler: PropTypes.func.isRequired,
+};
+
+UserData.defaultProps = {
+  user: {
+    firstname: '',
+    lastname: '',
+    email: '',
+  },
 };
 
 export default UserData;
