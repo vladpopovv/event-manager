@@ -1,0 +1,62 @@
+@event-border-radius: 20px;
+@event-color: #b797ef;
+@event-color-red: #e84225;
+@event-color-blue: #0077cc;
+@event-color-green: #42b983;
+@event-color-yellow: #ffc107;
+@event-color-orange: #fd7e14;
+@event-color-pink: #e83e8c;
+@event-color-teal: #20c997;
+
+.event__item {
+  display: inline-block;
+  padding: 0 10px;
+  max-width: 100%;
+
+  color: #fff;
+  vertical-align: middle;
+  background-color: @event-color-yellow;
+  border: none;
+  border-radius: @event-border-radius;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+
+  }
+
+  &.blue {
+    background-color: @event-color-blue;
+  }
+
+  &.red {
+    background-color: @event-color-red;
+  }
+
+  &.yellow {
+    background-color: @event-color-yellow;
+  }
+
+  &.green {
+    background-color: @event-color-green;
+  }
+
+  &.orange {
+    background-color: @event-color-orange;
+  }
+
+  &.pink {
+    background-color: @event-color-pink;
+  }
+
+  &.teal {
+    background-color: @event-color-teal;
+  }
+}

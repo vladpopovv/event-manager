@@ -67,7 +67,7 @@ const authActions = {
       return fetchRequest(data, signUpUrl)
         .then((json) => {
           if (json.error) {
-            throw new Error(json.error);
+            throw new Error(json.error.message);
           }
           dispatch(notificationActions.addNew(
             'success',
@@ -85,7 +85,7 @@ const authActions = {
         })
         .catch(error => dispatch({
           type: CONSTANTS.SIGN_UP_ERROR,
-          payload: error,
+          payload: { message: error.message },
         }));
     };
   },

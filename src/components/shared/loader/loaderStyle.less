@@ -1,0 +1,49 @@
+.loader__wrapper {
+  &.absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 100%;
+    z-index: 100;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.inline {
+    display: inline-block;
+  }
+}
+
+.loader__spinner {
+  color: #000;
+
+  &.lg {
+    font-size: 50px;
+  }
+
+  &.sm {
+    font-size: 15px;
+  }
+}
+
+.loaderAnimation-enter {
+  opacity: 0.01;
+}
+
+.loaderAnimation-enter.loaderAnimation-enter-active {
+  opacity: 1;
+  transition: all 0.5s ease-in;
+}
+
+.loaderAnimation-leave {
+  opacity: 1;
+  transition: all 0.5s ease-in;
+}
+
+.loaderAnimation-leave.modalAnimation-leave-active {
+  opacity: 0.01;
+}

@@ -7,12 +7,6 @@ import FriendsRequestItem from './FriendsRequestItem';
 import FriendsListContainer from './../containers/FriendsListContainer';
 
 class FriendsRequestList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   componentDidMount() {
     this.props.getFriendRequets();
   }

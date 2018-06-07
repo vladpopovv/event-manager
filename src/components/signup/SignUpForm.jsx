@@ -63,7 +63,7 @@ class SignUpForm extends React.Component {
         component: InputPassword,
         name: 'password',
         label: 'Password',
-        validate: [validators.required, validators.minLength5],
+        validate: [validators.required, validators.minLength6],
       },
       {
         type: 'password',
@@ -72,7 +72,7 @@ class SignUpForm extends React.Component {
         label: 'Repeat password',
         validate: [
           validators.required,
-          validators.minLength5,
+          validators.minLength6,
           validators.passwordEquality,
         ],
       },

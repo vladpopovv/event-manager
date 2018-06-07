@@ -1,0 +1,56 @@
+.modal {
+  // overflow-x: hidden;
+  // overflow-y: auto;
+}
+
+.modal__wrapper {
+  position: fixed;
+  top: 0;
+
+  z-index: 1000;
+}
+
+.modal__background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal__body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  z-index: 1500;
+  margin: 0 auto;
+}
+
+.modal__content {
+  width: 600px;
+  margin: auto;
+}
+
+
+.modalAnimation-enter {
+  opacity: 0.01;
+  z-index: 2000;
+}
+
+.modalAnimation-enter.modalAnimation-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.modalAnimation-leave {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.modalAnimation-leave.modalAnimation-leave-active {
+  opacity: 0.01;
+}

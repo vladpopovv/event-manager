@@ -45,7 +45,7 @@ class LoginForm extends React.Component {
         component: InputPassword,
         name: 'password',
         label: 'Password',
-        validate: [validators.required, validators.minLength5],
+        validate: [validators.required, validators.minLength6],
       },
     ];
 
