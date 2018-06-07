@@ -121,7 +121,7 @@ class Calendar extends React.Component {
       <div>
         <div className="calendar">
           <Loader loading={this.props.loading} />
-          <div className="calendar__top d-flex justify-content-between align-content-center p-2">
+          <div className="calendar__top d-flex justify-content-between align-content-center pb-2">
             <div>
               <button onClick={this.openModalAddEvent} className="btn btn-sm btn-primary mr-2">
                 Add event

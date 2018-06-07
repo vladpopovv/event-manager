@@ -97,11 +97,13 @@ class Invites extends React.Component {
         >
           {this.state.addFriendsIsShow &&
             <UninvitedFriends
+              onClickUser={this.props.onClickUser}
               friends={this.state.uninvitedFriends}
               addHandler={this.addToEventHandler}
             />}
         </ReactCSSTransitionGroup>
         <Participants
+          onClickUser={this.props.onClickUser}
           friends={this.state.invitedFriends}
           removeHandler={this.removeFromEventHandler}
         />
@@ -111,6 +113,7 @@ class Invites extends React.Component {
 }
 
 Invites.propTypes = {
+  onClickUser: PropTypes.func.isRequired,
   onChangeInvitedFriends: PropTypes.func.isRequired,
   getFriends: PropTypes.func.isRequired,
   friends: PropTypes.arrayOf(PropTypes.shape({})),

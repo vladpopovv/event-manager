@@ -5,7 +5,6 @@ import './dialogsListStyle.less';
 
 const DialogsList = (props) => {
   const { chats } = props;
-  console.log('props.currentChat', props.currentChat, chats);
   return (
     <div className="dialog card-body p-0 d-flex">
       <div className="list-group dialogs__list">

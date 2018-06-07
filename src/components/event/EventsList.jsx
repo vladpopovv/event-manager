@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import CalendarUtility from './../../utility/calendarUtility';
 import EventDescription from './EventDescription';
-import Loader from './../shared/loader/Loader';
+// import Loader /from './../shared/loader/Loader';
 
 const EventsList = (props) => {
   const { events } = props;
@@ -12,7 +13,11 @@ const EventsList = (props) => {
     <div>
       <div className="mt-2">
         Events for the selected period of time
-        <Loader loading={props.loading} size="sm" position="inline" />
+        {props.loading &&
+          <div className={classNames('loader__spinner', 'text-primary', 'sm')}>
+            <i className="fa fa-spinner spinner" />
+          </div>
+        }
       </div>
       {isNoEvents &&
         <div className="invite__message">
@@ -51,6 +56,7 @@ const EventsList = (props) => {
               data-parent="#accordion"
             >
               <EventDescription
+                onClickUser={props.onClickUser}
                 clickDeleteEventHandler={() => (
                   props.deleteEventHandler(event)
                     .then(() => props.onHide()))}
@@ -67,6 +73,7 @@ const EventsList = (props) => {
 EventsList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({})),
   loading: PropTypes.bool,
+  onClickUser: PropTypes.func.isRequired,
 };
 
 EventsList.defaultProps = {

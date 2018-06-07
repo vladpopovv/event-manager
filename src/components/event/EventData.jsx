@@ -27,6 +27,7 @@ const EventData = (props) => {
         <EventDescription
           clickDeleteEventHandler={clickDeleteEventHandler}
           event={event}
+          onClickUser={props.onHide}
         />
       </div>
     </div>

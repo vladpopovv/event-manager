@@ -14,6 +14,7 @@ const Participants = props => (
         </div>}
       {props.friends.map(friend => (
         <ParticipantsItem
+          onClickUser={props.onClickUser}
           key={friend.id}
           friend={friend}
           clickRemoveHandler={props.removeHandler}
@@ -24,6 +25,7 @@ const Participants = props => (
 );
 
 Participants.propTypes = {
+  onClickUser: PropTypes.func.isRequired,
   removeHandler: PropTypes.func.isRequired,
   friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };

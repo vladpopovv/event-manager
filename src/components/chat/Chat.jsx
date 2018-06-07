@@ -81,8 +81,11 @@ class Chat extends React.Component {
     const chatIsNotFound = currentChat.isNotFound && chats.length !== 0;
     return (
       <div className="border rounded">
-        <div className="p-2">
-          <i className="fa fa-comments-o" />Chat
+        <div className="px-2 py-1">
+          <div className="px-1 mb-1">
+            <i className="fa fa-comments-o mr-1" />
+            Chat
+          </div>
           <div className={classNames('chat__wrapper', this.props.chatType)} >
             <Dialogs
               chatType={this.props.chatType}

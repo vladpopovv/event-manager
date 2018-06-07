@@ -22,7 +22,11 @@ const EventDescription = (props) => {
         </div>
         <div>
           <span>Owner: </span>
-          <Link to={`/users/${event.owner.id}`} href={`/users/${event.owner.id}`}>
+          <Link
+            to={`/users/${event.owner.id}`}
+            href={`/users/${event.owner.id}`}
+            onClick={props.onClickUser}
+          >
             {event.owner.firstname} {event.owner.lastname}
           </Link>
         </div>
@@ -37,7 +41,11 @@ const EventDescription = (props) => {
           <ul className="list-group">
             {participants.map(participant => (
               <li className="list-group-item" key={participant.id}>
-                <Link to={`/users/${participant.id}`} href={`/users/${participant.id}`}>
+                <Link
+                  to={`/users/${participant.id}`}
+                  href={`/users/${participant.id}`}
+                  onClick={props.onClickUser}
+                >
                   {participant.firstname} {participant.lastname}
                 </Link>
               </li>
@@ -57,6 +65,7 @@ const EventDescription = (props) => {
 
 EventDescription.propTypes = {
   clickDeleteEventHandler: PropTypes.func.isRequired,
+  onClickUser: PropTypes.func.isRequired,
   event: PropTypes.shape({}).isRequired,
 };
 

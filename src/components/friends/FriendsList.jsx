@@ -21,7 +21,7 @@ class FriendList extends React.Component {
     const { friends } = this.props;
     return (
       <FriendsListContainer listName="Friends" isEmpty={(friends.length === 0)}>
-        <ul className="list-group">
+        <ul className="list-group mb-3">
           {this.props.friends.map(friend => (
             <FriendItem
               key={friend.id}

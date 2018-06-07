@@ -70,10 +70,10 @@ class Dialogs extends React.Component {
           placeholder="Please enter firstname or lastname"
         />
         <div className="dialogs__container pt-2">
-          <div className="nav nav-tabs">
+          <div className="dialogs__tabs nav nav-tabs">
             <div className="nav-item">
               <button
-                className={classNames('dialogs__tab nav-link p-1', { active: dialogsIsOpen })}
+                className={classNames('dialogs__tab nav-link bg-white', { active: dialogsIsOpen })}
                 onClick={this.onClickOpenDialogs}
               >
                 Dialogs
@@ -81,7 +81,7 @@ class Dialogs extends React.Component {
             </div>
             <div className="nav-item">
               <button
-                className={classNames('dialogs__tab nav-link p-1', { active: friendsIsOpen })}
+                className={classNames('dialogs__tab nav-link bg-white border-bottom', { active: friendsIsOpen })}
                 onClick={this.onClickOpenFriends}
               >
                 Friends

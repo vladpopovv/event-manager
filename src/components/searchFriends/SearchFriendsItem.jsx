@@ -10,8 +10,7 @@ const SearchFriendsItem = (props) => {
   const userUrl = `/users/${props.user.id}`;
   return (
     <li
-      className="list-group-item border-top-0 border-left-0 border-right-0
-      border-bottom d-flex justify-content-between align-items-center"
+      className="list-group-item border-bottom d-flex justify-content-between align-items-center"
     >
       <Link
         className="text-dark"

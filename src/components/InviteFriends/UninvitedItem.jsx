@@ -14,6 +14,7 @@ const UninvitedItem = (props) => {
           className="text-dark"
           to={userLink}
           href={userLink}
+          onClick={props.onClickUser}
         >
           {friend.firstname} {friend.lastname}
         </Link>
@@ -27,6 +28,7 @@ const UninvitedItem = (props) => {
 };
 
 UninvitedItem.propTypes = {
+  onClickUser: PropTypes.func.isRequired,
   friend: PropTypes.shape({}).isRequired,
   clickAddHandler: PropTypes.func.isRequired,
 };

@@ -155,11 +155,15 @@ class NewEvent extends React.Component {
                   validate={fieldItem.validate}
                 />
               ))}
-              <Invite onChangeInvitedFriends={this.onChangeInvitedFriends} />
+              <Invite
+                onChangeInvitedFriends={this.onChangeInvitedFriends}
+                onClickUser={this.props.onHide}
+              />
               <EventsList
                 events={this.props.events}
                 date={this.state.startDate}
                 loading={this.props.loadingEvents}
+                onClickUser={this.props.onHide}
                 deleteEventHandler={this.removeEventHandler}
               />
             </div>

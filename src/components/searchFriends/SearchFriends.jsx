@@ -66,7 +66,7 @@ class SearchFriends extends React.Component {
     const flag = query && submitSuccess && !(this.props.foundUsers.length > 0);
     return (
       <div>
-        <form className="form-inline d-flex justify-content-between pb-1">
+        <form className="form-inline d-flex justify-content-between mb-3">
           <div className="input-group w-100">
             <input
               className="form-control"

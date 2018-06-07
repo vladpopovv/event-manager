@@ -11,12 +11,18 @@ const UninvitedFriends = props => (
         </span>
       </div>}
     {props.friends.map(friend => (
-      <UninvitedItem key={friend.id} friend={friend} clickAddHandler={props.addHandler} />
+      <UninvitedItem
+        key={friend.id}
+        friend={friend}
+        clickAddHandler={props.addHandler}
+        onClickUser={props.onClickUser}
+      />
     ))}
   </div>
 );
 
 UninvitedFriends.propTypes = {
+  onClickUser: PropTypes.func.isRequired,
   addHandler: PropTypes.func.isRequired,
   friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
