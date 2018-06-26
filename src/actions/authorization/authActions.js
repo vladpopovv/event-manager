@@ -61,6 +61,13 @@ const authActions = {
         }));
     };
   },
+  getUserDataRequestByToken(token) {
+    authToken.setToken(token);
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.USER_GET_DATA_BY_TOKEN_REQUESTING });
+      authActions.getUserDataRequest();
+    };
+  },
   signUpRequest(data) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.SIGN_UP_REQUESTING });

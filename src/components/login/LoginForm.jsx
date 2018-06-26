@@ -108,11 +108,11 @@ const mapStateToProps = state => ({
 });
 
 
-const mapDispathcToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   signInRequest: bindActionCreators(authActions.signInRequest, dispatch),
 });
 
-const form = connect(mapStateToProps, mapDispathcToProps)(LoginForm);
+const form = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
 export default reduxForm({
   form: 'login',

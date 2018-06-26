@@ -12,6 +12,11 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+    case CONSTANTS.USER_GET_DATA_BY_TOKEN_REQUESTING:
+      return {
+        ...state,
+        isAuthentificated: authToken.hasToken(),
+      };
     case CONSTANTS.USER_GET_DATA_REQUESTING:
       return {
         ...state,
