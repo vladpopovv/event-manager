@@ -15,7 +15,6 @@ class LoginPage extends React.Component {
     const queryParams = new URLSearchParams(this.props.location.search);
     const token = queryParams.get('token');
     if (token) {
-      console.error(token);
       this.props.history.push('/');
       this.props.getUserDataRequestByToken(token);
     }
@@ -34,6 +33,9 @@ class LoginPage extends React.Component {
 
 LoginPage.propTypes = {
   getUserDataRequestByToken: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
