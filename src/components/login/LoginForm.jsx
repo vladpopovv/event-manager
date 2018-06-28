@@ -15,12 +15,17 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onOtherTypeAuth = this.onOtherTypeAuth.bind(this);
+  }
+
+
+  onOtherTypeAuth(typeAuth) {
+    this.props.signInByToken(typeAuth);
   }
 
   handleSubmit(values) {
     this.props.signInRequest(values);
   }
-
   render() {
     const {
       handleSubmit,
@@ -76,8 +81,26 @@ class LoginForm extends React.Component {
           {error && <div className="alert alert-danger mb-0 mt-3" role="alert">{error}</div>}
         </div>
         <div className="card-footer">
-          <p className="m-0">Don`t you have account yet?</p>
-          <Link href="/signup" to="/signup">Sing up</Link>
+          <div className="login_auth">
+            <p className="m-0 d-inline">Do you have account on github.com or vk.com?</p>
+            <button
+              className="btn btn-primary ml-2"
+              onClick={() => this.onOtherTypeAuth('github')}
+              data-authtype="github"
+            >
+              <i className="fa fa-github" aria-hidden="true" />
+            </button>
+            <button
+              className="btn btn-primary ml-2"
+              onClick={() => this.onOtherTypeAuth('vkontakte')}
+            >
+              <i className="fa fa-vk" aria-hidden="true" />
+            </button>
+          </div>
+          <div>
+            <p className="m-0 mr-2 d-inline">Don`t you have account yet?</p>
+            <Link href="/signup" to="/signup">Sing up</Link>
+          </div>
         </div>
       </AuthContainer>
     );
@@ -91,6 +114,7 @@ LoginForm.propTypes = {
   pristine: PropTypes.bool,
   anyTouched: PropTypes.bool,
   signInRequest: PropTypes.func.isRequired,
+  signInByToken: PropTypes.func.isRequired,
   signIn: PropTypes.shape({}),
 };
 
@@ -110,6 +134,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   signInRequest: bindActionCreators(authActions.signInRequest, dispatch),
+  signInByToken: bindActionCreators(authActions.signInByToken, dispatch),
 });
 
 const form = connect(mapStateToProps, mapDispatchToProps)(LoginForm);

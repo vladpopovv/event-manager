@@ -7,6 +7,7 @@ const {
   signInUrl,
   signUpUrl,
   logOutUrl,
+  authCustomTypeUrl,
 } = APICONSTANTS;
 
 function getOptionsRequest(data) {
@@ -66,6 +67,19 @@ const authActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.USER_GET_DATA_BY_TOKEN_REQUESTING });
       authActions.getUserDataRequest();
+    };
+  },
+  signInByToken(typeAuth) {
+    const options = {
+      method: 'GET',
+    };
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.SIGN_IN_BY_TOKEN_REQUEST, payload: typeAuth });
+      fetch(`${authCustomTypeUrl}/${typeAuth}`, options)
+        .catch(error => dispatch({
+          type: CONSTANTS.SIGN_IN_BY_TOKEN_ERROR,
+          payload: { message: error.message },
+        }));
     };
   },
   signUpRequest(data) {

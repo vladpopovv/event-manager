@@ -83,6 +83,14 @@ export default (state = initialState, { type, payload }) => {
           error: payload.message,
         },
       };
+    case CONSTANTS.SIGN_IN_BY_TOKEN_REQUEST:
+      return {
+        ...state,
+      };
+    case CONSTANTS.SIGN_IN_BY_TOKEN_ERROR:
+      return {
+        ...state,
+      };
     case CONSTANTS.SIGN_IN_REQUEST_ERROR:
       return {
         ...state,
