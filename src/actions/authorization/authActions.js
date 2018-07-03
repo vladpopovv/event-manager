@@ -69,19 +69,6 @@ const authActions = {
       authActions.getUserDataRequest();
     };
   },
-  signInByToken(typeAuth) {
-    const options = {
-      method: 'GET',
-    };
-    return (dispatch) => {
-      dispatch({ type: CONSTANTS.SIGN_IN_BY_TOKEN_REQUEST, payload: typeAuth });
-      fetch(`${authCustomTypeUrl}/${typeAuth}`, options)
-        .catch(error => dispatch({
-          type: CONSTANTS.SIGN_IN_BY_TOKEN_ERROR,
-          payload: { message: error.message },
-        }));
-    };
-  },
   signUpRequest(data) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.SIGN_UP_REQUESTING });
