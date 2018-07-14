@@ -101,7 +101,7 @@ const authActions = {
     const options = {
       method: 'GET',
     };
-    authToken.clearToken();
+
     return (dispatch) => {
       dispatch({
         type: CONSTANTS.LOG_OUT_REQUESTING,
@@ -112,6 +112,7 @@ const authActions = {
           payload: json,
         }))
         .catch(error => console.log('ERROR REQUEST', error));
+      authToken.clearToken();
     };
   },
 };

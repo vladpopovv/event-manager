@@ -78,6 +78,7 @@ class NewEvent extends React.Component {
   }
 
   handleSubmit(value) {
+    if (this.state.invitedFriends.length === 0) return;
     this.props.addNewEvent({
       ...value,
     }, this.state.invitedFriends).then(() => this.onClose());
