@@ -1,7 +1,7 @@
 import fetchIntercept from 'fetch-intercept';
 import APICONSTANTS from './../../constants/apiConstants';
-import authToken from './authToken';
-import authActions from './authActions';
+import authToken from './../authorization/authToken';
+import authActions from './../authorization/authActions';
 
 const { APIURL } = APICONSTANTS;
 

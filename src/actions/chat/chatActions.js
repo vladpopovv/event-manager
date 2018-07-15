@@ -134,6 +134,12 @@ const chatActions = {
     };
   },
 
+  takeNewMessage(message) {
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.CHAT_TAKE_NEW_MESSAGE, payload: { message } });
+    };
+  },
+
   updateMessages(chatId) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.CHAT_UPDATE_ALL_MESSAGES_REQUESTING });

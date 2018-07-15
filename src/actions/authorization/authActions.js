@@ -7,7 +7,6 @@ const {
   signInUrl,
   signUpUrl,
   logOutUrl,
-  authCustomTypeUrl,
 } = APICONSTANTS;
 
 function getOptionsRequest(data) {

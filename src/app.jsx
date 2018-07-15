@@ -10,7 +10,7 @@ import Layout from './components/layout/Layout';
 import NotFound from './components/shared/NotFound';
 import NotificationWrapper from './components/notification/NotificationWrapper';
 // import Modal from './components/modal/Modal';
-import fetchInterceptor from './actions/authorization/fetchInterceptor';
+import fetchInterceptor from './actions/api/fetchInterceptor';
 import './style/main.less';
 
 const store = createStore();

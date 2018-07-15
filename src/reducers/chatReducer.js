@@ -152,6 +152,16 @@ export default (state = initialState, { type, payload }) => {
           loadMessages: state.loading.loadMessages.filter(chatId => chatId !== payload.chatId),
         },
       };
+    case CONSTANTS.CHAT_TAKE_NEW_MESSAGE: {
+      const { messages } = state;
+      messages[payload.message.chatId] = messages[payload.message.chatId].concat(payload.message);
+      return {
+        ...state,
+        messages: {
+          ...messages,
+        },
+      };
+    }
     case CONSTANTS.CHAT_CLEAR:
       return {
         ...state,
