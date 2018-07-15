@@ -1,6 +1,7 @@
 export default {
-  APIURL: 'http://s.q-man.ru:5005/',
+  APIURL: 'http://localhost:8080/',
   signInUrl: 'signin',
+  authCustomTypeUrl: 'auth',
   signUpUrl: 'signup',
   logOutUrl: 'logout',
   getPersonalChatsUrl: 'personalChats',

@@ -25,7 +25,7 @@ const fetchInterceptor = store => (
     response: response => response.json()
       .then((json) => {
         if (!json.success && json.error === 'You are not authorized: invalid token') {
-          if (authToken.hasToken()) {
+          if (authToken.hasToken() || store.user.isAuthentificated) {
             store.dispatch(authActions.logOutRequest());
           }
 

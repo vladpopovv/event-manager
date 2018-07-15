@@ -10,6 +10,9 @@ import FormButton from './../shared/FormButton';
 import authActions from './../../actions/authorization/authActions';
 import validators from './../validators/validationForm';
 import AuthContainer from './../containers/AuthContainer';
+import API_CONSTANTS from '../../constants/apiConstants';
+
+const { APIURL, authCustomTypeUrl } = API_CONSTANTS;
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -20,7 +23,6 @@ class LoginForm extends React.Component {
   handleSubmit(values) {
     this.props.signInRequest(values);
   }
-
   render() {
     const {
       handleSubmit,
@@ -48,6 +50,7 @@ class LoginForm extends React.Component {
         validate: [validators.required, validators.minLength6],
       },
     ];
+    const authUrlStart = APIURL + authCustomTypeUrl;
 
     return (
       <AuthContainer title="Log in">
@@ -76,8 +79,19 @@ class LoginForm extends React.Component {
           {error && <div className="alert alert-danger mb-0 mt-3" role="alert">{error}</div>}
         </div>
         <div className="card-footer">
-          <p className="m-0">Don`t you have account yet?</p>
-          <Link href="/signup" to="/signup">Sing up</Link>
+          <div className="login_auth">
+            <p className="m-0 d-inline">Do you have account on github.com or vk.com?</p>
+            <a className="btn btn-primary ml-2" href={`${authUrlStart}/github`}>
+              <i className="fa fa-github" aria-hidden="true" />
+            </a>
+            <a className="btn btn-primary ml-2" href={`${authUrlStart}/vkontakte`}>
+              <i className="fa fa-vk" aria-hidden="true" />
+            </a>
+          </div>
+          <div>
+            <p className="m-0 mr-2 d-inline">Don`t you have account yet?</p>
+            <Link href="/signup" to="/signup">Sing up</Link>
+          </div>
         </div>
       </AuthContainer>
     );
@@ -108,11 +122,11 @@ const mapStateToProps = state => ({
 });
 
 
-const mapDispathcToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   signInRequest: bindActionCreators(authActions.signInRequest, dispatch),
 });
 
-const form = connect(mapStateToProps, mapDispathcToProps)(LoginForm);
+const form = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
 export default reduxForm({
   form: 'login',

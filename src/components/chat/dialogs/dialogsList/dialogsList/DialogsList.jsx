@@ -10,7 +10,7 @@ const DialogsList = (props) => {
       <div className="list-group dialogs__list">
         {chats.map(chat => (
           <DialogsItem
-            disabled={+props.currentChat === chat.id}
+            disabled={props.currentChat === chat.id}
             key={chat.id}
             chat={chat}
             openDialogHandler={props.openDialogHandler}

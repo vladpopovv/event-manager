@@ -124,7 +124,10 @@ Chat.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  userId: PropTypes.number,
+  userId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   friends: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   user: PropTypes.shape({}).isRequired,
   currentChat: PropTypes.oneOfType([

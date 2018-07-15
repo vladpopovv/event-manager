@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Chat from './Chat';
 
 const ChatPage = (props) => {
-  const userId = +(new URLSearchParams(props.location.search).get('userId'));
+  const userId = new URLSearchParams(props.location.search).get('userId');
   const redirectToFunc = url => props.history.push(url);
   const chatId = props.match.params.id;
   return (

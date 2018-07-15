@@ -12,6 +12,11 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+    case CONSTANTS.USER_GET_DATA_BY_TOKEN_REQUESTING:
+      return {
+        ...state,
+        isAuthentificated: authToken.hasToken(),
+      };
     case CONSTANTS.USER_GET_DATA_REQUESTING:
       return {
         ...state,
@@ -77,6 +82,14 @@ export default (state = initialState, { type, payload }) => {
           ...state.singIn,
           error: payload.message,
         },
+      };
+    case CONSTANTS.SIGN_IN_BY_TOKEN_REQUEST:
+      return {
+        ...state,
+      };
+    case CONSTANTS.SIGN_IN_BY_TOKEN_ERROR:
+      return {
+        ...state,
       };
     case CONSTANTS.SIGN_IN_REQUEST_ERROR:
       return {

@@ -17,12 +17,12 @@ export default class Notification extends React.Component {
     this.startTimer = this.startTimer.bind(this);
   }
 
-
   componentDidMount() {
     this.startTimer();
   }
 
-  onClickDelete() {
+  onClickDelete(e) {
+    if (e) e.preventDefault();
     this.props.onClickDelete(this.props.id);
   }
 
@@ -44,11 +44,21 @@ export default class Notification extends React.Component {
     this.timer = setTimeout(this.onClickDelete, 3000);
   }
 
-  render() {
-    const { title, description, type } = this.props;
-    const alertClasses = classNames('alert', `alert-${type}`, 'notification', {
-      'notification-active': this.state.isActive,
-    });
+  renderLink(notificationBody, alertClasses, link) {
+    return (
+      <a
+        href={link}
+        to={link}
+        className={alertClasses}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
+      >
+        {notificationBody}
+      </a>
+    );
+  }
+
+  renderBlock(notificationBody, alertClasses) {
     return (
       <div
         className={alertClasses}
@@ -56,6 +66,24 @@ export default class Notification extends React.Component {
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
       >
+        {notificationBody}
+      </div>
+    );
+  }
+
+  render() {
+    const {
+      title,
+      description,
+      type,
+      link,
+    } = this.props;
+
+    const alertClasses = classNames('alert d-block', `alert-${type}`, 'notification', {
+      'notification-active': this.state.isActive,
+    });
+    const notificationBody = (
+      <div>
         <button
           onClick={this.onClickDelete}
           type="button"
@@ -69,6 +97,12 @@ export default class Notification extends React.Component {
         </p>
       </div>
     );
+
+    if (link) {
+      return this.renderLink(notificationBody, alertClasses, link);
+    }
+
+    return this.renderBlock(notificationBody, alertClasses);
   }
 }
 
@@ -77,10 +111,12 @@ Notification.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   type: PropTypes.string,
+  link: PropTypes.string,
   onClickDelete: PropTypes.func.isRequired,
 };
 
 Notification.defaultProps = {
   description: '',
   type: 'warning',
+  link: '',
 };

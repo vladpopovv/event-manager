@@ -7,6 +7,7 @@ const {
   signInUrl,
   signUpUrl,
   logOutUrl,
+  authCustomTypeUrl,
 } = APICONSTANTS;
 
 function getOptionsRequest(data) {
@@ -61,6 +62,13 @@ const authActions = {
         }));
     };
   },
+  getUserDataRequestByToken(token) {
+    authToken.setToken(token);
+    return (dispatch) => {
+      dispatch({ type: CONSTANTS.USER_GET_DATA_BY_TOKEN_REQUESTING });
+      authActions.getUserDataRequest();
+    };
+  },
   signUpRequest(data) {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.SIGN_UP_REQUESTING });
@@ -93,7 +101,7 @@ const authActions = {
     const options = {
       method: 'GET',
     };
-    authToken.clearToken();
+
     return (dispatch) => {
       dispatch({
         type: CONSTANTS.LOG_OUT_REQUESTING,
@@ -104,6 +112,7 @@ const authActions = {
           payload: json,
         }))
         .catch(error => console.log('ERROR REQUEST', error));
+      authToken.clearToken();
     };
   },
 };
