@@ -1,5 +1,6 @@
 import CONSTANTS from './../../constants/actionConstants';
 import APICONSTANTS from './../../constants/apiConstants';
+import chatSocket from './../sockets/chatSocket';
 import notificationActions from './../notification/notificationActions';
 
 const {
@@ -19,6 +20,7 @@ const chatActions = {
             type: CONSTANTS.CHAT_GET_PERSONAL_CHATS_SUCCESS,
             payload: json.data,
           });
+          json.data.forEach(chat => chatSocket.joinChat(chat.id));
           if (currentChatId) {
             dispatch(chatActions.openChatById(currentChatId));
           }

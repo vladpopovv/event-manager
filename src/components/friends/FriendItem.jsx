@@ -41,7 +41,10 @@ const FriendItem = (props) => {
 
 FriendItem.propTypes = {
   friend: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     firstname: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired,
   }).isRequired,

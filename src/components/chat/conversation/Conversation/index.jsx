@@ -21,11 +21,12 @@ class Conversation extends React.Component {
   }
 
   componentDidMount() {
-    this.intervalLoadMessages = setInterval(() => {
-      if (this.props.chat.id) {
-        this.props.updateMessagesHandler(this.props.chat.id);
-      }
-    }, 2000);
+    // TODO: Remove polling uploading message
+    // this.intervalLoadMessages = setInterval(() => {
+    //   if (this.props.chat.id) {
+    //     this.props.updateMessagesHandler(this.props.chat.id);
+    //   }
+    // }, 2000);
   }
 
   componentDidUpdate(prevProps) {
@@ -158,7 +159,7 @@ Conversation.propTypes = {
   loading: PropTypes.bool.isRequired,
   isNotFound: PropTypes.bool,
   closeDialogHandler: PropTypes.func.isRequired,
-  updateMessagesHandler: PropTypes.func.isRequired,
+  // updateMessagesHandler: PropTypes.func.isRequired,
   sendMessageHandler: PropTypes.func.isRequired,
   loadMessagesHandler: PropTypes.func.isRequired,
   chat: PropTypes.shape({

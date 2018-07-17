@@ -1,5 +1,6 @@
 import CONSTANTS from './../../constants/actionConstants';
 import APICONSTANTS from './../../constants/apiConstants';
+import chatSocket from './../sockets/chatSocket';
 import authToken from './authToken';
 import notificationActions from './../notification/notificationActions';
 
@@ -36,6 +37,7 @@ const authActions = {
             'You have successfully login.',
           ));
           authToken.setToken(json.data.token);
+          chatSocket.connect();
           return dispatch({
             type: CONSTANTS.SIGN_IN_SUCCESS,
             payload: json,
