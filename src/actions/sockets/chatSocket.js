@@ -4,17 +4,19 @@ import APICONSTANTS from './../../constants/apiConstants';
 import chatActions from './../chat/chatActions';
 
 let socket;
+let dispatch;
 
 const chatSocket = {
-  connect() {
+  connect(dispatchHandler) {
     const token = authToken.getToken();
     socket = io.connect(APICONSTANTS.chatSocketNamespace);
+    dispatch = dispatchHandler;
 
     socket.on('connect', () => {
       socket.emit('authentication', { token });
     });
 
-    socket.on('message', messageData => chatActions.takeNewMessage(messageData));
+    socket.on('message', messageData => dispatch(chatActions.takeNewMessage(messageData)));
   },
 
   joinChat(chatId) {

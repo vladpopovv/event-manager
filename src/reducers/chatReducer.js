@@ -190,7 +190,7 @@ export default (state = initialState, { type, payload }) => {
         messages: {
           ...messages,
         },
-        // currentChat: payload.id,
+        currentChat: payload.id,
         loading: {
           ...state.loading,
           createChat: false,

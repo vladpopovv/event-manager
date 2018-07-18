@@ -37,7 +37,7 @@ const authActions = {
             'You have successfully login.',
           ));
           authToken.setToken(json.data.token);
-          chatSocket.connect();
+          chatSocket.connect(dispatch);
           return dispatch({
             type: CONSTANTS.SIGN_IN_SUCCESS,
             payload: json,

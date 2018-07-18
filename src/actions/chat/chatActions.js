@@ -1,3 +1,4 @@
+import uuidv4 from 'uuid/v4';
 import CONSTANTS from './../../constants/actionConstants';
 import APICONSTANTS from './../../constants/apiConstants';
 import chatSocket from './../sockets/chatSocket';
@@ -81,22 +82,18 @@ const chatActions = {
     });
   },
 
+  // TODO: add dispatch change store on send message
   sendMessage(message, chatId, from) {
     return (dispatch) => {
-      dispatch({ type: CONSTANTS.CHAT_SEND_MESSAGE_REQUESTING });
-      return fetch(sendMessageUrl, {
-        method: 'POST',
-        body: JSON.stringify({
-          message,
-          chatId,
-        }),
-      })
+      const messageId = uuidv4();
+      chatSocket.sendMessage(message, chatId)
         .then(json => dispatch({
           type: CONSTANTS.CHAT_SEND_MESSAGE_SUCCESS,
           payload: {
             chatId,
             message: {
               ...json.data,
+              id: messageId,
               from,
             },
           },
@@ -105,6 +102,14 @@ const chatActions = {
           type: CONSTANTS.CHAT_SEND_MESSAGE_ERROR,
           payload: error,
         }));
+    // dispatch({ type: CONSTANTS.CHAT_SEND_MESSAGE_REQUESTING });
+    //   return fetch(sendMessageUrl, {
+    //     method: 'POST',
+    //     body: JSON.stringify({
+    //       message,
+    //       chatId,
+    //     }),
+    //   })
     };
   },
 
