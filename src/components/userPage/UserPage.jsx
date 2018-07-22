@@ -20,7 +20,7 @@ class UserPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { user } = this.props;
-    if (user.id !== +nextProps.match.params.id) {
+    if (user.id !== nextProps.match.params.id) {
       this.props.getUserDataById(nextProps.match.params.id);
     }
   }

@@ -1,6 +1,16 @@
 import moment from 'moment';
 
 const ChatUtility = {
+  sortMessagesByTime(messages, props = 'createdAt') {
+    messages.sort((firstMessage, secondMessage) => {
+      const firstDate = firstMessage[props];
+      const secondDate = secondMessage[props];
+
+      if (moment(firstDate).isAfter(secondDate)) { return 1; }
+      return -1;
+    });
+  },
+
   getChatName(chat) {
     const { participants } = chat;
     const participantsFullName = [];
@@ -16,7 +26,7 @@ const ChatUtility = {
     messages.forEach((message) => {
       messagesObject[message.id] = message;
     });
-    return Object.values(messagesObject).reverse();
+    return ChatUtility.sortMessagesByTime(Object.values(messagesObject));
   },
 
   getChatById(chatId, chats) {

@@ -62,12 +62,13 @@ class Conversation extends React.Component {
 
   sendMessageHandler() {
     const { chat } = this.props;
-    const { messagesBox } = this;
+    // const { messagesBox } = this;
     this.setState({
       textMessage: '',
     });
-    this.props.sendMessageHandler(this.state.textMessage, chat.id, this.props.user)
-      .then(() => { messagesBox.scrollTop = messagesBox.scrollHeight; });
+    this.props.sendMessageHandler(this.state.textMessage, chat.id, this.props.user);
+    // TODO: scroll down in massages box on message submit
+    // .then(() => { messagesBox.scrollTop = messagesBox.scrollHeight; });
   }
 
   changeMessageHandler(message) {
@@ -163,7 +164,10 @@ Conversation.propTypes = {
   sendMessageHandler: PropTypes.func.isRequired,
   loadMessagesHandler: PropTypes.func.isRequired,
   chat: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
   }),
   messages: PropTypes.arrayOf(PropTypes.shape({})),
   user: PropTypes.shape({}).isRequired,
