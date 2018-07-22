@@ -154,7 +154,8 @@ export default (state = initialState, { type, payload }) => {
       };
     case CONSTANTS.CHAT_TAKE_NEW_MESSAGE: {
       const { messages } = state;
-      messages[payload.message.chatId] = messages[payload.message.chatId].concat(payload.message);
+      const { message } = payload.message;
+      messages[payload.message.chatId] = messages[payload.message.chatId].concat(message);
       return {
         ...state,
         messages: {

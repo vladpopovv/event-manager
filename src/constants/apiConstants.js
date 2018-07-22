@@ -18,5 +18,5 @@ export default {
   addNewEventUrl: 'events',
   getEventsOfRangeUrl: 'events',
   deleteEventUrl: 'events',
-  chatSocketNamespace: 'http://localhost:8080/chat/',
+  chatSocketNamespace: 'http://localhost:8080/',
 };

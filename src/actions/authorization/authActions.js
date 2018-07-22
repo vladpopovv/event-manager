@@ -53,10 +53,13 @@ const authActions = {
     return (dispatch) => {
       dispatch({ type: CONSTANTS.USER_GET_DATA_REQUESTING });
       return fetch('whoami')
-        .then(json => dispatch({
-          type: CONSTANTS.USER_GET_DATA_SUCCESS,
-          payload: json.data,
-        }))
+        .then((json) => {
+          dispatch({
+            type: CONSTANTS.USER_GET_DATA_SUCCESS,
+            payload: json.data,
+          });
+          chatSocket.connect(dispatch);
+        })
         .catch(error => dispatch({
           type: CONSTANTS.USER_GET_DATA_ERROR,
           payload: error,
