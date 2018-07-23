@@ -55,6 +55,7 @@ export default (state = initialState, { type, payload }) => {
       };
     case CONSTANTS.CHAT_SEND_MESSAGE_SUCCESS: {
       const { messages } = state;
+      // debugger; //eslint-disable-line
       messages[payload.chatId] = Array.of(payload.message).concat(messages[payload.chatId]);
       return {
         ...state,
@@ -155,7 +156,7 @@ export default (state = initialState, { type, payload }) => {
     case CONSTANTS.CHAT_TAKE_NEW_MESSAGE: {
       const { messages } = state;
       const { message } = payload.message;
-      messages[payload.message.chatId] = messages[payload.message.chatId].concat(message);
+      messages[payload.message.chatId] = Array.of(message).concat(messages[payload.message.chatId]);
       return {
         ...state,
         messages: {

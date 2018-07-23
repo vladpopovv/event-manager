@@ -98,8 +98,8 @@ const chatActions = {
             chatId,
             id: messageId,
             from,
-            createAt: currentTime,
-            updateAt: currentTime,
+            createdAt: currentTime,
+            updatedAt: currentTime,
           },
         },
       });

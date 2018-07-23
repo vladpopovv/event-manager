@@ -2,12 +2,12 @@ import moment from 'moment';
 
 const ChatUtility = {
   sortMessagesByTime(messages, props = 'createdAt') {
-    messages.sort((firstMessage, secondMessage) => {
+    return messages.sort((firstMessage, secondMessage) => {
       const firstDate = firstMessage[props];
       const secondDate = secondMessage[props];
 
-      if (moment(firstDate).isAfter(secondDate)) { return 1; }
-      return -1;
+      if (moment(firstDate).isAfter(secondDate)) { return -1; }
+      return 1;
     });
   },
 

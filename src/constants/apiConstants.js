@@ -1,5 +1,5 @@
 export default {
-  APIURL: 'http://localhost:8080/',
+  APIURL: 'http://localhost:3000/',
   signInUrl: 'signin',
   authCustomTypeUrl: 'auth',
   signUpUrl: 'signup',
@@ -18,5 +18,5 @@ export default {
   addNewEventUrl: 'events',
   getEventsOfRangeUrl: 'events',
   deleteEventUrl: 'events',
-  chatSocketNamespace: 'http://localhost:8080/',
+  chatSocketNamespace: 'http://localhost:3000/',
 };
