@@ -33,7 +33,10 @@ const SearchFriendsItem = (props) => {
 
 SearchFriendsItem.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     firstname: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired,
   }).isRequired,

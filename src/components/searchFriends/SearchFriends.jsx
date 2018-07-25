@@ -103,7 +103,10 @@ SearchFriends.propTypes = {
   searchUsers: PropTypes.func.isRequired,
   sendRequestToFriends: PropTypes.func.isRequired,
   loading: PropTypes.bool,
-  sendRequestLoading: PropTypes.arrayOf(PropTypes.number),
+  sendRequestLoading: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])),
 };
 
 SearchFriends.defaultProps = {
